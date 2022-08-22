@@ -1,13 +1,13 @@
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
-      <Switch>
+      <Routes>
         <Route path="/about">{/* <About /> */}</Route>
         <Route path="/users">{/* <Users /> */}</Route>
         <Route path="/">{/* <Home /> */}</Route>
-      </Switch>
+      </Routes>
     </div>
   );
 }
