@@ -23,11 +23,11 @@ export class API {
   
 
 
-  // static getWords(page?:number, group?:number) {
-  //   if(page&&group) 
-  //     return axios.get(`${this.host}/words?page=${page}&group=${group}`);
-  //   else return axios.get(`${this.host}/words`);
-  // }
+  static getWords(page?:number, group?:number) {
+    if(page&&group) 
+      return axios.get(`${this.host}/words?page=${page}&group=${group}`);
+    else return axios.get(`${this.host}/words`);
+  }
   
   // static getWord(id: number) {
   //   return axios.get(`${this.host}+/words`);
