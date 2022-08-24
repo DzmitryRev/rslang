@@ -1,1 +1,9 @@
 RSLang
+
+
+{
+    "message": "Authenticated",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDUzNTY0YzllZTRmM2MzY2JmOWJmMCIsImlhdCI6MTY2MTI4ODYzOCwiZXhwIjoxNjYxMzAzMDM4fQ.qKREtfktAL4hkicTwhotl8nFttK0yIDPM1EnkmC14wk",
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMDUzNTY0YzllZTRmM2MzY2JmOWJmMCIsInRva2VuSWQiOiJjMTY4MmYzMi0yOTZkLTRlZjAtYTg1Ny1mY2VjNzNkYmE4NjUiLCJpYXQiOjE2NjEyODg2MzgsImV4cCI6MTY2MTMwNDgzOH0.3DR3SGpv6uBJEH_vpdKRSMiEX3eJs3y1biHLWOlQUrM",
+    "userId": "63053564c9ee4f3c3cbf9bf0"
+}

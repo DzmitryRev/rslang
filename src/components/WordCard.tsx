@@ -11,16 +11,18 @@ type WordCardProps = {
 
 export default function WordCard(props: WordCardProps) {
   return (
-    <div>
-      <span>{props.word}, </span>
-      <span>{props.translate}, </span>
-      <span>{props.transcription}, </span>
-      <span>{props.textMeaning}, </span>
-      <span>{props.textExample}, </span>
-      <span>{props.textMeaningTranslate}, </span>
-      <span>{props.textExampleTranslate}</span>
+    <div
+      style={{ border: '5px solid grey', width: '500px', margin: '20px' }}
+    >
+      <div>{props.word}, </div>
+      <div>{props.translate}, </div>
+      <div>{props.transcription}, </div>
+      <div>{props.textMeaning}, </div>
+      <div>{props.textExample}, </div>
+      <div>{props.textMeaningTranslate}, </div>
+      <div>{props.textExampleTranslate}</div>
       <div>
-        Image: <span>{props.image}</span>
+        Image: <div>{props.image}</div>
       </div>
     </div>
   );
