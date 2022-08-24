@@ -10,28 +10,33 @@ export class API {
 
   static host: string = 'https://react-learnwords-example.herokuapp.com';
 
-  static createUser = async (user: User) => {
-    const rawResponse =  await axios.post(this.host + '/users', user, {
+  static async createUser(user: User) {
+    const userResponse =  await axios.post(this.host + '/users', user, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     });
-    const pass = await rawResponse.data;
+    const pass = await userResponse.data;
     return pass;
   };
   
+  static async getUser(id: string) {
+    const userResponse = await axios.get(`${this.host}/users/${id}`);
+    return  userResponse;
+  }
 
-
-  static getWords(page?:number, group?:number) {
-    if(page&&group) 
+  static async getWords(page?:number, group?:number) {
+    if(page && group) 
       return axios.get(`${this.host}/words?page=${page}&group=${group}`);
     else return axios.get(`${this.host}/words`);
   }
   
-  // static getWord(id: number) {
-  //   return axios.get(`${this.host}+/words`);
-  // }
+  static async getWord(id: string) {
+    const wordResponse = await axios.get(`${this.host}/words/${id}`);
+    return  wordResponse;
+  }
+
 
 }
 
