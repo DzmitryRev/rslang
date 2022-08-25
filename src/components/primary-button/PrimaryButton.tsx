@@ -1,4 +1,4 @@
-import styles from './Button.module.css';
+import styles from './PrimaryButton.module.css';
 
 type ButtonProps = {
   color: 'orange' | 'blue' | 'orange-gradient' | 'blue-gradient';

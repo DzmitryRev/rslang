@@ -1,7 +1,5 @@
 // import { Routes, Route } from 'react-router-dom';
 
-import PrimaryButton from './components/button/Button';
-
 function App() {
   return (
     <div className="App">
