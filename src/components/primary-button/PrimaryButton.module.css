@@ -1,0 +1,75 @@
+.button {
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 134px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+/* color */
+
+.blue {
+    background-color: #3D3860;
+}
+
+.blue:active {
+    color: #E8DBD4
+}
+
+.orange {
+    background-color: #FD6657;
+}
+
+.orange:hover {
+    background-color: #F8914F;
+}
+
+.orange:active {
+    color: #E8DBD4;
+}
+
+.orange-gradient {
+    background: linear-gradient(98.14deg, #FB7C98 10.76%, #FEC24A 93.28%);
+}
+
+.orange-gradient:hover {
+    box-shadow: 0px 0px 31px 0px #FB7D97;
+}
+
+.blue-gradient {
+    background: linear-gradient(98.17deg, #6466D9 5.96%, #7CFBD5 92.27%);
+}
+
+.blue-gradient:hover {
+    box-shadow: 0px 0px 31px 0px #70AFD7;
+}
+
+/* size */
+
+.s,
+.m {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.s {
+    padding: 16px 35px;
+}
+
+.m {
+    padding: 16px 50px;
+}
+
+.l {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 20px 0;
+    width: 163px;
+}
+
+.xl {
+    font-size: 24px;
+    line-height: 30px;
+    padding: 24px 0;
+    width: 240px;
+}
