@@ -9,27 +9,27 @@
 /* color */
 
 .blue {
-    background-color: #3D3860;
+    background-color: var(--main-headers-color);
 }
 
 .blue:active {
-    color: #E8DBD4
+    color: var(--button-active-text-color)
 }
 
 .orange {
-    background-color: #FD6657;
+    background-color: var(--button-bg-color);
 }
 
 .orange:hover {
-    background-color: #F8914F;
+    background-color: var(--button-hover-bg-color);
 }
 
 .orange:active {
-    color: #E8DBD4;
+    color: var(--button-active-text-color);
 }
 
 .orange-gradient {
-    background: linear-gradient(98.14deg, #FB7C98 10.76%, #FEC24A 93.28%);
+    background: var(--false-button-bg-color);
 }
 
 .orange-gradient:hover {
@@ -37,7 +37,7 @@
 }
 
 .blue-gradient {
-    background: linear-gradient(98.17deg, #6466D9 5.96%, #7CFBD5 92.27%);
+    background: var(--true-button-bg-color);
 }
 
 .blue-gradient:hover {
