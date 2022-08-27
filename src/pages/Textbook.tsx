@@ -11,8 +11,6 @@
 
 import { useEffect } from 'react';
 
-import NeonButton from '../components/NeonButton/NeonButton';
-
 import WordCard from '../components/WordCard';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { getWords, Groups, setGroup } from '../store/slices/textbookSlice';
@@ -37,13 +35,14 @@ export default function Textbook() {
         <div>
           {availableGroups.map((group) => {
             return (
-              <NeonButton
+              <div
                 onClick={() => {
                   dispach(setGroup(group));
                 }}
-                title={Groups[group]}
                 key={group}
-              />
+              >
+                {Groups[group]}
+              </div>
             );
           })}
           {mockWords.map((item) => {
