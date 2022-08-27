@@ -80,6 +80,7 @@
 
 .textMeaning,
 .textMeaningTranslate {
+    font-family: Mons, sans-serif;
     font-size: 1.8em;
     font-weight: 600;
     line-height: 1.5;

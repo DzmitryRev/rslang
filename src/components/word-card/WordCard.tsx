@@ -55,8 +55,8 @@ export default function WordCard({
           <span className={styles.transcription}>{word.transcription}</span>
         </div>
         <p className={styles.translate}>{word.wordTranslate}</p>
-        <p className={styles.textMeaning}>{word.textMeaning}</p>
-        <p className={styles.textExample}>{word.textExample}</p>
+        <p className={styles.textMeaning} dangerouslySetInnerHTML={{ __html: word.textMeaning }} />
+        <p className={styles.textExample} dangerouslySetInnerHTML={{ __html: word.textExample }} />
         <p className={styles.textMeaningTranslate}>{word.textMeaningTranslate}</p>
         <p className={styles.textExampleTranslate}>{word.textExampleTranslate}</p>
         {isAuth ? (
