@@ -41,6 +41,7 @@ html {
 }
 
 body {
+
   max-width: 1440px;
   max-height: max-content;
   margin: 0 auto;
@@ -64,6 +65,7 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
+
 
 
 button {

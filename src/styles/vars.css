@@ -5,8 +5,8 @@
   --footer-title-color: #4C476C;
   --footer-text-color: #848196;
 
-  --main-page-input-text-color: #D2CFE3;
-  --main-page-input-text-color: #848196;
+  --main-page-input-text-color-light: #D2CFE3;
+  --main-page-input-text-color-dark: #848196;
   --input-bg-color: #E2E1E7;
 
 
@@ -37,10 +37,10 @@
   --c2-color:#FEC249;
   
   --a1-shadow:  0px 0px 31px -1px #6466D8;
-  --a2-color: 0px 0px 31px -1px #A379DD;
-  --b1-color: 0px 0px 31px -1px #D085DF;
-  --b2-color:0px 0px 31px -1px #FC79AE;
-  --c1-color: 0px 0px 31px -1px #FA8081;
-  --c2-color:0px 0px 31px -1px #FEC249;
+  --a2-shadow: 0px 0px 31px -1px #A379DD;
+  --b1-shadow: 0px 0px 31px -1px #D085DF;
+  --b2-shadow:0px 0px 31px -1px #FC79AE;
+  --c1-shadow: 0px 0px 31px -1px #FA8081;
+  --c2-shadow:0px 0px 31px -1px #FEC249;
   
 }
