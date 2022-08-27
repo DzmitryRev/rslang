@@ -17,6 +17,7 @@
  * 3. logic for displaying difficult and learned words
  */
 
+import axios from 'axios';
 import { useEffect } from 'react';
 
 import { API } from '../api/api';
@@ -26,6 +27,11 @@ import { getWords, Groups, setGroup } from '../store/slices/textbookSlice';
 
 export default function Textbook() {
   const dispach = useAppDispatch();
+
+  //   API.signin({
+  //     email: 'reer@mail.ru',
+  //     password: '12345678',
+  //   }).then(res => console.log(res));
 
   // auth flag
   const isAuth = useAppSelector((store) => store.user.isAuth);
@@ -45,10 +51,22 @@ export default function Textbook() {
   // current page
   const page = useAppSelector((store) => store.textbook.page);
 
-  API.getUser(userId, token).then((res) => {
+  //   API.getUser(userId, token).then((res) => {
+  //     console.log(res);
+  //   });
+
+  //   axios
+  //     .get(`http://localhost:8080/users/${userId}/words`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
+  API.getUserWords(userId, token).then((res) => {
     console.log(res);
   });
-
   // reload on change group or page
   useEffect(() => {
     dispach(getWords({ page, group }));

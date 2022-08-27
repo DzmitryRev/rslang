@@ -11,7 +11,7 @@ interface UserState {
 const initialState: UserState = {
   isAuth: false,
   token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGEwZjc3ZDgxNzhiMDAxNjgxZjA1ZiIsImlhdCI6MTY2MTYwMzczMSwiZXhwIjoxNjYxNjE4MTMxfQ.4s7JaK9qtUe_c9AWJAQ_R4Pi_7lfso_m_uEWs7LUmfs',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGEwZjc3ZDgxNzhiMDAxNjgxZjA1ZiIsImlhdCI6MTY2MTYwNDQzMiwiZXhwIjoxNjYxNjE4ODMyfQ.IKOOywbixDN6CZti83gIracgzw4MNUsB8IC-xrLChQE',
   userId: '630a0f77d8178b001681f05f',
 };
 

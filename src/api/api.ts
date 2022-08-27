@@ -3,7 +3,7 @@
 import { UserType } from './api.types';
 
 export class API {
-  static host: string = 'https://react-learnwords-rsl.herokuapp.com';
+  static host: string = 'http://localhost:8080';
 
   /* ------ words api -------*/
   static getWords(page: number, group: number) {
@@ -47,9 +47,20 @@ export class API {
 
   /* ------ users/words api -------*/
 
-  static getUsersWords(id: string, wordId: string) {
-    if (wordId) return axios.get(`${this.host}​/users/${id}​/words/${wordId}`);
-    return axios.get(`${this.host}​/users/${id}​/words`);
+  static getUserWords(userId: string, token: string) {
+    return axios.get(`http://localhost:8080/users/${userId}/words`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  static getUserWord(userId: string, wordId: string, token: string) {
+    return axios.get(`${this.host}​/users/${userId}​/words/${wordId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   /* ------ users/aggregatedWords api -------*/
