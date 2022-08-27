@@ -1,25 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { API } from '../../api/api';
+import { IWord } from '../../api/api.types';
+
 // import type { PayloadAction } from '@reduxjs/toolkit';
 
 // MOCK!
-
-export interface MockResponse {
-  id: string;
-  group: number;
-  page: number;
-  word: string;
-  image: string;
-  audio: string;
-  audioMeaning: string;
-  audioExample: string;
-  textMeaning: string;
-  textExample: string;
-  transcription: string;
-  textExampleTranslate: string;
-  textMeaningTranslate: string;
-  wordTranslate: string;
-}
 
 export enum Groups {
   'A1',
@@ -30,11 +16,14 @@ export enum Groups {
   'C2',
 }
 
-export const getWords = createAsyncThunk('counter/fetchWords', async (group: number) => {
-  const response = await fetch(`http://localhost:8080/words/?group=${group}`);
-  const res: MockResponse[] = await response.json();
-  return res;
-});
+export const getWords = createAsyncThunk<IWord[], { page: number; group: number }, {}>(
+  'counter/fetchWords',
+  async (params) => {
+    const { page, group } = params;
+    const response = await API.getWords(page, group);
+    return response.data;
+  },
+);
 
 // =============================
 
@@ -42,7 +31,7 @@ interface TextbookState {
   page: number;
   numberOfPages: number;
   group: number;
-  words: MockResponse[];
+  words: IWord[];
 }
 
 const initialState: TextbookState = {

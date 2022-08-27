@@ -2,73 +2,77 @@
  * Textbook have 2 conditions:
  * auth and not auth => get this flag from userSlice
  * Components:
- * 1. Header
- * 2. Footer
+ * 1. Header +
+ * 2. Footer +
  * 3. WordCard +
  * 4.
  *
  */
 
+/**
+ * TODO:
+ * 1. pagination
+ * 2. usersWords
+ * 3. logic for displaying difficult and learned words
+ */
+
 import { useEffect } from 'react';
 
-import WordCard from '../components/WordCard';
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { getWords, Groups, setGroup } from '../store/slices/textbookSlice';
 
 export default function Textbook() {
   const dispach = useAppDispatch();
+
+  // auth flag
   const isAuth = useAppSelector((store) => store.user.isAuth);
-  const mockWords = useAppSelector((store) => store.textbook.words);
+
+  // words
+  const words = useAppSelector((store) => store.textbook.words);
+
+  //current group
   const group = useAppSelector((store) => store.textbook.group);
+
+  // current page
   const page = useAppSelector((store) => store.textbook.page);
+
+  // reload on change group or page
   useEffect(() => {
-    dispach(getWords(group));
-  }, [group, dispach]);
+    dispach(getWords({ page, group }));
+  }, [group, page, dispach]);
 
   const availableGroups = Object.values(Groups).filter((item) => !isNaN(+item)) as number[];
-  console.log(availableGroups);
+
   return (
     <div>
-      {isAuth ? (
-        <div>Textbook true</div>
-      ) : (
-        <div>
-          {availableGroups.map((group) => {
-            return (
-              <div
-                onClick={() => {
-                  dispach(setGroup(group));
-                }}
-                key={group}
-              >
-                {Groups[group]}
-              </div>
-            );
-          })}
-          {mockWords.map((item) => {
-            /**
-             * if(userWord.id === item.id)
-             * difficult = item.difficult
-             * AllInGames = item.opt.allinGames
-             * trueInGames = item.opt.trueIngames
-             * learned = item.opt.learned
-             */
-            return (
-              <WordCard
-                key={item.id}
-                word={item.word}
-                translate={item.wordTranslate}
-                transcription={item.transcription}
-                textMeaning={item.textMeaning}
-                textExample={item.textExample}
-                textMeaningTranslate={item.textMeaningTranslate}
-                textExampleTranslate={item.textExampleTranslate}
-                image={item.image}
-              />
-            );
-          })}
-        </div>
-      )}
+      {availableGroups.map((group) => {
+        return (
+          <div
+            onClick={() => {
+              dispach(setGroup(group));
+            }}
+            key={group}
+          >
+            {Groups[group]}
+          </div>
+        );
+      })}
+      {/* если isAuth то показываем кнопку сложные слова */}
+      {words.map((word) => {
+        /**
+         * if(userWord.id === item.id)
+         * difficult = item.difficult
+         * AllInGames = item.opt.allinGames
+         * trueInGames = item.opt.trueIngames
+         * learned = item.opt.learned
+         */
+        return (
+          //    если isAuth то отправляем флаг isAuth === true
+          <div key={word.id}>
+            {word.word} === {word.transcription} === {word.wordTranslate}
+          </div>
+        );
+      })}
     </div>
   );
 }
