@@ -1,0 +1,161 @@
+.container {
+    margin: 30px;
+    position: relative;
+    max-width: 970px;
+    background: linear-gradient(159.19deg, rgba(255, 255, 255, 0.4) 12.33%, rgba(255, 255, 255, 0.1) 90.67%);
+    box-shadow: 0px 4px 28px -1px #00000014;
+    border-radius: 50px;
+    padding: 30px 20px 30px 30px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    cursor: default;
+    font-size: 62.5%;
+}
+
+.container::after {
+    position: absolute;
+    content: "";
+    left: -3px;
+    right: -3px;
+    top: -3px;
+    bottom: -3px;
+    z-index: -1;
+    background: linear-gradient(164.87deg, rgba(255, 255, 255, 0.26) 5.78%, rgba(250, 197, 255, 0.1378) 41.71%, rgba(228, 152, 255, 0.16536) 69.11%, rgba(207, 69, 255, 0.1352) 89.3%);
+    border-radius: 50px;
+}
+
+.audio {
+    position: absolute;
+    cursor: pointer;
+    z-index: 2;
+    top: 30px;
+    right: 40px;
+}
+
+.imgContainer {
+    flex: 0 0 314px;
+    border-radius: 50px;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.imgContainer>img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.contentContainer {
+    padding: 10px 20px 0;
+    flex: 1 1 100%;
+}
+
+.headingContainer {
+    display: flex;
+    align-items: center;
+}
+
+.word {
+    font-family: Rubik, sans-serif;
+    display: inline-block;
+    font-size: 3.2em;
+    line-height: 1.2;
+    font-weight: 800;
+    margin-right: 25px;
+}
+
+.transcription {
+    font-family: Rubik;
+    font-size: 2.8em;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0em;
+}
+
+.translate {
+    font-size: 2.8em;
+    font-weight: 600;
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.textMeaning,
+.textMeaningTranslate {
+    font-size: 1.8em;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.textExample,
+.textExampleTranslate {
+    font-size: 1.6em;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.difficult {
+    box-shadow: 0px 0px 31px -1px #FB7E97;
+}
+
+.learned button {
+    position: relative;
+    z-index: 2;
+}
+
+
+.learned::after {
+    background: linear-gradient(159.19deg, rgba(255, 255, 255, 0.4) 12.33%, rgba(255, 255, 255, 0.1) 90.67%);
+    z-index: 1;
+}
+
+.controller {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statistic {}
+
+.misses,
+.hits {
+    font-size: 1.6em;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0em;
+    display: block;
+}
+
+.misses {
+    margin-bottom: 10px;
+}
+
+.misses>span {
+    color: red;
+    font-weight: 600;
+}
+
+.hits>span {
+    color: green;
+    font-weight: 600;
+}
+
+.buttonsContainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 40px;
+}
+
+
+@media screen and (max-width: 830px) {
+    .imgContainer {
+        flex: 0 0 260px;
+    }
+
+    .container {
+        padding: 10px 0 10px 10px;
+        font-size: 52.5%;
+    }
+
+
+}

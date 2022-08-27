@@ -47,6 +47,7 @@ const textbookSlice = createSlice({
   reducers: {
     setGroup: (state, action: PayloadAction<number>) => {
       state.group = action.payload;
+      localStorage.setItem('rslang-rev', state.group + '');
     },
   },
   extraReducers: (builder) => {

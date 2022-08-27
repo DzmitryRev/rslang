@@ -20,3 +20,10 @@ export interface IWord {
   textMeaningTranslate: string;
   wordTranslate: string;
 }
+
+export interface IUserWord {
+  difficulty: string;
+  id: string;
+  optional: { learned: boolean };
+  wordId: string;
+}

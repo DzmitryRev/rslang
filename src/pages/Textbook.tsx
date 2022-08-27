@@ -1,109 +1,89 @@
-/**
- * Textbook have 2 conditions:
- * auth and not auth => get this flag from userSlice
- * Components:
- * 1. Header +
- * 2. Footer +
- * 3. WordCard +
- * 4. PetalButton +
- * 5. PrimaryButton +
- *
- */
-
-/**
- * TODO:
- * 1. pagination
- * 2. usersWords
- * 3. logic for displaying difficult and learned words
- */
-
-import axios from 'axios';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { API } from '../api/api';
+import { IUserWord } from '../api/api.types';
+import PetalButton from '../components/petal-button/PetalButton';
+import PrimaryButton from '../components/primary-button/PrimaryButton';
+import WordList from '../components/word-list/WordList';
 
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { getWords, Groups, setGroup } from '../store/slices/textbookSlice';
+import { getUserWords } from '../store/slices/userSlice';
 
 export default function Textbook() {
   const dispach = useAppDispatch();
+  const { token, userId, isAuth, userWords } = useAppSelector((store) => store.user);
+  const { words, group, page } = useAppSelector((store) => store.textbook);
 
-  //   API.signin({
-  //     email: 'reer@mail.ru',
-  //     password: '12345678',
-  //   }).then(res => console.log(res));
-
-  // auth flag
-  const isAuth = useAppSelector((store) => store.user.isAuth);
-
-  // userId
-  const userId = useAppSelector((store) => store.user.userId);
-
-  // token
-  const token = useAppSelector((store) => store.user.token);
-
-  // words
-  const words = useAppSelector((store) => store.textbook.words);
-
-  //current group
-  const group = useAppSelector((store) => store.textbook.group);
-
-  // current page
-  const page = useAppSelector((store) => store.textbook.page);
-
-  //   API.getUser(userId, token).then((res) => {
-  //     console.log(res);
-  //   });
-
-  //   axios
-  //     .get(`http://localhost:8080/users/${userId}/words`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  API.getUserWords(userId, token).then((res) => {
-    console.log(res);
-  });
-  // reload on change group or page
   useEffect(() => {
+    if (localStorage.getItem('rslang-rev')) {
+      dispach(setGroup(JSON.parse(localStorage.getItem('rslang-rev') || '{}')));
+    }
     dispach(getWords({ page, group }));
-  }, [group, page, dispach]);
+    dispach(getUserWords({ userId, token }));
+  }, [group, page, userId, token, dispach]);
+
+  //   move to redux
+
+  const addToUserWords = (wordId: string, body: Omit<Omit<IUserWord, 'id'>, 'wordId'>) => {
+    API.addToUserWord(userId, wordId, body, token).then(() => {
+      dispach(getUserWords({ userId, token }));
+    });
+  };
+  const updateUserWord = (wordId: string, body: Omit<Omit<IUserWord, 'id'>, 'wordId'>) => {
+    API.updateToUserWord(userId, wordId, body, token).then(() => {
+      dispach(getUserWords({ userId, token }));
+    });
+  };
+
+  // ===================
 
   const availableGroups = Object.values(Groups).filter((item) => !isNaN(+item)) as number[];
 
+  const allWordsLearned = words.filter((word) => {
+    return !userWords
+      .filter((item) => item.optional.learned)
+      .find((userWord) => userWord.wordId === word.id);
+  });
+
   return (
     <div>
-      {availableGroups.map((group) => {
+      {/* navigation */}
+      {availableGroups.map((item) => {
         return (
-          <div
-            onClick={() => {
-              dispach(setGroup(group));
-            }}
-            key={group}
-          >
-            {Groups[group]}
-          </div>
+          <Link to={'/textbook'} key={item}>
+            <PetalButton
+              shadowColor="blue"
+              size="s"
+              active={Groups[group] === Groups[item] ? true : false}
+              callback={() => {
+                dispach(setGroup(item));
+              }}
+            >
+              {Groups[item]}
+            </PetalButton>
+          </Link>
         );
       })}
-      {/* если isAuth то показываем кнопку сложные слова */}
-      {words.map((word) => {
-        /**
-         * if(userWord.id === item.id)
-         * difficult = item.difficult
-         * AllInGames = item.opt.allinGames
-         * trueInGames = item.opt.trueIngames
-         * learned = item.opt.learned
-         */
-        return (
-          //    если isAuth то отправляем флаг isAuth === true
-          <div key={word.id}>
-            {word.word} === {word.transcription} === {word.wordTranslate}
-          </div>
-        );
-      })}
+      <PrimaryButton color="orange-gradient" size="l">
+        Сложные
+      </PrimaryButton>
+
+      {/* all words learned marker */}
+      {allWordsLearned.length === 0 ? <div>Все слова на этой странице изучены!</div> : ''}
+
+      {/* words */}
+      <WordList
+        words={words}
+        userWords={userWords}
+        addToUserWords={addToUserWords}
+        updateUserWord={updateUserWord}
+        isAuth={isAuth}
+      />
+
+      {/* pagination */}
+      {/* ... */}
     </div>
   );
 }

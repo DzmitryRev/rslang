@@ -3,7 +3,7 @@
 import { UserType } from './api.types';
 
 export class API {
-  static host: string = 'http://localhost:8080';
+  static host: string = 'https://react-learnwords-rsl.herokuapp.com';
 
   /* ------ words api -------*/
   static getWords(page: number, group: number) {
@@ -48,7 +48,7 @@ export class API {
   /* ------ users/words api -------*/
 
   static getUserWords(userId: string, token: string) {
-    return axios.get(`http://localhost:8080/users/${userId}/words`, {
+    return axios.get(`${this.host}/users/${userId}/words`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -56,7 +56,42 @@ export class API {
   }
 
   static getUserWord(userId: string, wordId: string, token: string) {
-    return axios.get(`${this.host}​/users/${userId}​/words/${wordId}`, {
+    return axios.get(`${this.host}/users/${userId}/words/${wordId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  static addToUserWord(
+    userId: string,
+    wordId: string,
+    wordSettings: {
+      difficulty: string;
+      optional: {
+        learned: boolean;
+      };
+    },
+    token: string,
+  ) {
+    return axios.post(`${this.host}/users/${userId}/words/${wordId}`, wordSettings, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  static updateToUserWord(
+    userId: string,
+    wordId: string,
+    wordSettings: {
+      difficulty: string;
+      optional: {
+        learned: boolean;
+      };
+    },
+    token: string,
+  ) {
+    return axios.put(`${this.host}/users/${userId}/words/${wordId}`, wordSettings, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -65,8 +100,22 @@ export class API {
 
   /* ------ users/aggregatedWords api -------*/
 
-  static getAggregatedWords(id: string, wordId: string) {
-    if (wordId) return axios.get(`${this.host}​/users/${id}​/aggregatedWords/${wordId}`);
-    return axios.get(`${this.host}​/users/${id}​/aggregatedWords`);
+  static getAggregatedWord(id: string, wordId: string, token: string) {
+    return axios.get(`${this.host}/users/${id}/aggregatedWords/${wordId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  static getAggregatedWords(userId: string, token: string, filter?: any) {
+    return axios.get(
+      `${this.host}/users/${userId}/aggregatedWords?${new URLSearchParams(filter).toString()}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
   }
 }
