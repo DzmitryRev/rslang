@@ -26,9 +26,12 @@ export class API {
     });
   }
 
-  static getUser(id: string, token?: string) {
-    if (token) return axios.get(`${this.host}/users/${id}/token`);
-    return axios.get(`${this.host}/users/${id}`);
+  static getUser(id: string, token: string) {
+    return axios.get(`${this.host}/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   /* ------ signin api -------*/

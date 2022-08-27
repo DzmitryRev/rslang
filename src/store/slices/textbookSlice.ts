@@ -21,6 +21,7 @@ export const getWords = createAsyncThunk<IWord[], { page: number; group: number 
   async (params) => {
     const { page, group } = params;
     const response = await API.getWords(page, group);
+    console.log(response);
     return response.data;
   },
 );

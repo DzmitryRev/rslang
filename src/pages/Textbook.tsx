@@ -5,7 +5,8 @@
  * 1. Header +
  * 2. Footer +
  * 3. WordCard +
- * 4.
+ * 4. PetalButton +
+ * 5. PrimaryButton +
  *
  */
 
@@ -18,6 +19,8 @@
 
 import { useEffect } from 'react';
 
+import { API } from '../api/api';
+
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
 import { getWords, Groups, setGroup } from '../store/slices/textbookSlice';
 
@@ -27,6 +30,12 @@ export default function Textbook() {
   // auth flag
   const isAuth = useAppSelector((store) => store.user.isAuth);
 
+  // userId
+  const userId = useAppSelector((store) => store.user.userId);
+
+  // token
+  const token = useAppSelector((store) => store.user.token);
+
   // words
   const words = useAppSelector((store) => store.textbook.words);
 
@@ -35,6 +44,10 @@ export default function Textbook() {
 
   // current page
   const page = useAppSelector((store) => store.textbook.page);
+
+  API.getUser(userId, token).then((res) => {
+    console.log(res);
+  });
 
   // reload on change group or page
   useEffect(() => {
