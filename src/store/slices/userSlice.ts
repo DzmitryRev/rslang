@@ -12,11 +12,10 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  isAuth: true,
+  isAuth: false,
   userWords: [],
-  token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGI4MjJiN2U2ZjVhMDAxNjU4NTg4ZiIsImlhdCI6MTY2MTY5ODY1OCwiZXhwIjoxNjYxNzEzMDU4fQ.VauRgDUkcjhn7rLfTpGsOp4ttoMakvkTY3-P8hsv7Nc',
-  userId: '630b822b7e6f5a001658588f',
+  token: '',
+  userId: '',
 };
 
 const userSlice = createSlice({
