@@ -7,9 +7,18 @@ type WordListProps = {
   addToUserWords: (wordId: string, wordSettings: Omit<Omit<IUserWord, 'id'>, 'wordId'>) => void;
   updateUserWord: (wordId: string, wordSettings: Omit<Omit<IUserWord, 'id'>, 'wordId'>) => void;
   isAuth: boolean;
+  audioPlaying: boolean;
+  setAudioPlaying: (condition: boolean) => void;
 };
 
-export default function WordList({ words, addToUserWords, updateUserWord, isAuth }: WordListProps) {
+export default function WordList({
+  words,
+  addToUserWords,
+  updateUserWord,
+  setAudioPlaying,
+  audioPlaying,
+  isAuth,
+}: WordListProps) {
   return (
     <div>
       {words.map((word) => {
@@ -20,6 +29,8 @@ export default function WordList({ words, addToUserWords, updateUserWord, isAuth
                 key={word._id}
                 word={word}
                 isAuth={true}
+                audioPlaying={audioPlaying}
+                setAudioPlaying={setAudioPlaying}
                 difficultCallback={() => {
                   updateUserWord(word._id, {
                     difficulty: 'hard',
@@ -40,6 +51,8 @@ export default function WordList({ words, addToUserWords, updateUserWord, isAuth
                 key={word._id}
                 word={word}
                 isAuth={true}
+                audioPlaying={audioPlaying}
+                setAudioPlaying={setAudioPlaying}
                 difficultCallback={() => {
                   addToUserWords(word._id, {
                     difficulty: 'hard',
@@ -56,7 +69,15 @@ export default function WordList({ words, addToUserWords, updateUserWord, isAuth
             );
           }
         } else {
-          return <WordCard key={word.id} word={word} isAuth={false} />;
+          return (
+            <WordCard
+              key={word.id}
+              audioPlaying={audioPlaying}
+              setAudioPlaying={setAudioPlaying}
+              word={word}
+              isAuth={false}
+            />
+          );
         }
       })}
       ;

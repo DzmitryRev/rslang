@@ -9,13 +9,17 @@ import styles from './WordCard.module.css';
 type WordCardProps = {
   word: IWord;
   isAuth: boolean;
+  setAudioPlaying: (condition: boolean) => void;
   difficultCallback?: () => void;
   learnedCallBack?: () => void;
+  audioPlaying: boolean;
 };
 
 export default function WordCard({
   word,
   isAuth,
+  audioPlaying,
+  setAudioPlaying,
   difficultCallback = () => {},
   learnedCallBack = () => {},
 }: WordCardProps) {
@@ -33,12 +37,16 @@ export default function WordCard({
     const audioMeaning = new Audio(
       `https://react-learnwords-rsl.herokuapp.com/${word.audioMeaning}`,
     );
+    setAudioPlaying(true);
     audio.play();
     audio.onended = () => {
       audioMeaning.play();
     };
-    audioExample.onended = () => {
+    audioMeaning.onended = () => {
       audioExample.play();
+    };
+    audioExample.onended = () => {
+      setAudioPlaying(false);
     };
   };
   return (
@@ -47,9 +55,7 @@ export default function WordCard({
         src={audioSvg}
         className={styles.audio}
         alt="play-word"
-        onClick={() => {
-          playAudio();
-        }}
+        onClick={audioPlaying ? () => {} : playAudio}
       />
       <div className={styles.imgContainer}>
         {/* <img src={`https://react-learnwords-rsl.herokuapp.com/${word.image}`} alt="" /> */}

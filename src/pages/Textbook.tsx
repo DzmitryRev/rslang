@@ -3,18 +3,24 @@ import { Link } from 'react-router-dom';
 
 import { API } from '../api/api';
 import { IUserWordBody } from '../api/api.types';
+import { Pagination } from '../components/pagination/Pagination';
 import PetalButton from '../components/petal-button/PetalButton';
 import PrimaryButton from '../components/primary-button/PrimaryButton';
 import WordList from '../components/word-list/WordList';
-
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
-import { getAuthWords, getUnauthWords, Groups, setGroup } from '../store/slices/textbookSlice';
+import {
+  getAuthWords,
+  getUnauthWords,
+  Groups,
+  setAudioPlaying,
+  setGroup,
+  setPage,
+} from '../store/slices/textbookSlice';
 
 export default function Textbook() {
-
   const dispach = useAppDispatch();
   const { token, userId, isAuth, userWords } = useAppSelector((store) => store.user);
-  const { words, group, page } = useAppSelector((store) => store.textbook);
+  const { words, group, page, audioPlaying } = useAppSelector((store) => store.textbook);
 
   useEffect(() => {
     if (isAuth) {
@@ -22,9 +28,7 @@ export default function Textbook() {
     } else {
       dispach(getUnauthWords({ page, group }));
     }
-  }, [page, group, userId, token, dispach]);
-
-  //   move to redux
+  }, [page, group, userId, isAuth, token, dispach]);
 
   const addToUserWords = (wordId: string, body: IUserWordBody) => {
     API.addToUserWord(userId, wordId, body, token).then(() => {
@@ -37,13 +41,9 @@ export default function Textbook() {
     });
   };
 
-  console.log('render');
-
   const availableGroups = Object.values(Groups).filter((item) => !isNaN(+item)) as number[];
 
   const allWordsLearned = words.filter((word) => !word.userWord);
-
-  //   console.log(allWordsLearned, 'aaa');
 
   return (
     <div>
@@ -68,6 +68,8 @@ export default function Textbook() {
         Сложные
       </PrimaryButton>
 
+      <h1>{page}</h1>
+
       {/* all words learned marker */}
       {allWordsLearned.length === 0 ? <div>Все слова на этой странице изучены!</div> : ''}
 
@@ -78,9 +80,20 @@ export default function Textbook() {
         addToUserWords={addToUserWords}
         updateUserWord={updateUserWord}
         isAuth={isAuth}
+        audioPlaying={audioPlaying}
+        setAudioPlaying={(condition) => {
+          dispach(setAudioPlaying(condition));
+        }}
       />
 
       {/* pagination */}
+      <Pagination
+        page={page}
+        totalPages={30}
+        handlePagination={(page) => {
+          dispach(setPage(page));
+        }}
+      />
       {/* ... */}
     </div>
   );

@@ -43,6 +43,7 @@ interface TextbookState {
   numberOfPages: number;
   group: number;
   words: IWord[];
+  audioPlaying: boolean;
 }
 
 const initialState: TextbookState = {
@@ -50,6 +51,7 @@ const initialState: TextbookState = {
   numberOfPages: 0,
   group: 0,
   words: [],
+  audioPlaying: false,
 };
 
 const textbookSlice = createSlice({
@@ -58,19 +60,28 @@ const textbookSlice = createSlice({
   reducers: {
     setGroup: (state, action: PayloadAction<number>) => {
       state.group = action.payload;
+      state.page = 1;
+    },
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
+    },
+    setAudioPlaying: (state, action: PayloadAction<boolean>) => {
+      state.audioPlaying = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getUnauthWords.fulfilled, (state, action) => {
         state.words = action.payload;
+        window.scrollTo(0, 0);
       })
       .addCase(getAuthWords.fulfilled, (state, action) => {
         state.words = action.payload;
+        window.scrollTo(0, 0);
       });
   },
 });
 
-export const { setGroup } = textbookSlice.actions;
+export const { setGroup, setPage, setAudioPlaying } = textbookSlice.actions;
 
 export default textbookSlice.reducer;

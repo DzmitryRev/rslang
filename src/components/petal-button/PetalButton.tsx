@@ -20,7 +20,7 @@ export default function PetalButton({
       className={`${styles.button} ${styles[shadowColor]} ${styles[size]} ${
         active ? styles.active : ''
       }`}
-      onClick={callback}
+      onClick={active ? () => {} : callback}
     >
       {children}
     </button>

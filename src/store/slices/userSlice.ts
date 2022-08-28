@@ -16,8 +16,8 @@ const initialState: UserState = {
   isAuth: true,
   userWords: [],
   token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGI0NzkzM2Y4ZjFmMDAxNjNmYjJkMCIsImlhdCI6MTY2MTY4MzYzMiwiZXhwIjoxNjYxNjk4MDMyfQ.p_uVH3KalBMsh8izAIAJfM3h6owowPW8WwtVaf7HXIw',
-  userId: '630b47933f8f1f00163fb2d0',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGI4MjJiN2U2ZjVhMDAxNjU4NTg4ZiIsImlhdCI6MTY2MTY5ODY1OCwiZXhwIjoxNjYxNzEzMDU4fQ.VauRgDUkcjhn7rLfTpGsOp4ttoMakvkTY3-P8hsv7Nc',
+  userId: '630b822b7e6f5a001658588f',
 };
 
 const userSlice = createSlice({
