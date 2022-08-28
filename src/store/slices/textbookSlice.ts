@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { API } from '../../api/api';
-import { IAggregatedWord, IUserWordBody, IWord } from '../../api/api.types';
+import { IAggregatedWord, IWord } from '../../api/api.types';
 
 // import type { PayloadAction } from '@reduxjs/toolkit';
 
@@ -87,12 +87,12 @@ const textbookSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    //   .addCase(getUnauthWords.pending, (state) => {
-    //     state.loading = true;
-    //   })
-    //   .addCase(getAuthWords.pending, (state) => {
-    //     state.loading = true;
-    //   })
+      //   .addCase(getUnauthWords.pending, (state) => {
+      //     state.loading = true;
+      //   })
+      //   .addCase(getAuthWords.pending, (state) => {
+      //     state.loading = true;
+      //   })
       .addCase(getUnauthWords.fulfilled, (state, action) => {
         state.words = action.payload;
         state.loading = false;
