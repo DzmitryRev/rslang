@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { API } from '../../api/api';
-import { IAggregatedWord, IUserWord, IWord } from '../../api/api.types';
+import { IAggregatedWord, IWord } from '../../api/api.types';
 
 // import type { PayloadAction } from '@reduxjs/toolkit';
 
@@ -18,7 +18,7 @@ export const getUnauthWords = createAsyncThunk<IWord[], { page: number; group: n
   'counter/fetchUnauthWords',
   async (params) => {
     const { page, group } = params;
-    const response = await API.getWords(page, group);
+    const response = await API.getWords(page - 1, group);
     const data: IWord[] = response.data;
     return data;
   },
@@ -29,10 +29,15 @@ export const getAuthWords = createAsyncThunk<
   {}
 >('counter/fetchAuthWords', async (params) => {
   const { userId, token, page, group } = params;
+  if (group === 6) {
+    const response = await API.getAggregatedWords(userId, token, '{"userWord.difficulty": "hard"}', 3600);
+    const [{ paginatedResults }]: IAggregatedWord[] = response.data;
+    return paginatedResults;
+  }
   const response = await API.getAggregatedWords(
     userId,
     token,
-    `{"page": ${page}, "group": ${group}}`,
+    `{"page": ${page - 1}, "group": ${group}}`,
   );
   const [{ paginatedResults }]: IAggregatedWord[] = response.data;
   return paginatedResults;
@@ -40,7 +45,7 @@ export const getAuthWords = createAsyncThunk<
 
 interface TextbookState {
   page: number;
-  numberOfPages: number;
+  totalPages: number;
   group: number;
   words: IWord[];
   audioPlaying: boolean;
@@ -48,7 +53,7 @@ interface TextbookState {
 
 const initialState: TextbookState = {
   page: 1,
-  numberOfPages: 0,
+  totalPages: 30,
   group: 0,
   words: [],
   audioPlaying: false,
@@ -73,11 +78,9 @@ const textbookSlice = createSlice({
     builder
       .addCase(getUnauthWords.fulfilled, (state, action) => {
         state.words = action.payload;
-        window.scrollTo(0, 0);
       })
       .addCase(getAuthWords.fulfilled, (state, action) => {
-        state.words = action.payload;
-        window.scrollTo(0, 0);
+        state.words = action.payload; 
       });
   },
 });

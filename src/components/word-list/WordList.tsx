@@ -7,6 +7,7 @@ type WordListProps = {
   addToUserWords: (wordId: string, wordSettings: Omit<Omit<IUserWord, 'id'>, 'wordId'>) => void;
   updateUserWord: (wordId: string, wordSettings: Omit<Omit<IUserWord, 'id'>, 'wordId'>) => void;
   isAuth: boolean;
+  isDifficultPage: boolean;
   audioPlaying: boolean;
   setAudioPlaying: (condition: boolean) => void;
 };
@@ -18,6 +19,7 @@ export default function WordList({
   setAudioPlaying,
   audioPlaying,
   isAuth,
+  isDifficultPage,
 }: WordListProps) {
   return (
     <div>
@@ -29,6 +31,7 @@ export default function WordList({
                 key={word._id}
                 word={word}
                 isAuth={true}
+                isDifficultPage={isDifficultPage}
                 audioPlaying={audioPlaying}
                 setAudioPlaying={setAudioPlaying}
                 difficultCallback={() => {
@@ -51,6 +54,7 @@ export default function WordList({
                 key={word._id}
                 word={word}
                 isAuth={true}
+                isDifficultPage={isDifficultPage}
                 audioPlaying={audioPlaying}
                 setAudioPlaying={setAudioPlaying}
                 difficultCallback={() => {
@@ -72,6 +76,7 @@ export default function WordList({
           return (
             <WordCard
               key={word.id}
+              //   isDifficultPage={isDifficultPage}
               audioPlaying={audioPlaying}
               setAudioPlaying={setAudioPlaying}
               word={word}

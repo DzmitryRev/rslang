@@ -1,24 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { API } from './api/api';
-
-import Textbook from './pages/Textbook';
+import Textbook from './pages/textbook/Textbook';
 
 function App() {
-//   API.createUser({
-//     name: 'assd',
-//     email: 'dimka@mail.ru',
-//     password: '12345678',
-//   }).then((res) => console.log(res));
-//   API.signin({
-//     email: 'dimka@mail.ru',
-//     password: '12345678',
-//   }).then((res) => {
-//     console.log(res);
-//   });
   return (
     <div className="App">
-      {/* <Header list="menu__listMainPage" authorized="unAuthorized" /> */}
       <Routes>
         <Route path="/textbook/" element={<Textbook />} />
       </Routes>

@@ -9,6 +9,7 @@ import styles from './WordCard.module.css';
 type WordCardProps = {
   word: IWord;
   isAuth: boolean;
+  isDifficultPage?: boolean;
   setAudioPlaying: (condition: boolean) => void;
   difficultCallback?: () => void;
   learnedCallBack?: () => void;
@@ -18,6 +19,7 @@ type WordCardProps = {
 export default function WordCard({
   word,
   isAuth,
+  isDifficultPage,
   audioPlaying,
   setAudioPlaying,
   difficultCallback = () => {},
@@ -85,9 +87,7 @@ export default function WordCard({
                 color="orange-gradient"
                 size="l"
                 disabled={word.userWord?.difficulty === 'learned' ? true : false}
-                callback={() => {
-                  difficultCallback();
-                }}
+                callback={difficultCallback}
               >
                 Сложное
               </PrimaryButton>
@@ -95,9 +95,7 @@ export default function WordCard({
                 color="blue-gradient"
                 size="l"
                 disabled={word.userWord?.difficulty === 'hard' ? true : false}
-                callback={() => {
-                  learnedCallBack();
-                }}
+                callback={learnedCallBack}
               >
                 Изученное
               </PrimaryButton>

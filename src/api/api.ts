@@ -7,8 +7,7 @@ export class API {
 
   /* ------ words api -------*/
   static getWords(page: number, group: number) {
-    if (page && group) return axios.get(`${this.host}/words?page=${page}&group=${group}`);
-    else return axios.get(`${this.host}/words`);
+    return axios.get(`${this.host}/words?page=${page}&group=${group}`);
   }
 
   static getWord(id: string) {

@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { API } from '../../api/api';
 import { IUserWord } from '../../api/api.types';
 
 // import type { PayloadAction } from '@reduxjs/toolkit';
