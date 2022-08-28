@@ -46,6 +46,12 @@ export default function WordList({
                     optional: {},
                   });
                 }}
+                removeFromDifficult={() => {
+                  updateUserWord(word._id, {
+                    difficulty: 'default',
+                    optional: {},
+                  });
+                }}
               />
             );
           } else {
@@ -69,6 +75,7 @@ export default function WordList({
                     optional: {},
                   });
                 }}
+                removeFromDifficult={() => {}}
               />
             );
           }
@@ -76,7 +83,6 @@ export default function WordList({
           return (
             <WordCard
               key={word.id}
-              //   isDifficultPage={isDifficultPage}
               audioPlaying={audioPlaying}
               setAudioPlaying={setAudioPlaying}
               word={word}

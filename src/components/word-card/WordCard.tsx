@@ -13,6 +13,7 @@ type WordCardProps = {
   setAudioPlaying: (condition: boolean) => void;
   difficultCallback?: () => void;
   learnedCallBack?: () => void;
+  removeFromDifficult?: () => void;
   audioPlaying: boolean;
 };
 
@@ -24,6 +25,7 @@ export default function WordCard({
   setAudioPlaying,
   difficultCallback = () => {},
   learnedCallBack = () => {},
+  removeFromDifficult = () => {},
 }: WordCardProps) {
   const cN = isAuth
     ? `${styles.container} ${word.userWord?.difficulty === 'hard' ? styles.difficult : ''} ${
@@ -60,7 +62,7 @@ export default function WordCard({
         onClick={audioPlaying ? () => {} : playAudio}
       />
       <div className={styles.imgContainer}>
-        {/* <img src={`https://react-learnwords-rsl.herokuapp.com/${word.image}`} alt="" /> */}
+        <img src={`https://react-learnwords-rsl.herokuapp.com/${word.image}`} alt="" />
       </div>
       <div className={styles.contentContainer}>
         <div className={styles.headingContainer}>
@@ -83,22 +85,35 @@ export default function WordCard({
               </span>
             </div>
             <div className={styles.buttonsContainer}>
-              <PrimaryButton
-                color="orange-gradient"
-                size="l"
-                disabled={word.userWord?.difficulty === 'learned' ? true : false}
-                callback={difficultCallback}
-              >
-                Сложное
-              </PrimaryButton>
-              <PrimaryButton
-                color="blue-gradient"
-                size="l"
-                disabled={word.userWord?.difficulty === 'hard' ? true : false}
-                callback={learnedCallBack}
-              >
-                Изученное
-              </PrimaryButton>
+              {isDifficultPage ? (
+                <PrimaryButton
+                  color="orange-gradient"
+                  size="l"
+                  disabled={word.userWord?.difficulty === 'learned' ? true : false}
+                  callback={removeFromDifficult}
+                >
+                  Удалить
+                </PrimaryButton>
+              ) : (
+                <>
+                  <PrimaryButton
+                    color="orange-gradient"
+                    size="l"
+                    disabled={word.userWord?.difficulty === 'learned' ? true : false}
+                    callback={difficultCallback}
+                  >
+                    Сложное
+                  </PrimaryButton>
+                  <PrimaryButton
+                    color="blue-gradient"
+                    size="l"
+                    disabled={word.userWord?.difficulty === 'hard' ? true : false}
+                    callback={learnedCallBack}
+                  >
+                    Изученное
+                  </PrimaryButton>
+                </>
+              )}
             </div>
           </div>
         ) : (

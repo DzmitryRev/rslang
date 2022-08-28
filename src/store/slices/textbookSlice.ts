@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { API } from '../../api/api';
-import { IAggregatedWord, IWord } from '../../api/api.types';
+import { IAggregatedWord, IUserWordBody, IWord } from '../../api/api.types';
 
 // import type { PayloadAction } from '@reduxjs/toolkit';
 
@@ -23,6 +23,7 @@ export const getUnauthWords = createAsyncThunk<IWord[], { page: number; group: n
     return data;
   },
 );
+
 export const getAuthWords = createAsyncThunk<
   IWord[],
   { userId: string; token: string; page: number; group: number },
@@ -30,7 +31,12 @@ export const getAuthWords = createAsyncThunk<
 >('counter/fetchAuthWords', async (params) => {
   const { userId, token, page, group } = params;
   if (group === 6) {
-    const response = await API.getAggregatedWords(userId, token, '{"userWord.difficulty": "hard"}', 3600);
+    const response = await API.getAggregatedWords(
+      userId,
+      token,
+      '{"userWord.difficulty": "hard"}',
+      3600,
+    );
     const [{ paginatedResults }]: IAggregatedWord[] = response.data;
     return paginatedResults;
   }
@@ -49,6 +55,7 @@ interface TextbookState {
   group: number;
   words: IWord[];
   audioPlaying: boolean;
+  loading: boolean;
 }
 
 const initialState: TextbookState = {
@@ -57,6 +64,7 @@ const initialState: TextbookState = {
   group: 0,
   words: [],
   audioPlaying: false,
+  loading: false,
 };
 
 const textbookSlice = createSlice({
@@ -73,18 +81,29 @@ const textbookSlice = createSlice({
     setAudioPlaying: (state, action: PayloadAction<boolean>) => {
       state.audioPlaying = action.payload;
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
+    //   .addCase(getUnauthWords.pending, (state) => {
+    //     state.loading = true;
+    //   })
+    //   .addCase(getAuthWords.pending, (state) => {
+    //     state.loading = true;
+    //   })
       .addCase(getUnauthWords.fulfilled, (state, action) => {
         state.words = action.payload;
+        state.loading = false;
       })
       .addCase(getAuthWords.fulfilled, (state, action) => {
-        state.words = action.payload; 
+        state.words = action.payload;
+        state.loading = false;
       });
   },
 });
 
-export const { setGroup, setPage, setAudioPlaying } = textbookSlice.actions;
+export const { setGroup, setPage, setAudioPlaying, setLoading } = textbookSlice.actions;
 
 export default textbookSlice.reducer;

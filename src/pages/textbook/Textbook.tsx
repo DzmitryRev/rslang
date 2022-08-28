@@ -16,6 +16,7 @@ import {
   Groups,
   setAudioPlaying,
   setGroup,
+  setLoading,
   setPage,
 } from '../../store/slices/textbookSlice';
 
@@ -34,14 +35,16 @@ import {
 export default function Textbook() {
   const dispach = useAppDispatch();
   const { token, userId, isAuth, userWords } = useAppSelector((store) => store.user);
-  const { words, group, page, audioPlaying, totalPages } = useAppSelector(
+  const { words, group, page, audioPlaying, totalPages, loading } = useAppSelector(
     (store) => store.textbook,
   );
 
   useEffect(() => {
     if (isAuth) {
+      dispach(setLoading(true));
       dispach(getAuthWords({ userId, token, page, group }));
     } else {
+      dispach(setLoading(true));
       dispach(getUnauthWords({ page, group }));
     }
   }, [page, group, userId, isAuth, token, dispach]);
@@ -56,6 +59,8 @@ export default function Textbook() {
       dispach(getAuthWords({ userId, token, page, group }));
     });
   };
+
+  console.log('render');
 
   const availableGroups = Object.values(Groups).filter((item) => !isNaN(+item)) as number[];
 
@@ -97,27 +102,36 @@ export default function Textbook() {
       )}
 
       {/* ============ */}
-      <h1>{page}</h1>
 
       {/* Маркер который активен если все слова на странице изучены! Стилизовать по усмотрению*/}
-      {allWordsLearned.length === 0 ? <div>Все слова на этой странице изучены!</div> : ''}
+      {allWordsLearned.length === 0 && group !== 6 ? (
+        <div>Все слова на этой странице изучены!</div>
+      ) : (
+        ''
+      )}
 
       {/* Блок со словами */}
-      <WordList
-        words={words}
-        userWords={userWords}
-        addToUserWords={addToUserWords}
-        updateUserWord={updateUserWord}
-        isAuth={isAuth}
-        isDifficultPage={group === 6 ? true : false}
-        audioPlaying={audioPlaying}
-        setAudioPlaying={(condition) => {
-          dispach(setAudioPlaying(condition));
-        }}
-      />
+      {loading ? (
+        <div>
+          <h1>ЗАГРУЗКА...</h1>
+        </div>
+      ) : (
+        <WordList
+          words={words}
+          userWords={userWords}
+          addToUserWords={addToUserWords}
+          updateUserWord={updateUserWord}
+          isAuth={isAuth}
+          isDifficultPage={group === 6 ? true : false}
+          audioPlaying={audioPlaying}
+          setAudioPlaying={(condition) => {
+            dispach(setAudioPlaying(condition));
+          }}
+        />
+      )}
 
       {/* pagination */}
-      {group === 6 ? (
+      {group === 6 || loading ? (
         ''
       ) : (
         <Pagination
