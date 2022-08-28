@@ -1,11 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { API } from '../../api/api';
-import { IWord } from '../../api/api.types';
+import { IAggregatedWord, IUserWord, IWord } from '../../api/api.types';
 
 // import type { PayloadAction } from '@reduxjs/toolkit';
-
-// MOCK!
 
 export enum Groups {
   'A1',
@@ -16,16 +14,29 @@ export enum Groups {
   'C2',
 }
 
-export const getWords = createAsyncThunk<IWord[], { page: number; group: number }, {}>(
-  'counter/fetchWords',
+export const getUnauthWords = createAsyncThunk<IWord[], { page: number; group: number }, {}>(
+  'counter/fetchUnauthWords',
   async (params) => {
     const { page, group } = params;
     const response = await API.getWords(page, group);
-    return response.data;
+    const data: IWord[] = response.data;
+    return data;
   },
 );
-
-// =============================
+export const getAuthWords = createAsyncThunk<
+  IWord[],
+  { userId: string; token: string; page: number; group: number },
+  {}
+>('counter/fetchAuthWords', async (params) => {
+  const { userId, token, page, group } = params;
+  const response = await API.getAggregatedWords(
+    userId,
+    token,
+    `{"page": ${page}, "group": ${group}}`,
+  );
+  const [{ paginatedResults }]: IAggregatedWord[] = response.data;
+  return paginatedResults;
+});
 
 interface TextbookState {
   page: number;
@@ -47,13 +58,16 @@ const textbookSlice = createSlice({
   reducers: {
     setGroup: (state, action: PayloadAction<number>) => {
       state.group = action.payload;
-      localStorage.setItem('rslang-rev', state.group + '');
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getWords.fulfilled, (state, action) => {
-      state.words = action.payload;
-    });
+    builder
+      .addCase(getUnauthWords.fulfilled, (state, action) => {
+        state.words = action.payload;
+      })
+      .addCase(getAuthWords.fulfilled, (state, action) => {
+        state.words = action.payload;
+      });
   },
 });
 

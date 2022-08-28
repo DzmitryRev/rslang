@@ -9,69 +9,54 @@ type WordListProps = {
   isAuth: boolean;
 };
 
-export default function WordList({
-  words,
-  userWords,
-  addToUserWords,
-  updateUserWord,
-  isAuth,
-}: WordListProps) {
+export default function WordList({ words, addToUserWords, updateUserWord, isAuth }: WordListProps) {
   return (
     <div>
       {words.map((word) => {
-        const includedInUserWords = userWords.filter((userWord) => userWord.wordId === word.id);
-        if (includedInUserWords.length === 0) {
-          return (
-            <WordCard
-              key={word.id}
-              word={word}
-              isAuth={isAuth}
-              isDifficult={false}
-              isLearned={false}
-              difficultCallback={() => {
-                addToUserWords(word.id, {
-                  difficulty: 'hard',
-                  optional: {
-                    learned: false,
-                  },
-                });
-              }}
-              learnedCallBack={() => {
-                addToUserWords(word.id, {
-                  difficulty: 'easy',
-                  optional: {
-                    learned: true,
-                  },
-                });
-              }}
-            />
-          );
+        if (isAuth) {
+          if (word.userWord) {
+            return (
+              <WordCard
+                key={word._id}
+                word={word}
+                isAuth={true}
+                difficultCallback={() => {
+                  updateUserWord(word._id, {
+                    difficulty: 'hard',
+                    optional: {},
+                  });
+                }}
+                learnedCallBack={() => {
+                  updateUserWord(word._id, {
+                    difficulty: 'learned',
+                    optional: {},
+                  });
+                }}
+              />
+            );
+          } else {
+            return (
+              <WordCard
+                key={word._id}
+                word={word}
+                isAuth={true}
+                difficultCallback={() => {
+                  addToUserWords(word._id, {
+                    difficulty: 'hard',
+                    optional: {},
+                  });
+                }}
+                learnedCallBack={() => {
+                  addToUserWords(word._id, {
+                    difficulty: 'learned',
+                    optional: {},
+                  });
+                }}
+              />
+            );
+          }
         } else {
-          return (
-            <WordCard
-              key={word.id}
-              word={word}
-              isAuth={isAuth}
-              isDifficult={includedInUserWords[0].difficulty === 'hard' ? true : false}
-              isLearned={includedInUserWords[0].optional.learned ? true : false}
-              difficultCallback={() => {
-                updateUserWord(word.id, {
-                  difficulty: 'hard',
-                  optional: {
-                    learned: false,
-                  },
-                });
-              }}
-              learnedCallBack={() => {
-                updateUserWord(word.id, {
-                  difficulty: 'easy',
-                  optional: {
-                    learned: true,
-                  },
-                });
-              }}
-            />
-          );
+          return <WordCard key={word.id} word={word} isAuth={false} />;
         }
       })}
       ;

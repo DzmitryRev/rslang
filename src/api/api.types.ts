@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from 'axios';
+
 export type UserType = {
   name: string;
   email: string;
@@ -6,6 +8,7 @@ export type UserType = {
 
 export interface IWord {
   id: string;
+  _id: string;
   group: number;
   page: number;
   word: string;
@@ -19,11 +22,19 @@ export interface IWord {
   textExampleTranslate: string;
   textMeaningTranslate: string;
   wordTranslate: string;
+  userWord?: IUserWord;
 }
 
 export interface IUserWord {
-  difficulty: string;
+  difficulty: 'default' | 'hard' | 'learned';
   id: string;
-  optional: { learned: boolean };
+  optional: {};
   wordId: string;
+}
+
+export type IUserWordBody = Omit<Omit<IUserWord, 'id'>, 'wordId'>;
+
+export interface IAggregatedWord {
+  paginatedResults: IWord[];
+  totalCount: { count: number }[];
 }

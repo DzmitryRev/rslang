@@ -2,50 +2,48 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { API } from '../api/api';
-import { IUserWord } from '../api/api.types';
+import { IUserWordBody } from '../api/api.types';
 import PetalButton from '../components/petal-button/PetalButton';
 import PrimaryButton from '../components/primary-button/PrimaryButton';
 import WordList from '../components/word-list/WordList';
 
 import { useAppDispatch, useAppSelector } from '../hooks/storeHooks';
-import { getWords, Groups, setGroup } from '../store/slices/textbookSlice';
-import { getUserWords } from '../store/slices/userSlice';
+import { getAuthWords, getUnauthWords, Groups, setGroup } from '../store/slices/textbookSlice';
 
 export default function Textbook() {
+
   const dispach = useAppDispatch();
   const { token, userId, isAuth, userWords } = useAppSelector((store) => store.user);
   const { words, group, page } = useAppSelector((store) => store.textbook);
 
   useEffect(() => {
-    if (localStorage.getItem('rslang-rev')) {
-      dispach(setGroup(JSON.parse(localStorage.getItem('rslang-rev') || '{}')));
+    if (isAuth) {
+      dispach(getAuthWords({ userId, token, page, group }));
+    } else {
+      dispach(getUnauthWords({ page, group }));
     }
-    dispach(getWords({ page, group }));
-    dispach(getUserWords({ userId, token }));
-  }, [group, page, userId, token, dispach]);
+  }, [page, group, userId, token, dispach]);
 
   //   move to redux
 
-  const addToUserWords = (wordId: string, body: Omit<Omit<IUserWord, 'id'>, 'wordId'>) => {
+  const addToUserWords = (wordId: string, body: IUserWordBody) => {
     API.addToUserWord(userId, wordId, body, token).then(() => {
-      dispach(getUserWords({ userId, token }));
+      dispach(getAuthWords({ userId, token, page, group }));
     });
   };
-  const updateUserWord = (wordId: string, body: Omit<Omit<IUserWord, 'id'>, 'wordId'>) => {
+  const updateUserWord = (wordId: string, body: IUserWordBody) => {
     API.updateToUserWord(userId, wordId, body, token).then(() => {
-      dispach(getUserWords({ userId, token }));
+      dispach(getAuthWords({ userId, token, page, group }));
     });
   };
 
-  // ===================
+  console.log('render');
 
   const availableGroups = Object.values(Groups).filter((item) => !isNaN(+item)) as number[];
 
-  const allWordsLearned = words.filter((word) => {
-    return !userWords
-      .filter((item) => item.optional.learned)
-      .find((userWord) => userWord.wordId === word.id);
-  });
+  const allWordsLearned = words.filter((word) => !word.userWord);
+
+  //   console.log(allWordsLearned, 'aaa');
 
   return (
     <div>

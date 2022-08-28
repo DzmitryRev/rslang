@@ -68,9 +68,7 @@ export class API {
     wordId: string,
     wordSettings: {
       difficulty: string;
-      optional: {
-        learned: boolean;
-      };
+      optional: {};
     },
     token: string,
   ) {
@@ -85,9 +83,7 @@ export class API {
     wordId: string,
     wordSettings: {
       difficulty: string;
-      optional: {
-        learned: boolean;
-      };
+      optional: {};
     },
     token: string,
   ) {
@@ -108,14 +104,21 @@ export class API {
     });
   }
 
-  static getAggregatedWords(userId: string, token: string, filter?: any) {
-    return axios.get(
-      `${this.host}/users/${userId}/aggregatedWords?${new URLSearchParams(filter).toString()}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  static getAggregatedWords(
+    userId: string,
+    token: string,
+    filter: string,
+    wordsPerPage: number = 20,
+  ) {
+    const url = `${
+      this.host
+    }/users/${userId}/aggregatedWords?wordsPerPage=${wordsPerPage}&filter=${encodeURIComponent(
+      filter,
+    )}`;
+    return axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
   }
 }

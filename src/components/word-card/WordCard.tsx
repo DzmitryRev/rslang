@@ -2,52 +2,57 @@ import PrimaryButton from '../primary-button/PrimaryButton';
 
 import { IWord } from '../../api/api.types';
 
+import audioSvg from '../../assets/img/audio.svg';
+
 import styles from './WordCard.module.css';
-
-import audioSvg from './audio.svg';
-
-// import sss from './sss.mp3';
 
 type WordCardProps = {
   word: IWord;
   isAuth: boolean;
-  isDifficult: boolean;
-  isLearned: boolean;
-  difficultCallback: () => void;
-  learnedCallBack: () => void;
+  difficultCallback?: () => void;
+  learnedCallBack?: () => void;
 };
 
 export default function WordCard({
   word,
   isAuth,
-  isDifficult,
-  isLearned,
-  difficultCallback,
-  learnedCallBack,
+  difficultCallback = () => {},
+  learnedCallBack = () => {},
 }: WordCardProps) {
-  const audio = new Audio(`https://react-learnwords-rsl.herokuapp.com/${word.audio}`);
-  const audioExample = new Audio(`https://react-learnwords-rsl.herokuapp.com/${word.audioExample}`);
+  const cN = isAuth
+    ? `${styles.container} ${word.userWord?.difficulty === 'hard' ? styles.difficult : ''} ${
+      word.userWord?.difficulty === 'learned' ? styles.learned : ''
+    }`
+    : `${styles.container}
+  }`;
+  const playAudio = () => {
+    const audio = new Audio(`https://react-learnwords-rsl.herokuapp.com/${word.audio}`);
+    const audioExample = new Audio(
+      `https://react-learnwords-rsl.herokuapp.com/${word.audioExample}`,
+    );
+    const audioMeaning = new Audio(
+      `https://react-learnwords-rsl.herokuapp.com/${word.audioMeaning}`,
+    );
+    audio.play();
+    audio.onended = () => {
+      audioMeaning.play();
+    };
+    audioExample.onended = () => {
+      audioExample.play();
+    };
+  };
   return (
-    <div
-      className={`${styles.container} ${isDifficult ? styles.difficult : ''} ${
-        isLearned ? styles.learned : ''
-      }`}
-    >
+    <div className={cN}>
       <img
         src={audioSvg}
         className={styles.audio}
         alt="play-word"
         onClick={() => {
-          audio
-            .play()
-            .then((res) => console.log(res))
-            .finally(() => {
-              audioExample.play();
-            });
+          playAudio();
         }}
       />
       <div className={styles.imgContainer}>
-        <img src={`https://react-learnwords-rsl.herokuapp.com/${word.image}`} alt="" />
+        {/* <img src={`https://react-learnwords-rsl.herokuapp.com/${word.image}`} alt="" /> */}
       </div>
       <div className={styles.contentContainer}>
         <div className={styles.headingContainer}>
@@ -73,7 +78,7 @@ export default function WordCard({
               <PrimaryButton
                 color="orange-gradient"
                 size="l"
-                disabled={isLearned ? true : false}
+                disabled={word.userWord?.difficulty === 'learned' ? true : false}
                 callback={() => {
                   difficultCallback();
                 }}
@@ -83,7 +88,7 @@ export default function WordCard({
               <PrimaryButton
                 color="blue-gradient"
                 size="l"
-                disabled={isDifficult ? true : false}
+                disabled={word.userWord?.difficulty === 'hard' ? true : false}
                 callback={() => {
                   learnedCallBack();
                 }}

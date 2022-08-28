@@ -12,21 +12,12 @@ interface UserState {
   userWords: IUserWord[];
 }
 
-export const getUserWords = createAsyncThunk<IUserWord[], { userId: string; token: string }, {}>(
-  'counter/fetchUserWords',
-  async (params) => {
-    const { userId, token } = params;
-    const response = await API.getUserWords(userId, token);
-    return response.data;
-  },
-);
-
 const initialState: UserState = {
   isAuth: true,
   userWords: [],
   token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGEwZjc3ZDgxNzhiMDAxNjgxZjA1ZiIsImlhdCI6MTY2MTYyNTk5NCwiZXhwIjoxNjYxNjQwMzk0fQ._057mT3mLbTEzX4YO7GvZ-FRivr1jt7ls4Vn5NFwejY',
-  userId: '630a0f77d8178b001681f05f',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGI0NzkzM2Y4ZjFmMDAxNjNmYjJkMCIsImlhdCI6MTY2MTY4MzYzMiwiZXhwIjoxNjYxNjk4MDMyfQ.p_uVH3KalBMsh8izAIAJfM3h6owowPW8WwtVaf7HXIw',
+  userId: '630b47933f8f1f00163fb2d0',
 };
 
 const userSlice = createSlice({
@@ -37,13 +28,6 @@ const userSlice = createSlice({
     //   state.username = action.payload;
     // },
   },
-  extraReducers: (builder) => {
-    builder.addCase(getUserWords.fulfilled, (state, action) => {
-      state.userWords = action.payload;
-    });
-  },
 });
-
-// export const { setUser } = userSlice.actions;
 
 export default userSlice.reducer;
