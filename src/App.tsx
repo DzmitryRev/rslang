@@ -1,12 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
 
+import Login from './pages/login/Login';
+import Registration from './pages/registration/Registration';
+
 import Textbook from './pages/textbook/Textbook';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/textbook/" element={<Textbook />} />
+        <Route path="/textbook" element={<Textbook />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       {/*
         <Route path="/" element={<Comp>main</Comp>} />
