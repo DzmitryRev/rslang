@@ -1,15 +1,19 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import * as Yup from 'yup';
 
+import PrimaryButton from '../../components/primary-button/PrimaryButton';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { login } from '../../store/slices/userSlice';
 
+import styles from './Login.module.css';
+
 export default function Login() {
   const dispach = useAppDispatch();
-  const isAuth = useAppSelector((store) => store.user.isAuth);
+  const { isAuth, isLoading, error } = useAppSelector((store) => store.user);
   const navigate = useNavigate();
 
   const handleSubmit = (values: { email: string; password: string }) => {
@@ -26,8 +30,10 @@ export default function Login() {
       navigate('/');
     }
   }, [isAuth, navigate]);
+
   return (
-    <div>
+    <div className={styles.container}>
+      {error ? <h1>Error</h1> : ''}
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={loginSchema}
@@ -45,9 +51,13 @@ export default function Login() {
                 <Field type="password" name="password" />
                 <ErrorMessage name="password" component="div" />
               </label>
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
+              {isLoading ? (
+                <div>Загрузка...</div>
+              ) : (
+                <PrimaryButton color="orange" size="m">
+                  Submit
+                </PrimaryButton>
+              )}
             </Form>
           );
         }}

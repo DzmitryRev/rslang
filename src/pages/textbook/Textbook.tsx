@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { API } from '../../api/api';
 import { IUserWordBody } from '../../api/api.types';
 import Footer from '../../components/footer/Footer';
-import Header from '../../components/header/Header';
 import { Pagination } from '../../components/pagination/Pagination';
 import PetalButton from '../../components/petal-button/PetalButton';
 import PrimaryButton from '../../components/primary-button/PrimaryButton';

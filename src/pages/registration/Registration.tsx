@@ -1,21 +1,27 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import * as Yup from 'yup';
 
+import PrimaryButton from '../../components/primary-button/PrimaryButton';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { registration } from '../../store/slices/userSlice';
 
+import styles from './Registration.module.css';
+
 export default function Registration() {
   const dispach = useAppDispatch();
-  const isAuth = useAppSelector((store) => store.user.isAuth);
+  const { isAuth, isLoading, error } = useAppSelector((store) => store.user);
   const navigate = useNavigate();
 
   const handleSubmit = (values: { name: string; email: string; password: string }) => {
-    dispach(registration(values)).then(res => {
-      navigate('/login');
-    });
+    dispach(registration(values))
+      .unwrap()
+      .then((res) => {
+        navigate('/login');
+      });
   };
 
   const registrationSchema = Yup.object().shape({
@@ -31,6 +37,7 @@ export default function Registration() {
   }, [isAuth, navigate]);
   return (
     <div>
+      {error ? <h1>Error</h1> : ''}
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         validationSchema={registrationSchema}
@@ -52,9 +59,13 @@ export default function Registration() {
                 <Field type="password" name="password" />
                 <ErrorMessage name="password" component="div" />
               </label>
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
+              {isLoading ? (
+                <div>Загрузка...</div>
+              ) : (
+                <PrimaryButton color="orange" size="m">
+                  Submit
+                </PrimaryButton>
+              )}
             </Form>
           );
         }}
