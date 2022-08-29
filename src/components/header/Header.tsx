@@ -7,9 +7,9 @@ import PrimaryButton from '../primary-button/PrimaryButton';
 import styles from './Header.module.css';
 
 /**
- * TODO: 
+ * TODO:
  * Выпадающее меню на ссылку игры
- * Бургер меню 
+ * Бургер меню
  */
 
 type HeaderProps = {
@@ -65,9 +65,11 @@ export default function Header({ list, isAuth = false }: HeaderProps) {
           {isAuth ? (
             <img className={styles.header__avatar} src="" alt="avatar" />
           ) : (
-            <PrimaryButton color="blue" size="s">
-              Войти
-            </PrimaryButton>
+            <Link to="/login">
+              <PrimaryButton color="blue" size="s">
+                Войти
+              </PrimaryButton>
+            </Link>
           )}
         </div>
       </div>

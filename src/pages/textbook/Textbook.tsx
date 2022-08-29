@@ -70,7 +70,6 @@ export default function Textbook() {
 
   return (
     <div>
-      <Header list="menu__listMainPage" isAuth={isAuth} />
       {/* Навигация! */}
       {availableGroups.map((item) => {
         return (
@@ -102,16 +101,13 @@ export default function Textbook() {
       ) : (
         ''
       )}
-
       {/* ============ */}
-
       {/* Маркер который активен если все слова на странице изучены! Стилизовать по усмотрению*/}
       {allWordsLearned.length === 0 && group !== 6 ? (
         <div>Все слова на этой странице изучены!</div>
       ) : (
         ''
       )}
-
       {/* Блок со словами */}
       {loading ? (
         <div>
@@ -131,7 +127,6 @@ export default function Textbook() {
           }}
         />
       )}
-
       {/* pagination */}
       {group === 6 || loading ? (
         ''
@@ -146,7 +141,6 @@ export default function Textbook() {
         />
       )}
       {/* ... */}
-
       <Footer />
     </div>
   );
