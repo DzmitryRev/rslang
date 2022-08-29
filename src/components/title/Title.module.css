@@ -1,0 +1,36 @@
+﻿.titles {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 2.5vw;
+  line-height: 3vw;
+  text-align: center;
+  color: #3D3860;
+}
+.left{
+  text-align:left; 
+}
+.center{
+  text-align:center;
+}
+.start{
+  text-align:start;
+}
+
+
+.info {
+  width: 48.6vw;
+}
+
+.dictionary{
+  width: 25.7vw;
+}
+.video {
+  width: 59.03vw;
+}
+.team{
+  text-align: start;
+}
+.user {
+  width: 60.94vw;
+}
