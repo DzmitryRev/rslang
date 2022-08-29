@@ -108,9 +108,9 @@
   object-fit:contain;
 }
 
-.authorized button{
+/* .authorized button{
   display: none;
-}
+} */
 
 .unAuthorized .header__avatar{
   display: none;

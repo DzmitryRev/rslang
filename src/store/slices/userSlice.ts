@@ -1,26 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+
+import { IUserWord } from '../../api/api.types';
+
+// import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
-  username: string;
+  isAuth: boolean;
+  token: string;
+  userId: string;
+  userWords: IUserWord[];
 }
 
 const initialState: UserState = {
-  username: "",
+  isAuth: false,
+  userWords: [],
+  token: '',
+  userId: '',
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<string>) => {
-      state.username = action.payload;
-    },
+    // setUser: (state, action: PayloadAction<string>) => {
+    //   state.username = action.payload;
+    // },
   },
 });
 
-export const { setUser } = userSlice.actions;
-
-
-export default userSlice.reducer
-
+export default userSlice.reducer;

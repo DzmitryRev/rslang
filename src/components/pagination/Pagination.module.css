@@ -1,0 +1,30 @@
+/* parent */
+.pagination {
+    background-color: aquamarine;
+}
+
+/* контейнер*/
+.paginationWrapper {
+    background-color: blueviolet;
+    display: flex;
+}
+
+/* Стиль для кнопки пагинации */
+.pageItem {
+    background-color: rgb(255, 168, 168);
+}
+
+/* стиль для стрелок */
+.sides {
+    background-color: blue;
+}
+
+/* стиль кнопки активной страницы */
+.active {
+    background-color: brown;
+}
+
+/* стиль разделителя (...) */
+.separator {
+    background-color: aqua;
+}
