@@ -1,22 +1,28 @@
-﻿import {Link} from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 
-import logoSvg from '../../assets/img/logo.svg';
+// import logoSvg from '../../assets/img/logo.svg';
 
 import PrimaryButton from '../primary-button/PrimaryButton';
 
 import styles from './Header.module.css';
 
+/**
+ * TODO: 
+ * Выпадающее меню на ссылку игры
+ * Бургер меню 
+ */
+
 type HeaderProps = {
   list: 'menu__listMainPage' | 'menu__listSecondPage';
-  authorized: 'authorized' | 'unAuthorized';
+  isAuth: boolean;
 };
 
-export default function Header({list, authorized}:HeaderProps) {
+export default function Header({ list, isAuth = false }: HeaderProps) {
   return (
     <header className={`${styles.header} ${styles.container}`}>
       <div className={styles.header__menu}>
         <div className={styles.header__logo}>
-          <img className={styles.header__logoImg} src={logoSvg} alt="logo"/>
+          {/* <img className={styles.header__logoImg} src={logoSvg} alt="logo"/> */}
           <h3 className={`${styles.header__logoTitle} ${styles.subtitle}`}>RSLang</h3>
         </div>
         <nav className={styles.menu}>
@@ -37,14 +43,14 @@ export default function Header({list, authorized}:HeaderProps) {
                 <li>
                   <Link className={styles.menu__link} to="/games/audiocall">
                     Аудиовызов
-                  </Link> 
+                  </Link>
                 </li>
                 <li>
                   <Link className={styles.menu__link} to="/games/sprint">
                     Спринт
                   </Link>
                 </li>
-              </ul>             
+              </ul>
             </li>
             <li className={styles.menu__item}>
               <Link className={styles.menu__link} to="/statistic">
@@ -53,13 +59,18 @@ export default function Header({list, authorized}:HeaderProps) {
             </li>
           </ul>
         </nav>
-        <div className={`${styles[authorized]}`}>
-          <PrimaryButton color="blue" size="s">Войти</PrimaryButton>
-          <img className={styles.header__avatar} src="" alt="avatar" />
+
+        {/* Исправить */}
+        <div className={`${styles.authorized}`}>
+          {isAuth ? (
+            <img className={styles.header__avatar} src="" alt="avatar" />
+          ) : (
+            <PrimaryButton color="blue" size="s">
+              Войти
+            </PrimaryButton>
+          )}
         </div>
       </div>
-    </header>);
-
+    </header>
+  );
 }
-
-

@@ -3,21 +3,27 @@ import styles from './PrimaryButton.module.css';
 type ButtonProps = {
   color: 'orange' | 'blue' | 'orange-gradient' | 'blue-gradient';
   size: 's' | 'm' | 'l' | 'xl';
+  disabled?: boolean;
   callback?: () => void;
   children: React.ReactNode;
 };
 
-export default function PrimaryButton({ color, size, callback, children }: ButtonProps) {
+export default function PrimaryButton({
+  color,
+  size,
+  disabled = false,
+  callback = () => {},
+  children,
+}: ButtonProps) {
   return (
     <button
-      className={`${styles.button} ${styles[color]} ${styles[size]}`}
-      onClick={
-        callback
-          ? () => {
-            callback();
-          }
-          : () => {}
-      }
+      className={`${styles.button} ${styles[color]} ${styles[size]} ${
+        disabled ? styles.disabled : ''
+      }`}
+      disabled={disabled}
+      onClick={() => {
+        callback();
+      }}
     >
       {children}
     </button>

@@ -1,4 +1,5 @@
 .button {
+    position: relative;
     color: #fff;
     text-transform: uppercase;
     border-radius: 134px;
@@ -9,27 +10,27 @@
 /* color */
 
 .blue {
-    background-color: var(--main-headers-color);
+    background-color: #3D3860;
 }
 
 .blue:active {
-    color: var(--button-active-text-color)
+    color: #E8DBD4
 }
 
 .orange {
-    background-color: var(--button-bg-color);
+    background-color: #FD6657;
 }
 
 .orange:hover {
-    background-color: var(--button-hover-bg-color);
+    background-color: #F8914F;
 }
 
 .orange:active {
-    color: var(--button-active-text-color);
+    color: #E8DBD4;
 }
 
 .orange-gradient {
-    background: var(--false-button-bg-color);
+    background: linear-gradient(98.14deg, #FB7C98 10.76%, #FEC24A 93.28%);
 }
 
 .orange-gradient:hover {
@@ -37,7 +38,7 @@
 }
 
 .blue-gradient {
-    background: var(--true-button-bg-color);
+    background: linear-gradient(98.17deg, #6466D9 5.96%, #7CFBD5 92.27%);
 }
 
 .blue-gradient:hover {
@@ -72,4 +73,25 @@
     line-height: 30px;
     padding: 24px 0;
     width: 240px;
+}
+
+.disabled {
+    color: #D1CEE4;
+    opacity: 0.4;
+}
+
+.disabled:hover {
+    box-shadow: none;
+}
+
+.disabled::after {
+    position: absolute;
+    display: block;
+    content: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: black;
 }

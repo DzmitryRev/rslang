@@ -12,7 +12,7 @@ export default function PetalButton({
   shadowColor,
   size,
   active = false,
-  callback,
+  callback = () => {},
   children,
 }: PetalButtonProps) {
   return (
@@ -20,13 +20,7 @@ export default function PetalButton({
       className={`${styles.button} ${styles[shadowColor]} ${styles[size]} ${
         active ? styles.active : ''
       }`}
-      onClick={
-        callback
-          ? () => {
-            callback();
-          }
-          : () => {}
-      }
+      onClick={active ? () => {} : callback}
     >
       {children}
     </button>
