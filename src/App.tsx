@@ -1,16 +1,18 @@
 // import { Routes, Route } from 'react-router-dom';
 
+import MainPage from './components/mainPage/MainPage';
 import PetalButton from './components/petal-button/PetalButton';
 
 function App() {
   return (
     <div className="App">
-      <PetalButton shadowColor="blue" size="s" active={true}>A1</PetalButton>
+      <MainPage></MainPage>
+      {/* <PetalButton shadowColor="blue" size="s" active={true}>A1</PetalButton>
       <PetalButton shadowColor="light-purple" size="m">Привет</PetalButton>
       <PetalButton shadowColor="purple" size="s">C2</PetalButton>
       <PetalButton shadowColor="pink" size="m">Привет</PetalButton>
       <PetalButton shadowColor="red" size="s">B1</PetalButton>
-      <PetalButton shadowColor="yellow" size="m">Привет</PetalButton>
+      <PetalButton shadowColor="yellow" size="m">Привет</PetalButton> */}
       {/* <Routes>
         <Route path="/" element={<Comp>main</Comp>} />
         <Route path="/signin" element={<Comp>sign in</Comp>} />
