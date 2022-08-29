@@ -87,12 +87,6 @@ const textbookSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      //   .addCase(getUnauthWords.pending, (state) => {
-      //     state.loading = true;
-      //   })
-      //   .addCase(getAuthWords.pending, (state) => {
-      //     state.loading = true;
-      //   })
       .addCase(getUnauthWords.fulfilled, (state, action) => {
         state.words = action.payload;
         state.loading = false;

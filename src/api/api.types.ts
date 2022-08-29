@@ -1,5 +1,3 @@
-import { AxiosRequestConfig } from 'axios';
-
 export type UserType = {
   name: string;
   email: string;
@@ -37,4 +35,18 @@ export type IUserWordBody = Omit<Omit<IUserWord, 'id'>, 'wordId'>;
 export interface IAggregatedWord {
   paginatedResults: IWord[];
   totalCount: { count: number }[];
+}
+
+export interface ILoginResponse {
+  message: string;
+  name: string;
+  refreshToken: string;
+  userId: string;
+  token: string;
+}
+
+export interface IRegistrationResponse {
+  email: string;
+  id: string;
+  name: string;
 }
