@@ -1,4 +1,9 @@
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { API } from '../../api/api';
+
+import { IWord } from '../../api/api.types';
 
 type SprintLocationState = {
   group: number;
@@ -11,6 +16,23 @@ type SprintProps = {
 
 export default function Sprint({ isAuth }: SprintProps) {
   const location = useLocation();
-  const { group, page } = location.state as SprintLocationState;
-  return <div>Sprint</div>;
+  const state = location.state as SprintLocationState;
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!state) {
+      navigate('/');
+    }
+  }, [navigate, state]);
+  //   const [words, setWords] = useState<IWord[]>([]);
+  //   const [page, setPage] = useState<number>(state.page);
+
+  //   console.log(state);
+  //   useEffect(() => {
+  //     if (isAuth) {
+  //     } else {
+  //     }
+  //   }, [page]);
+  return <div>
+    <h1>{state?.page}</h1>
+  </div>;
 }
