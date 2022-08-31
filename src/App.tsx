@@ -12,19 +12,25 @@ import Sprint from './pages/sprint/Sprint';
 import GamesPreload from './pages/games-preload/GamesPreload';
 
 function App() {
-  const { isAuth } = useAppSelector((store) => store.user);
+  const { isAuth, userId, token } = useAppSelector((store) => store.user);
 
   return (
     <div className="App">
-      <Link to={'/game'} state={{ game: 'audiocall'}}>Audiocall</Link>
-      <Link to={'/game'} state={{ game: 'sprint' }}>Sprint</Link>
+      <div className="bg"></div>
+
+      <Link to={'/game'} state={{ game: 'audiocall' }}>
+        Audiocall
+      </Link>
+      <Link to={'/game'} state={{ game: 'sprint' }}>
+        Sprint
+      </Link>
       <Header list="menu__listMainPage" isAuth={isAuth} />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/textbook" element={<Textbook />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/sprint" element={<Sprint isAuth={isAuth} />} />
+        <Route path="/sprint" element={<Sprint isAuth={isAuth} userId={userId} token={token} />} />
         <Route path="/game" element={<GamesPreload />} />
       </Routes>
     </div>

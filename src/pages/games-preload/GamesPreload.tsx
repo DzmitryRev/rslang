@@ -23,7 +23,7 @@ export default function GamesPreload() {
 
   return (
     <div>
-      {/* <h2>{state.game}</h2> */}
+      <h2>{state.game}</h2>
       {availableGroups.map((item) => {
         return (
           <Link
