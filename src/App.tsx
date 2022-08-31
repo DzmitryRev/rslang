@@ -16,7 +16,8 @@ function App() {
 
   return (
     <div className="App">
-      <Link to={'/sprint'} state={{ preload: true }}>Sprint</Link>
+      <Link to={'/game'} state={{ game: 'audiocall'}}>Audiocall</Link>
+      <Link to={'/game'} state={{ game: 'sprint' }}>Sprint</Link>
       <Header list="menu__listMainPage" isAuth={isAuth} />
       <Routes>
         <Route path="/" element={<MainPage />} />
