@@ -18,7 +18,7 @@ import styles from './MainPage.module.css';
 
 export default function MainPage(){
   return(<>
-    <Header list="menu__listMainPage" authorized="authorized" ></Header>
+    {/* <Header list="menu__listMainPage" authorized="authorized" ></Header> */}
 
     <main className={`${styles.main} ${styles.container}`}>
 

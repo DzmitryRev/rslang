@@ -8,6 +8,7 @@ import Registration from './pages/registration/Registration';
 
 import MainPage from './components/mainPage/MainPage';
 import Textbook from './pages/textbook/Textbook';
+import Sprint from './pages/sprint/Sprint';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/textbook" element={<Textbook />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/sprint" element={<Sprint />} />
       </Routes>
     </div>
   );
