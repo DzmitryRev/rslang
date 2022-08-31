@@ -24,7 +24,7 @@ function App() {
         <Route path="/textbook" element={<Textbook />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/sprint" element={<Sprint />} />
+        <Route path="/sprint" element={<Sprint isAuth={isAuth} />} />
         <Route path="/game" element={<GamesPreload />} />
       </Routes>
     </div>
