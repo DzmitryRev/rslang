@@ -9,17 +9,17 @@ type GamesPreloadLocationState = {
 
 export default function GamesPreload() {
   const location = useLocation();
-  const state = location.state as GamesPreloadLocationState;
+  const {game} = location.state as GamesPreloadLocationState;
 
   // TODO: make abstract
   const availableGroups = Object.values(Groups).filter((item) => !isNaN(+item)) as number[];
 
   return (
     <div>
-      <h2>{state.game}</h2>
+      <h2>{game}</h2>
       {availableGroups.map((item) => {
         return (
-          <Link to={`/${state.game}`} key={item}>
+          <Link to={`/${game}`} key={item}>
             <PetalButton shadowColor="blue" size="s">
               {Groups[item]}
             </PetalButton>

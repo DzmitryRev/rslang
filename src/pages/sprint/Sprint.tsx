@@ -1,11 +1,12 @@
 import { useLocation } from 'react-router-dom';
 
-type SprintProps = {
-  // location?: any
+type SprintLocationState = {
+  group: number;
+  page: number;
 };
 
-export default function Sprint({}: SprintProps) {
-//   const location = useLocation();
-//   console.log(location.state);
+export default function Sprint() {
+  const location = useLocation();
+  const { group, page } = location.state as SprintLocationState;
   return <div>Sprint</div>;
 }
