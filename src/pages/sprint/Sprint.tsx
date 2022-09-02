@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { API } from '../../api/api';
 
 import { IWord } from '../../api/api.types';
+import PrimaryButton from '../../components/primary-button/PrimaryButton';
 
 type SprintLocationState = {
   group: number;
@@ -31,6 +32,9 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
   const [translate, setTranslate] = useState<string>('');
   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
+
+  console.log(words);
+  console.log(word);
 
   useEffect(() => {
     setTranslate(Math.random() >= 0.5 ? words[5]?.wordTranslate || '' : word?.wordTranslate || '');
@@ -72,7 +76,6 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
     <div>
       {gameStarted ? (
         <>
-          {' '}
           <h1>{page}</h1>
           <h3>{seconds}</h3>
           <div>{word?.word}</div>
@@ -105,15 +108,21 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
           </button>
         </>
       ) : (
-        <button
-          onClick={() => {
-            setWords(words.slice(1));
-            setWord(words[0]);
-            setGameStarted(true);
-          }}
-        >
-          Start game
-        </button>
+        // Блок до начала игры
+        // Стилизуется как угодно, главное чтобы была кнопка с таким коллбэком как ниже
+        <div>
+          <PrimaryButton
+            color="orange"
+            size="l"
+            callback={() => {
+              setWords(words.slice(1));
+              setWord(words[0]);
+              setGameStarted(true);
+            }}
+          >
+            Начать игру
+          </PrimaryButton>
+        </div>
       )}
     </div>
   );

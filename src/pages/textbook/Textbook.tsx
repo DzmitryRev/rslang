@@ -18,6 +18,7 @@ import {
   setLoading,
   setPage,
 } from '../../store/slices/textbookSlice';
+import { availableGroups } from '../../utils/availableGroups';
 
 /**
  * TODO:
@@ -62,8 +63,6 @@ export default function Textbook() {
       dispach(getAuthWords({ userId, token, page, group }));
     });
   };
-
-  const availableGroups = Object.values(Groups).filter((item) => !isNaN(+item)) as number[];
 
   const allWordsLearned = words.filter((word) => !word.userWord);
 
