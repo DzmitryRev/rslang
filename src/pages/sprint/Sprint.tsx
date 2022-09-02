@@ -5,6 +5,7 @@ import { API } from '../../api/api';
 
 import { IWord } from '../../api/api.types';
 import PrimaryButton from '../../components/primary-button/PrimaryButton';
+import { randomNumber } from '../../utils/randomNumber';
 
 type SprintLocationState = {
   group: number;
@@ -37,7 +38,11 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
   console.log(word);
 
   useEffect(() => {
-    setTranslate(Math.random() >= 0.5 ? words[5]?.wordTranslate || '' : word?.wordTranslate || '');
+    setTranslate(
+      randomNumber(0, 1) >= 0.5
+        ? words[randomNumber(0, words.length - 1)]?.wordTranslate || ''
+        : word?.wordTranslate || '',
+    );
   }, [word]);
   useEffect(() => {
     if (isAuth) {
@@ -80,6 +85,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
           <h3>{seconds}</h3>
           <div>{word?.word}</div>
           <div>{translate}</div>
+          
           <button
             onClick={() => {
               setWords(words.slice(1));
