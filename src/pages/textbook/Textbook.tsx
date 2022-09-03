@@ -59,7 +59,7 @@ export default function Textbook() {
     });
   };
   const updateUserWord = (wordId: string, body: IUserWordBody) => {
-    API.updateToUserWord(userId, wordId, body, token).then(() => {
+    API.updateUserWord(userId, wordId, body, token).then(() => {
       dispach(getAuthWords({ userId, token, page, group }));
     });
   };

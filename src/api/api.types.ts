@@ -26,7 +26,11 @@ export interface IWord {
 export interface IUserWord {
   difficulty: 'default' | 'hard' | 'learned';
   id: string;
-  optional: {};
+  optional: {
+    correct: number;
+    misses: number;
+    withoutMistakes: number;
+  };
   wordId: string;
 }
 
