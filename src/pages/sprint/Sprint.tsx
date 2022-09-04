@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+
 import { API } from '../../api/api';
 
 import { IWord } from '../../api/api.types';
 import PrimaryButton from '../../components/primary-button/PrimaryButton';
 import { randomNumber } from '../../utils/randomNumber';
+
+import styles from './Sprint.module.css';
+
 
 type SprintLocationState = {
   group: number;
@@ -35,6 +39,11 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [usedWords, setUsedWords] = useState<number>(0);
   const [learnedWords, setLearnedWords] = useState<IWord[]>([]);
+  const [misses, setMisses] = useState<IWord[]>([]);
+  const [correct, setCorrect] = useState<IWord[]>([]);
+  const [contract, setContract] = useState<number>(0);
+  const [multiplier, setMultiplier] = useState<number>(1);
+  const [score, setScore] = useState<number>(0);
   const [seconds, setSeconds] = useState(30);
 
   useEffect(() => {
@@ -110,14 +119,40 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
         <div>
           <h3>Игра закончена</h3>
           <h4>Слов: {usedWords}</h4>
-          {isAuth ? <h4>Изучено слов:</h4> : <h4>Попаданий:</h4>}
-          {learnedWords.map((item) => {
-            return (
-              <h4>
-                {item.word} === {item.wordTranslate}
-              </h4>
-            );
-          })}
+          <div>
+            Правильно ({correct.length}):
+            {correct.map((item) => {
+              return (
+                <h4>
+                  {item.word} === {item.wordTranslate}
+                </h4>
+              );
+            })}
+          </div>
+
+          <div>
+            Неправильно ({misses.length}):
+            {misses.map((item) => {
+              return (
+                <h4>
+                  {item.word} === {item.wordTranslate}
+                </h4>
+              );
+            })}
+          </div>
+
+          {isAuth && (
+            <h4>
+              Изучено слов:
+              {learnedWords.map((item) => {
+                return (
+                  <h4>
+                    {item.word} === {item.wordTranslate}
+                  </h4>
+                );
+              })}
+            </h4>
+          )}
         </div>
       ) : gameStarted ? (
         <div>
@@ -127,6 +162,15 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
           <h1>{word?.word}</h1>
           {/* Слово на русском (тег тоже нужно изменить на нужный) */}
           <h2>{translate}</h2>
+          <h2>{score}</h2>
+          <h2>{contract}</h2>
+          <div>
+            <div className={`${styles.marker} ${contract > 0 && styles.active}`}></div>
+            <div className={`${styles.marker} ${contract > 1 && styles.active}`}></div>
+            <div className={`${styles.marker} ${contract > 2 && styles.active}`}></div>
+            <div className={`${styles.marker} ${contract > 3 && styles.active}`}></div>
+          </div>
+          <h2>X{multiplier}</h2>
           {/* Кнопки, нужно добавить стрелки внутрь */}
           {/* Кнопка верно */}
           <PrimaryButton
@@ -140,6 +184,14 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
               setWord(words[0]);
               setUsedWords(usedWords + 1);
               if (word.wordTranslate === translate) {
+                setCorrect([...learnedWords, word]);
+                setScore(score + 10 * multiplier);
+                if (contract === 4) {
+                  setContract(0);
+                  setMultiplier(multiplier + 1);
+                } else {
+                  setContract(contract + 1);
+                }
                 if (isAuth) {
                   if (word.userWord) {
                     if (word.userWord.difficulty === 'default') {
@@ -208,6 +260,9 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
                   setLearnedWords([...learnedWords, word]);
                 }
               } else {
+                setMisses([...learnedWords, word]);
+                setContract(0);
+                setMultiplier(1);
                 if (isAuth) {
                   if (word.userWord) {
                     if (word.userWord.difficulty === 'learned') {
@@ -260,6 +315,14 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
               setWord(words[0]);
               setUsedWords(usedWords + 1);
               if (word.wordTranslate !== translate) {
+                setCorrect([...learnedWords, word]);
+                setScore(score + 10 * multiplier);
+                if (contract === 4) {
+                  setContract(0);
+                  setMultiplier(multiplier + 1);
+                } else {
+                  setContract(contract + 1);
+                }
                 if (isAuth) {
                   if (word.userWord) {
                     if (word.userWord.difficulty === 'default') {
@@ -328,6 +391,9 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
                   setLearnedWords([...learnedWords, word]);
                 }
               } else {
+                setMisses([...learnedWords, word]);
+                setContract(0);
+                setMultiplier(1);
                 if (isAuth) {
                   if (word.userWord) {
                     if (word.userWord.difficulty === 'learned') {
