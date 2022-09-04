@@ -1,0 +1,378 @@
+.center {
+  margin: 50px auto;
+}
+
+.container__login {
+  width: 82.36vw;
+  height: 42.92vw;
+  align-items: center;
+  display: flex;
+  border-radius: 3.5vw;
+  justify-content: center;
+  background: linear-gradient(
+      0deg,
+      rgba(61, 56, 96, 0.15),
+      rgba(61, 56, 96, 0.15)
+    ),
+    linear-gradient(
+      159.19deg,
+      rgba(255, 255, 255, 0.4) 12.33%,
+      rgba(255, 255, 255, 0.1) 90.67%
+    );
+  box-shadow: 0px 0.28vw 1.94vw -0.07vw rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(2.78vw);
+}
+
+.type__input {
+  width: 27.1vw;
+  height: 3.1vw;
+  padding-left: 1.04vw;
+  background: #ffffff;
+  border: 0.07vw solid transparent;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.25vw;
+  line-height: 180.9%;
+  outline: transparent;
+  transition: all 0.3s ease;
+}
+
+.type__input:hover,
+.type__input:focus {
+  background: #e2e1e7;
+  color: #848196;
+  transition: all 0.3s ease;
+  border: 0.07vw solid transparent;
+  border-color: #fd6657;
+}
+
+.title__input {
+  font-size: 24px;
+  line-height: 28px;
+  margin-bottom: 0.4vw;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 700;
+  color: #3d3860;
+}
+
+.error__input {
+  padding-top: 0.5vw;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #fd6657;
+}
+
+.registration__links {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  color: #3d3860;
+}
+
+.registration__btn {
+  padding-top: 1.04vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user__imgs {
+  width: 29.376vw;
+  height: 29.376vw;
+  margin-left: 6.95vw;
+}
+
+.user__img {
+  width: 29.376vw;
+  height: 29.376vw;
+}
+
+.mechanismSvg {
+  width: 8.33vw;
+  height: 8.33vw;
+  padding-left: 15.28vw;
+  margin: -27.78vw 0 0 5.5vw;
+}
+
+.mechanism {
+  animation-name: rotation;
+  animation-duration: 40s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  z-index: 1;
+}
+
+.mechanism__max {
+  width: 8.33vw;
+  height: 8.33vw;
+}
+
+.mechanism__min {
+  width: 5.56vw;
+  height: 5.56vw;
+  margin: -3.47vw 0 0 4.17vw;
+  animation-name: no-rotation;
+}
+
+@keyframes no-rotation {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 1441px) {
+  .center {
+    margin: 50px auto;
+  }
+
+  .container__login {
+    width: 1185px;
+    height: 618px;
+    border-radius: 50px;
+  }
+
+  .type__input {
+    width: 390px;
+    height: 45px;
+    padding-left: 15px;
+    border: 1px solid transparent;
+    font-size: 18px;
+  }
+
+  .type__input:hover,
+  .type__input:focus {
+    border: 1px solid transparent;
+    background: #e2e1e7;
+    color: #848196;
+    transition: all 0.3s ease;
+    border: 0.07vw solid transparent;
+    border-color: #fd6657;
+  }
+
+  .title__input {
+    margin-bottom: 6px;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .error__input {
+    padding-top: 7px;
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .registration__link {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .registration__btn {
+    padding-top: 1.04vw;
+  }
+
+  .user__imgs {
+    width: 420px;
+    height: 420px;
+    margin-left: 100px;
+  }
+
+  .user__img {
+    width: 420px;
+    height: 420px;
+  }
+
+  .mechanismSvg {
+    width: 120px;
+    height: 120px;
+    padding-left: 220px;
+    margin: -400px 0 0 80px;
+  }
+
+  .mechanism__max {
+    width: 120px;
+    height: 120px;
+  }
+
+  .mechanism__min {
+    width: 80px;
+    height: 80px;
+    margin: -54px 0 0 60px;
+  }
+}
+
+@media (max-width: 1220px) {
+  .container__login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .user__imgs {
+    width: 360px;
+    height: 360px;
+    margin-left: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .user__img {
+    width: 360px;
+    height: 360px;
+  }
+
+  .mechanismSvg {
+    width: 139px;
+    height: 139px;
+    padding-left: 150px;
+    margin: -350px 0 0 80px;
+  }
+
+  .mechanism {
+    animation-name: rotation;
+    animation-duration: 40s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    z-index: 1;
+  }
+
+  .mechanism__max {
+    width: 110px;
+    height: 110px;
+  }
+
+  .mechanism__min {
+    width: 80px;
+    height: 80px;
+    margin: -50px 0 0 60px;
+    animation-name: no-rotation;
+  }
+
+  .type__input {
+    width: 330px;
+    height: 38px;
+    padding-left: 13px;
+    border: 1px solid transparent;
+    font-size: 14px;
+  }
+
+  .container__login {
+    width: 530px;
+    height: auto;
+    border-radius: 50px;
+  }
+
+  .registration__link {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 769px) {
+  .container__login {
+    width: 430px;
+  }
+
+  .title__input {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  .type__input {
+    width: 300px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .registration__btn {
+    height: 80px;
+    padding-top: 10px;
+  }
+
+  .registration__link {
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container__login {
+    width: 290px;
+    height: auto;
+    border-radius: 50px;
+  }
+
+  .title__input {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .type__input {
+    width: 230px;
+    height: 25px;
+    font-size: 12px;
+  }
+
+  .registration__btn {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .user__imgs {
+    width: 240px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .user__img {
+    width: 240px;
+    height: auto;
+  }
+
+  .mechanismSvg {
+    width: 139px;
+    height: 239px;
+    padding-left: 85px;
+    margin: -225px 0 0 80px;
+  }
+
+  .mechanism {
+    animation-name: rotation;
+    animation-duration: 40s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    z-index: 1;
+  }
+
+  .mechanism__max {
+    width: 70px;
+    height: auto;
+  }
+
+  .mechanism__min {
+    width: 40px;
+    height: auto;
+    margin: -27px 0 0 37px;
+    animation-name: no-rotation;
+  }
+}
