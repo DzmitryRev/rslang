@@ -77,13 +77,20 @@ export default function WordCard({
         {isAuth ? (
           <div className={styles.controller}>
             <div className={styles.statistic}>
-              <span className={styles.misses}>
-                Ошибок: <span>5</span>
-              </span>
-              <span className={styles.hits}>
-                Попаданий: <span>1</span>
-              </span>
+              {word.userWord?.optional.misses === 0 && word.userWord?.optional.correct === 0 ? (
+                <></>
+              ) : (
+                <>
+                  <span className={styles.misses}>
+                    Ошибок: <span>{word.userWord?.optional.misses}</span>
+                  </span>
+                  <span className={styles.hits}>
+                    Попаданий: <span>{word.userWord?.optional.correct}</span>
+                  </span>
+                </>
+              )}
             </div>
+
             <div className={styles.buttonsContainer}>
               {isDifficultPage ? (
                 <PrimaryButton

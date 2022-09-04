@@ -18,6 +18,7 @@ import {
   setLoading,
   setPage,
 } from '../../store/slices/textbookSlice';
+import { availableGroups } from '../../utils/availableGroups';
 
 /**
  * TODO:
@@ -58,12 +59,10 @@ export default function Textbook() {
     });
   };
   const updateUserWord = (wordId: string, body: IUserWordBody) => {
-    API.updateToUserWord(userId, wordId, body, token).then(() => {
+    API.updateUserWord(userId, wordId, body, token).then(() => {
       dispach(getAuthWords({ userId, token, page, group }));
     });
   };
-
-  const availableGroups = Object.values(Groups).filter((item) => !isNaN(+item)) as number[];
 
   const allWordsLearned = words.filter((word) => !word.userWord);
 
