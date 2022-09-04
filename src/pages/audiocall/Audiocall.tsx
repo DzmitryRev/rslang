@@ -7,7 +7,7 @@ import { IWord } from '../../api/api.types';
 import PrimaryButton from '../../components/primary-button/PrimaryButton';
 import { randomNumber } from '../../utils/randomNumber';
 
-import styles from './Sprint.module.css';
+import styles from './Audiocall.module.css';
 
 type AudiocallLocationState = {
   group: number;
@@ -38,12 +38,15 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
   const [misses, setMisses] = useState<IWord[]>([]);
   const [correct, setCorrect] = useState<IWord[]>([]);
   const [answer, setAnswer] = useState<boolean>(false);
+  const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
+    const wordsWithoutCorrect = words.filter((item) => item.wordTranslate !== word?.wordTranslate);
     setTranslates([
-      words[randomNumber(0, words.length - 1)]?.wordTranslate || '',
-      words[randomNumber(0, words.length - 1)]?.wordTranslate || '',
-      words[randomNumber(0, words.length - 1)]?.wordTranslate || '',
+      // randomNumber(0, words.length - 1)
+      wordsWithoutCorrect[1]?.wordTranslate || '',
+      wordsWithoutCorrect[2]?.wordTranslate || '',
+      wordsWithoutCorrect[3]?.wordTranslate || '',
       word?.wordTranslate || '',
     ]);
   }, [word]);
@@ -55,13 +58,10 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
         token,
         `{"page": ${state.page - 1}, "group": ${state?.group}}`,
       ).then((res) => {
-        // Берет со страницы 10 случайных слов
         setWords(res.data[0].paginatedResults.sort(() => Math.random() - 0.5));
-        // Устанавливаем первое слово
       });
     } else {
       API.getWords(state.page - 1, state?.group).then((res) => {
-        // Та же логика
         setWords([...words, ...res.data]);
       });
     }
@@ -69,8 +69,14 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
 
   useEffect(() => {
     setWord(words[0] || null);
-    
   }, [words]);
+
+  useEffect(() => {
+    if (word) {
+      const audio = new Audio(`https://react-learnwords-rsl.herokuapp.com/${word.audio}`);
+      audio.play();
+    }
+  }, [word]);
 
   useEffect(() => {
     if (usedWords === 10) {
@@ -111,7 +117,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
             Правильно ({correct.length}):
             {correct.map((item) => {
               return (
-                <h4>
+                <h4 key={item._id}>
                   {item.word} === {item.wordTranslate}
                 </h4>
               );
@@ -122,7 +128,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
             Неправильно ({misses.length}):
             {misses.map((item) => {
               return (
-                <h4>
+                <h4 key={item._id}>
                   {item.word} === {item.wordTranslate}
                 </h4>
               );
@@ -134,7 +140,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
               Изучено слов:
               {learnedWords.map((item) => {
                 return (
-                  <h4>
+                  <h4 key={item._id}>
                     {item.word} === {item.wordTranslate}
                   </h4>
                 );
@@ -154,16 +160,19 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
           {/* Варианты */}
           {translates
             .sort(() => Math.random() - 0.5)
-            .map((item) => {
+            .map((item, index) => {
               return (
                 <div
+                  key={index}
+                  className={`${styles.field} ${
+                    answer && selected === item && item !== word?.wordTranslate ? styles.miss : ''
+                  } ${answer && item === word?.wordTranslate ? styles.correct : ''}`}
                   onClick={() => {
-                    if (!word) {
+                    if (!word || answer) {
                       return;
                     }
-                    // setWords([...words.slice(1)]);
-                    // setWord(words[0]);
                     setUsedWords(usedWords + 1);
+                    setSelected(item);
                     if (word.wordTranslate === item) {
                       setCorrect([...correct, word]);
                       if (isAuth) {
@@ -287,6 +296,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
                 setWords([...words.slice(1)]);
                 setWord(words[0]);
                 setAnswer(false);
+                setSelected(null);
               }}
             >
               Дальше
@@ -302,6 +312,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
                 setUsedWords(usedWords + 1);
                 setMisses([...misses, word]);
                 setAnswer(true);
+                setSelected(null);
               }}
             >
               Не знаю
