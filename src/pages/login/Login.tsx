@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -17,11 +17,22 @@ import styles from './Login.module.css';
 
 export default function Login() {
   const dispach = useAppDispatch();
-  const { isAuth, isLoading, error } = useAppSelector((store) => store.user);
+  const { isAuth, isLoading } = useAppSelector((store) => store.user);
   const navigate = useNavigate();
 
-  const handleSubmit = (values: { email: string; password: string }) => {
-    dispach(login(values));
+  const handleSubmit = (
+    values: { email: string; password: string },
+    actions: FormikHelpers<{ email: string; password: string }>,
+  ) => {
+    dispach(login(values))
+      .unwrap()
+      .catch((e) => {
+        actions.setFieldError('email', 'Неверное имя пользователя или пароль');
+        actions.setFieldError(
+          'password',
+          'Неверное имя пользователя или пароль',
+        );
+      });
   };
 
   const loginSchema = Yup.object().shape({
@@ -42,7 +53,6 @@ export default function Login() {
 
   return (
     <div className={`${styles.container__login} ${styles.center}`}>
-      {error ? <h1>Error</h1> : ''}
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={loginSchema}

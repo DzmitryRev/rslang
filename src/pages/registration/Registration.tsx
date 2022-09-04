@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -17,18 +17,27 @@ import styles from '../login/./Login.module.css';
 
 export default function Registration() {
   const dispach = useAppDispatch();
-  const { isAuth, isLoading, error } = useAppSelector((store) => store.user);
+  const { isAuth, isLoading } = useAppSelector((store) => store.user);
   const navigate = useNavigate();
 
-  const handleSubmit = (values: {
-    name: string;
-    email: string;
-    password: string;
-  }) => {
+  const handleSubmit = (
+    values: {
+      name: string;
+      email: string;
+      password: string;
+    },
+    actions: FormikHelpers<{ name: string; email: string; password: string }>,
+  ) => {
     dispach(registration(values))
       .unwrap()
       .then((res) => {
         navigate('/login');
+      })
+      .catch((e) => {
+        actions.setFieldError(
+          'email',
+          'Пользователь с таким email уже существует',
+        );
       });
   };
 
@@ -53,7 +62,6 @@ export default function Registration() {
   }, [isAuth, navigate]);
   return (
     <div className={`${styles.container__login} ${styles.center}`}>
-      {error ? <h1>Error</h1> : ''}
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         validationSchema={registrationSchema}
