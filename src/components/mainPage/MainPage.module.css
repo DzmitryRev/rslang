@@ -1272,3 +1272,8 @@ align-self: start;
     left:0%;
   }
 }
+
+
+.show{
+  display:block;
+}

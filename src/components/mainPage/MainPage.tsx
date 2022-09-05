@@ -1,4 +1,5 @@
 ﻿import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import playHed from '../../assets/img/play-hed.svg';
 import rotate from '../../assets/img/rotate.svg';
@@ -47,6 +48,9 @@ import Title from '../title/Title';
 import styles from './MainPage.module.css';
 
 const MainPage = () => {
+
+  const [isOpen, setIsOpen] = useState('dima');
+
   return (
     <>
       <main className={`${styles.main} ${styles.container}`}>
@@ -96,18 +100,18 @@ const MainPage = () => {
             <img className={styles.star1} src={star1} alt="star1"/> 
             <img className={styles.ellipsePink} src={ellipsePink} alt="ellipsePink"/> 
             <img className={styles.ellipsePurpule} src={ellipsePurpule} alt="ellipsePurpule"/> 
-            <Link to="/sprint" className={`${styles.info__boxAudio} ${styles.box}`}>
+            <Link to={'/game'} state={{ game: 'audiocall' }} className={`${styles.info__boxAudio} ${styles.box}`}>
               <h2 className={styles.box__titel}>Аудиовызов</h2>
               <p className={styles.box__text}>- игра на тренировку навыков аудирования. В процессе игры десять попыток угадать слово, произнесенное на
             английском языке</p>
               <img className={styles.info__boxsArrow} src={arrow} alt=""/>
             </Link>
-            <div className={`${styles.info__boxSprint} ${styles.box}`}>
+            <Link to={'/game'} state={{ game: 'sprint' }} className={`${styles.info__boxSprint} ${styles.box}`}>
               <h2 className={styles.box__titel}>Спринт</h2>
               <p className={styles.box__text}>- проверьте насколько хорошо вы знаете значения английских слов. За ограниченный период времени укажите верен
             ли предложенный перевод заданным словам</p>
               <img className={`${styles.info__boxsArrow} ${styles.arrowLeft}`} src={arrow} alt=""/>
-            </div>
+            </Link>
           </div>
         </div>
         <div className={`${styles.dictionary} ${styles.container}`}>
@@ -144,18 +148,20 @@ const MainPage = () => {
             <div className={styles.student__container}>
               <div className={styles.student__containerKatiaDima}>
                 <div className={styles.student__containerKatia}>
-                  <img className={styles.ekateryna} src={ekateryna} alt=""/>                
+                  <img onClick={()=>{setIsOpen('katia');}} 
+                    className={styles.ekateryna} src={ekateryna} alt=""/>                
                 </div>
+
                 <div className={styles.student__containerDima}>
                
                   <img className={styles.moonWithoutShadow} src={moonWithoutShadow} alt="moonWithoutShadow"/> 
-                  <img className={styles.dima} src={dima} alt="dima"/>  
+                  <img onClick={()=>{setIsOpen('dima');}}  className={styles.dima} src={dima} alt="dima"/>  
                   <img className={styles.moonWithShadow} src={moonWithShadow} alt="moonWithShadow"/>   
                   
                 </div>
               </div>
-              <div className={styles.student__containerArtsem}>
-                <img className={styles.artsem} src={artsem} alt="artsem"/>
+              <div onClick={()=>{setIsOpen('artsem');}} className={styles.student__containerArtsem}>
+                <img onClick={()=>{setIsOpen('artsem');}}  className={styles.artsem} src={artsem} alt="artsem"/>
               </div>
             </div>
 
@@ -168,21 +174,21 @@ const MainPage = () => {
                 <p className={`${styles.dictionary__text} ${styles.texts}`}>Над приложением работала команда молодых талантливых разработчиков</p>
               </div>
               <div className={styles.team__descriptionWrap}>
-                <div className={`${styles.student__name} ${styles.katiaWrap}`}>
+                <div className={(isOpen==='katia')? `${styles.student__name} ${styles.katiaWrap}  ${styles.show}`:`${styles.student__name} ${styles.katiaWrap}`}>
                   <h3 className={styles.student__nameTitle}>Екатерина</h3>
                   <p className={`${styles.student__nameTexts} ${styles.texts}`}>
             Екатерина уже была знакома с программированием, после чего их дороги разошлись, но, благодаря RSSchool, они встретились вновь и не намерены больше расставаться.
             Екатренира - разработала дизайн сайта, верстка и дизайн главной страницы, верстка и дизайн учебника, помогала писать Api  
                   </p>
                 </div>
-                <div className={`${styles.student__name} ${styles.artsemWrap}`}>
+                <div className={(isOpen==='artsem')? `${styles.student__name} ${styles.artsemWrap}  ${styles.show}`:`${styles.student__name} ${styles.artsemWrap}`} >
                   <h3 className={styles.student__nameTitle}>Артем</h3>
                   <p className={`${styles.student__nameTexts} ${styles.texts} `}>
                   Знакомство с JS началась с того, что Артем решил самостоятельно создать интернет-магазин для своей компании. Процесс этот оказался настолько увлекательным, что Артем решил продолжить свое обучение на курсах RSSchool. 
                   Артем стилизовал игры Аудиовызов и Сафари, занимался версткой главной страницы, настраивал работу приложения.
                   </p>
                 </div>
-                <div className={`${styles.student__name} ${styles.dimamWrap}`}>
+                <div className={(isOpen==='dima')? `${styles.student__name} ${styles.dimamWrap}  ${styles.show}`:`${styles.student__name} ${styles.dimamWrap}`} >
                   <h3 className={styles.student__nameTitle}>Дмитрий</h3>
                   <p className={`${styles.student__nameTexts} ${styles.texts}`}>
                   Человек, который "от скуки" решил попробовать покодить. И нашел себя! За время обучения на курсах умудрился не только прекрасно выполнять основные задания, но еще и самостоятельно изучить React!
