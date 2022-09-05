@@ -15,10 +15,10 @@ a {
     color: inherit;
 }
 
-a:hover {
+/* a:hover {
     filter: invert(81%) sepia(19%) saturate(7497%) hue-rotate(325deg) brightness(100%) contrast(95%);
     transition: 0.2s;
-}
+} */
 
 body,
 h1,
