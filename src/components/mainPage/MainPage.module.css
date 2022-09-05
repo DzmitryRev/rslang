@@ -910,7 +910,10 @@ align-self: start;
   position: absolute;
   bottom: -2rem;
   right:-2.8rem;
-  /* z-index:3; */
+}
+.dima:hover+.moonWithShadow{
+  opacity:1 ;
+
 }
 
 .student__containerKatiaDima {
@@ -1209,7 +1212,7 @@ align-self: start;
   position:absolute;
 }
 
-.moonWithoutShadow:hover+.moonWithShadow {
+.moonWithoutShadow:hover+ .moonWithShadow {
   opacity: 1;
 }
 .moonWithShadow {

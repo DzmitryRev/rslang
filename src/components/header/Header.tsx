@@ -1,24 +1,22 @@
-﻿import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
+import { useState } from 'react';
+
 
 import logoSvg from '../../assets/img/logo.svg';
-
-import PrimaryButton from '../primary-button/PrimaryButton';
+import logout from '../../assets/img/logout.svg';
 
 import styles from './Header.module.css';
 
-/**
- * TODO:
- * Выпадающее меню на ссылку игры
- * Бургер меню
- */
 
 type HeaderProps = {
-  list: 'menu__listMainPage' | 'menu__listSecondPage';
   isAuth: boolean;
-  // active: 'main' | 'games' | 'textbook' | 'statistic';
 };
 
-export default function Header({ list, isAuth = false /*, active = 'main'*/ }: HeaderProps) {
+export default function Header({  isAuth = false }: HeaderProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [openGame, setOpenGame] = useState(true);
+
+
   return (
     <header className={`${styles.header} ${styles.container}`}>
       <div className={styles.header__menu}>
@@ -27,7 +25,8 @@ export default function Header({ list, isAuth = false /*, active = 'main'*/ }: H
           <h3 className={`${styles.header__logoTitle} ${styles.subtitle}`}>RSLang</h3>
         </div>
         <nav className={styles.menu}>
-          <ul className={`${styles[list]}`}>
+          <ul className = {isOpen?`${styles.close} ${styles.menu__listMainPage} ` : styles.menu__listMainPage} >
+
             <li className={`${styles.menu__item}`}>
               <NavLink
                 className={({ isActive }) =>
@@ -48,9 +47,10 @@ export default function Header({ list, isAuth = false /*, active = 'main'*/ }: H
                 Учебник
               </NavLink>
             </li>
-            <li className={styles.menu__item}>
-              <button className={styles.menu__button}>Игры</button>
-              <ul className={styles.menu__listen}>
+            <li className={`${styles.menu__item} ${styles.menu__lastItem}`}>
+              <button className={styles.menu__button} onClick ={()=>{setOpenGame(!openGame);}}>Игры</button>
+
+              <ul className={openGame?`${styles.menu__listen} ${styles.close}`:styles.menu__listen}>
                 <li>
                   <NavLink className={styles.menu__link} to="/games/audiocall">
                     Аудиовызов
@@ -76,19 +76,25 @@ export default function Header({ list, isAuth = false /*, active = 'main'*/ }: H
           </ul>
         </nav>
 
-        {/* Исправить */}
+        
+        <div className={styles.burger} onClick={() => {setIsOpen(!isOpen);}}>  
+        </div>
         <div className={`${styles.authorized}`}>
           {isAuth ? (
-            <img className={styles.header__avatar} src="" alt="avatar" />
-          ) : (
-            <Link to="/login">
-              <PrimaryButton color="blue" size="s">
-                Войти
-              </PrimaryButton>
-            </Link>
+            <img className={styles.logout} src={logout} alt="logout" />
+          ) : (           
+            <Link to="/login" className={styles.header__loginBtn}>
+                Войти       
+            </Link>       
           )}
         </div>
       </div>
     </header>
   );
 }
+
+
+// onClick={() => {
+//   setIsOpen(!isOpen)
+//   }}
+//   className = {isOpen? стиль для открытого меню : стиль для закрытого}

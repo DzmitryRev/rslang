@@ -25,7 +25,7 @@ function App() {
       <Link to={'/game'} state={{ game: 'sprint' }}>
         Sprint
       </Link>
-      <Header list="menu__listMainPage" isAuth={isAuth} />
+      <Header isAuth={isAuth} />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/textbook" element={<Textbook />} />
