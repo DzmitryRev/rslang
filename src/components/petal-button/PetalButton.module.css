@@ -87,3 +87,20 @@
   line-height: 28px;
   text-transform: lowercase;
 }
+
+@media (max-width: 769px) {
+  .s {
+    width: 90px;
+    padding: 15px 0;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 450px) {
+  .s {
+    width: 60px;
+    line-height: 20px;
+    padding: 12px 0;
+    font-size: 16px;
+  }
+}
