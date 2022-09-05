@@ -2,10 +2,35 @@
   font-family: 'Rubik';
   font-style: normal;
   font-weight: 800;
-  font-size: 2.5vw;
-  line-height: 3vw;
+  font-size: 2.5rem;
+  line-height: 3.7rem;
   text-align: center;
   color: #3D3860;
+  margin-bottom: 2rem;
+  position:relative;
+}
+@media(max-width:1440px){
+  .titles {
+  font-size: 2.1rem;
+  line-height: 2.7rem;
+}
+}
+@media(max-width:1240px){
+  .titles {
+  font-size: 1.9rem;
+}
+}
+@media(max-width:940px){
+  .titles {
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+}
+}
+@media(max-width:700px){
+  .titles {
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+}
 }
 .left{
   text-align:left; 
@@ -21,10 +46,36 @@
 .info {
   width: 48.6vw;
 }
+@media(max-width:1440px){
+  .info {
+    width: 56.6vw;
+}
+}
+@media(max-width:940px){
+  .info {
+    width: 63.6vw;
+}
+}
+@media(max-width:680px){
+  .info {
+    width: 78.6vw;
+  }
+}
 
 .dictionary{
   width: 25.7vw;
 }
+@media(max-width:1240px){
+  .dictionary {  
+    width: 100%;
+  }
+}
+@media(max-width:840px){
+  .dictionary {  
+   text-align: center;
+  }
+}
+
 .video {
   width: 59.03vw;
 }
@@ -33,4 +84,9 @@
 }
 .user {
   width: 60.94vw;
+}
+@media(max-width:940px){
+  .user {
+    width: 80.7vw;
+}
 }

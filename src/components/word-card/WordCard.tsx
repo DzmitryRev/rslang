@@ -67,8 +67,8 @@ export default function WordCard({
       <div className={styles.contentContainer}>
         <div className={styles.headingContainer}>
           <h2 className={styles.word}>{word.word}</h2>
-          <span className={styles.transcription}>{word.transcription}</span>
         </div>
+        <span className={styles.transcription}>{word.transcription}</span>
         <p className={styles.translate}>{word.wordTranslate}</p>
         <p className={styles.textMeaning} dangerouslySetInnerHTML={{ __html: word.textMeaning }} />
         <p className={styles.textExample} dangerouslySetInnerHTML={{ __html: word.textExample }} />

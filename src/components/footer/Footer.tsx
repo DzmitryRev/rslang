@@ -1,8 +1,8 @@
 ﻿import {Link} from 'react-router-dom';
 
-// import rsLogoSvg from '../../assets/img/rs-school.svg';
+import rsLogoSvg from '../../assets/img/rs-school.svg';
 
-// import logoSvg from '../../assets/img/logo.svg';
+import logoSvg from '../../assets/img/logo.svg';
 
 import styles from './Footer.module.css';
 
@@ -10,7 +10,7 @@ export default function Footer() {
   return (<footer className={`${styles.footer} ${styles.footerContainer}]} ${styles.container}`}>
     <div className={styles.footer__logo}>
       <div className={styles.footer__logoContainer}>
-        {/* <img className={styles.footer__logoImg} src={logoSvg} alt="logo"/> */}
+        <img className={styles.footer__logoImg} src={logoSvg} alt="logo"/>
         <h3 className={`${styles.footer__logoTitle} ${styles.subtitle}`}>RSLang</h3>
       </div>
     </div>
@@ -23,8 +23,13 @@ export default function Footer() {
           </Link>
         </li>
         <li className={styles.footer__menuItem}>
-          <Link className={styles.footer__link} to="#">
-            Игры
+          <Link className={styles.footer__link} to="/games/sprint">
+            Cпринт
+          </Link>
+        </li>
+        <li className={styles.footer__menuItem}>
+          <Link className={styles.footer__link} to="/games/audiocall">
+          Аудиовызов
           </Link>
         </li>
         <li className={styles.footer__menuItem}>
@@ -55,10 +60,10 @@ export default function Footer() {
       </ul>
     </nav>
     <div className={styles.rsSchols}>
-      <Link className={styles.rsSchol} to="https://rs.school/" target="_blank" rel="noreferrer">
-        {/* <img className={styles.rsSchol} src={rsLogoSvg} alt="rs-schol"/> */}
-      </Link>
       <p className={`${styles.footer__link} ${styles.rsScholAge}`}>2022</p>
+      <Link className={styles.rsSchol} to="https://rs.school/" target="_blank" rel="noreferrer">
+        <img className={styles.rsSchol} src={rsLogoSvg} alt="rs-schol"/>
+      </Link>
     </div>
   </footer>
   );

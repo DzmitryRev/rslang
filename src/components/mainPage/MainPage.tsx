@@ -1,172 +1,236 @@
-﻿import playHed from '../../assets/img/play-hed.svg';
+﻿import { Link } from 'react-router-dom';
+
+import playHed from '../../assets/img/play-hed.svg';
+import rotate from '../../assets/img/rotate.svg';
 import group from '../../assets/img/group.svg';
 import arrow from '../../assets/img/arrow.svg';
 import illustration1 from '../../assets/img/illustration1.svg';
 import keys from '../../assets/img/keys.svg';
 import gearMax from '../../assets/img/gear-max.svg';
 import mechanismMin from '../../assets/img/mechanism-min.svg';
+import lines from '../../assets/mainPageSvg/lines.svg';
+import threeArcs from '../../assets/mainPageSvg/threeArcs.svg';
+import arrow1 from '../../assets/mainPageSvg/arrow1.svg';
+import arrow2 from '../../assets/mainPageSvg/arrow2.svg';
+import threelines from '../../assets/mainPageSvg/threeLines.svg';
+import rhombus from '../../assets/mainPageSvg/rhombus.svg';
+import beforeFooter from '../../assets/mainPageSvg/beforeFooter.svg';
+
+import star1 from '../../assets/mainPageSvg/star1.svg';
+import ellipsePink from '../../assets/mainPageSvg/ellipsePink.svg';
+import ellipsePurpule from '../../assets/mainPageSvg/ellipsePurpule.svg';
+
+import rombPurple from '../../assets/mainPageSvg/rombPurple.svg';
+import star2 from '../../assets/mainPageSvg/star2.svg';
+import star4 from '../../assets/mainPageSvg/star4.svg';
+
+import threeLinesPurple from '../../assets/mainPageSvg/threeLinesPurple.svg';
+
+import arrow4 from '../../assets/mainPageSvg/arrow4.svg';
+
+import longArrow from '../../assets/mainPageSvg/longArrow.svg';
+import elipseDotted from '../../assets/mainPageSvg/elipseDotted.svg';
+
+import moonWithoutShadow from '../../assets/mainPageSvg/moonWithoutShadow.svg';
+import moonWithShadow from '../../assets/mainPageSvg/moonWithShadow.svg';
+
+import ekateryna from '../../assets/team/ekateryna.png';
+import artsem from '../../assets/team/artsem.png';
+import dima from '../../assets/team/dima.png';
+
 
 import Footer from '../footer/Footer';
-import Header from '../header/Header';
 
 import PrimaryButton from '../primary-button/PrimaryButton';
 import Title from '../title/Title';
 
 import styles from './MainPage.module.css';
 
+const MainPage = () => {
+  return (
+    <>
+      <main className={`${styles.main} ${styles.container}`}>
 
+        <div className={styles.main__titels}>
+          <div className={styles.titelsWrapper}>
+            <h1 className={styles.titels__header}>
 
-export default function MainPage(){
-  return(<>
-    {/* <Header list="menu__listMainPage" authorized="authorized" ></Header> */}
-
-    <main className={`${styles.main} ${styles.container}`}>
-
-      <div className={styles.main__titels}>
-        <div className={styles.titelsWrapper}>
-          <h1 className={styles.titels__header}>
           Выучить английский с RSLang - легко
-          </h1>
-          <p className={styles.titels__description}>
+            </h1>
+            <img className={styles.lines} src={lines} alt="lines"/> 
+            <img className={styles.threelines} src={threelines} alt="threelines"/> 
+            <img className={styles.arrow1} src={arrow1} alt="arrow1"/>
+            <p className={styles.titels__description}>
           Эффективный подход к изучению слов, с RsLang вы легко пополните свой словарный запас
-          </p>
-          <div className={styles.btn__description}>
-            <PrimaryButton color="orange" size="m">Начать</PrimaryButton>
-            <div className={styles.btn__play}>
-              <img className={styles.btn__playImg} src={playHed} alt="video"/>
-              <p className={styles.btn__playTitle}>видео</p>
+            </p>
+            <div className={styles.btn__description}>
+              <PrimaryButton color="orange" size="m">Начать</PrimaryButton>
+              <div className={styles.btn__play}>
+                <img className={styles.btn__playImg} src={playHed} alt="video"/>
+                <p className={styles.btn__playTitle}>видео</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.animations}>
-          <div>
-            <img className={styles.animation} src={group} alt="group"/>
-          </div>
-          <div className={styles.animation__vector}>
-            <svg className={styles.rotate} width="775" height="766" viewBox="0 0 775 766" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="387.17" cy="382.577" r="359.613" stroke="#FD6657" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"
-                stroke-dasharray="7 30" />
-              <path
-                d="M400.296 30.8069C400.302 33.1465 399.805 35.4599 398.841 37.5897C397.876 39.7196 396.465 41.6159 394.704 43.1496C393.551 44.1674 394.341 46.0725 395.877 45.9189C396.905 45.8181 397.921 45.6253 398.914 45.3427C401.581 44.5881 404.005 43.1482 405.947 41.1654C407.889 39.1827 409.282 36.7256 409.989 34.0371C410.66 31.5959 410.76 29.032 410.281 26.5455C409.802 24.0591 408.757 21.7174 407.227 19.7035C405.697 17.6895 403.724 16.0577 401.462 14.9356C399.199 13.8135 396.709 13.2314 394.186 13.2349C393.518 13.2344 392.85 13.2728 392.186 13.3501C390.667 13.5421 390.282 15.5797 391.631 16.3114C396.8 19.0999 400.3 24.5405 400.3 30.8069H400.296ZM379.792 35.633C377.455 35.6403 375.144 35.1448 373.015 34.1797C370.886 33.2147 368.988 31.8026 367.449 30.0387C366.431 28.8865 364.526 29.6738 364.681 31.2102C364.781 32.2382 364.974 33.255 365.256 34.2483C366.775 39.6697 371.119 43.9005 376.559 45.3216C387.519 48.1869 397.361 39.9962 397.361 29.5183C397.361 28.8461 397.322 28.174 397.246 27.521C397.054 26 395.016 25.6159 394.285 26.9641C392.874 29.5877 390.782 31.7789 388.23 33.3052C385.678 34.8315 382.762 35.6359 379.792 35.633V35.633ZM374.962 15.1207C374.956 12.7808 375.453 10.4672 376.419 8.33738C377.384 6.20753 378.796 4.31141 380.557 2.77805C381.711 1.7583 380.921 -0.144861 379.384 0.00877431C378.351 0.110311 377.328 0.296576 376.326 0.565702C373.662 1.3242 371.24 2.76541 369.299 4.74764C367.358 6.72987 365.965 9.18489 365.256 11.8713C364.584 14.3125 364.484 16.8764 364.963 19.3629C365.442 21.8493 366.487 24.191 368.017 26.205C369.547 28.2189 371.52 29.8507 373.782 30.9728C376.045 32.0949 378.535 32.677 381.058 32.6736C381.732 32.6736 382.406 32.6352 383.058 32.5583C384.577 32.3663 384.962 30.3268 383.613 29.597C380.999 28.1974 378.814 26.1112 377.29 23.5613C375.767 21.0115 374.963 18.0939 374.963 15.1207H374.962ZM395.476 10.2947C397.812 10.2873 400.123 10.7829 402.252 11.7479C404.381 12.7129 406.279 14.125 407.819 15.8889C408.833 17.0412 410.739 16.2538 410.584 14.7174C410.484 13.6888 410.292 12.6713 410.01 11.6774C408.488 6.25597 404.144 2.02716 398.702 0.604111C387.762 -2.28039 377.92 5.91029 377.92 16.3882C377.92 17.0604 377.958 17.7325 378.035 18.3874C378.226 19.9065 380.27 20.2906 380.999 18.9443C382.408 16.3255 384.498 14.1387 387.046 12.616C389.594 11.0934 392.506 10.2919 395.472 10.2966L395.476 10.2947Z"
-                fill="#FD6657" />
-              <path
-                d="M400.296 750.033C400.302 752.373 399.805 754.686 398.841 756.816C397.876 758.946 396.465 760.842 394.704 762.376C393.551 763.394 394.341 765.299 395.877 765.145C396.905 765.044 397.921 764.852 398.914 764.569C401.581 763.814 404.005 762.374 405.947 760.392C407.889 758.409 409.282 755.952 409.989 753.263C410.66 750.822 410.76 748.258 410.281 745.772C409.802 743.285 408.757 740.944 407.227 738.93C405.697 736.916 403.724 735.284 401.462 734.162C399.199 733.04 396.709 732.458 394.186 732.461C393.518 732.461 392.85 732.499 392.186 732.576C390.667 732.768 390.282 734.806 391.631 735.538C396.8 738.326 400.3 743.767 400.3 750.033H400.296ZM379.792 754.859C377.455 754.867 375.144 754.371 373.015 753.406C370.886 752.441 368.988 751.029 367.449 749.265C366.431 748.113 364.526 748.9 364.681 750.436C364.781 751.464 364.974 752.481 365.256 753.475C366.775 758.896 371.119 763.127 376.559 764.548C387.519 767.413 397.361 759.222 397.361 748.745C397.361 748.072 397.322 747.4 397.246 746.747C397.054 745.226 395.016 744.842 394.285 746.19C392.874 748.814 390.782 751.005 388.23 752.531C385.678 754.058 382.762 754.862 379.792 754.859V754.859ZM374.962 734.347C374.956 732.007 375.453 729.693 376.419 727.564C377.384 725.434 378.796 723.538 380.557 722.004C381.711 720.985 380.921 719.081 379.384 719.235C378.351 719.337 377.328 719.523 376.326 719.792C373.662 720.55 371.24 721.992 369.299 723.974C367.358 725.956 365.965 728.411 365.256 731.098C364.584 733.539 364.484 736.103 364.963 738.589C365.442 741.076 366.487 743.417 368.017 745.431C369.547 747.445 371.52 749.077 373.782 750.199C376.045 751.321 378.535 751.903 381.058 751.9C381.732 751.9 382.406 751.861 383.058 751.785C384.577 751.593 384.962 749.553 383.613 748.823C380.999 747.424 378.814 745.337 377.29 742.788C375.767 740.238 374.963 737.32 374.963 734.347H374.962ZM395.476 729.521C397.812 729.514 400.123 730.009 402.252 730.974C404.381 731.939 406.279 733.351 407.819 735.115C408.833 736.267 410.739 735.48 410.584 733.944C410.484 732.915 410.292 731.898 410.01 730.904C408.488 725.482 404.144 721.253 398.702 719.83C387.762 716.946 377.92 725.137 377.92 735.614C377.92 736.287 377.958 736.959 378.035 737.614C378.226 739.133 380.27 739.517 380.999 738.171C382.408 735.552 384.498 733.365 387.046 731.842C389.594 730.32 392.506 729.518 395.472 729.523L395.476 729.521Z"
-                fill="#FD6657" />
-              <path
-                d="M761.984 392.448C761.99 395.255 761.395 398.032 760.237 400.587C759.079 403.143 757.386 405.419 755.274 407.259C753.889 408.481 754.837 410.767 756.681 410.582C757.914 410.461 759.134 410.23 760.326 409.891C763.525 408.985 766.434 407.258 768.765 404.878C771.096 402.499 772.767 399.55 773.615 396.324C774.421 393.395 774.541 390.318 773.966 387.334C773.391 384.351 772.137 381.541 770.301 379.124C768.465 376.707 766.097 374.749 763.382 373.402C760.668 372.056 757.679 371.357 754.651 371.361C753.849 371.361 753.048 371.407 752.252 371.5C750.428 371.73 749.967 374.175 751.586 375.053C757.788 378.399 761.988 384.928 761.988 392.448H761.984ZM737.378 398.239C734.575 398.248 731.802 397.653 729.247 396.495C726.692 395.337 724.414 393.643 722.567 391.526C721.345 390.143 719.06 391.088 719.246 392.932C719.366 394.165 719.597 395.386 719.935 396.578C721.758 403.083 726.971 408.16 733.5 409.866C746.651 413.304 758.461 403.475 758.461 390.902C758.461 390.095 758.415 389.288 758.323 388.505C758.094 386.68 755.648 386.219 754.771 387.837C753.078 390.985 750.567 393.614 747.504 395.446C744.442 397.277 740.943 398.243 737.378 398.239V398.239ZM731.582 373.625C731.576 370.817 732.172 368.04 733.331 365.484C734.489 362.929 736.183 360.653 738.297 358.813C739.681 357.59 738.733 355.306 736.889 355.49C735.65 355.612 734.422 355.836 733.219 356.158C730.022 357.069 727.117 358.798 724.787 361.177C722.458 363.555 720.786 366.502 719.935 369.725C719.129 372.655 719.009 375.731 719.584 378.715C720.158 381.699 721.413 384.509 723.249 386.926C725.085 389.342 727.452 391.3 730.167 392.647C732.882 393.994 735.87 394.692 738.898 394.688C739.707 394.688 740.515 394.642 741.298 394.55C743.121 394.319 743.583 391.872 741.964 390.996C738.828 389.317 736.205 386.813 734.377 383.753C732.549 380.693 731.583 377.192 731.584 373.625H731.582ZM756.199 367.833C759.003 367.824 761.775 368.419 764.331 369.577C766.886 370.735 769.163 372.43 771.011 374.546C772.228 375.929 774.515 374.984 774.329 373.141C774.209 371.906 773.978 370.685 773.64 369.492C771.814 362.987 766.602 357.912 760.071 356.205C746.942 352.743 735.132 362.572 735.132 375.146C735.132 375.952 735.178 376.759 735.27 377.545C735.5 379.367 737.952 379.828 738.827 378.213C740.518 375.07 743.026 372.446 746.084 370.619C749.142 368.792 752.636 367.83 756.194 367.836L756.199 367.833Z"
-                fill="#FD6657" />
-              <path
-                d="M42.7572 389.692C42.7641 392.5 42.1684 395.276 41.0106 397.832C39.8527 400.387 38.1599 402.663 36.0473 404.503C34.6626 405.725 35.611 408.011 37.4549 407.827C38.6878 407.706 39.9075 407.474 41.0992 407.135C44.299 406.23 47.208 404.502 49.5386 402.122C51.8692 399.743 53.5409 396.795 54.3883 393.568C55.1943 390.639 55.3145 387.562 54.7397 384.579C54.1649 381.595 52.9105 378.785 51.0746 376.368C49.2386 373.951 46.8708 371.993 44.1561 370.647C41.4413 369.3 38.4532 368.602 35.425 368.606C34.6231 368.605 33.8218 368.651 33.0253 368.744C31.202 368.975 30.7404 371.42 32.3593 372.298C38.5618 375.644 42.7618 382.173 42.7618 389.692H42.7572ZM18.1518 395.484C15.3482 395.492 12.5754 394.898 10.0203 393.74C7.46519 392.582 5.1873 390.887 3.34026 388.77C2.1186 387.388 -0.166276 388.333 0.0197288 390.176C0.13966 391.41 0.37023 392.63 0.708636 393.822C2.53194 400.328 7.74467 405.405 14.2732 407.11C27.4244 410.548 39.2346 400.719 39.2346 388.146C39.2346 387.339 39.1887 386.533 39.0968 385.749C38.8672 383.924 36.4216 383.463 35.5444 385.081C33.8513 388.229 31.3404 390.859 28.2781 392.69C25.2159 394.522 21.7166 395.487 18.1518 395.484V395.484ZM12.3558 370.869C12.3494 368.061 12.9458 365.285 14.1045 362.729C15.2632 360.173 16.9568 357.898 19.0703 356.058C20.455 354.834 19.5066 352.55 17.6626 352.734C16.4233 352.856 15.196 353.08 13.9931 353.403C10.7961 354.313 7.89021 356.042 5.56104 358.421C3.23187 360.8 1.5596 363.746 0.708636 366.97C-0.0973587 369.899 -0.217641 372.976 0.357185 375.959C0.93201 378.943 2.18638 381.753 4.02232 384.17C5.85826 386.587 8.22607 388.545 10.9408 389.891C13.6556 391.238 16.6437 391.936 19.6719 391.932C20.4803 391.932 21.2886 391.886 22.0716 391.794C23.8949 391.564 24.3565 389.116 22.7376 388.24C19.6013 386.561 16.9788 384.057 15.1505 380.998C13.3223 377.938 12.357 374.437 12.3581 370.869H12.3558ZM36.9727 365.078C39.7763 365.069 42.5491 365.663 45.1042 366.821C47.6593 367.979 49.9372 369.674 51.7842 371.791C53.0013 373.173 55.2884 372.229 55.1024 370.385C54.9826 369.151 54.752 367.93 54.4135 366.737C52.5879 360.231 47.3752 355.157 40.8444 353.449C27.7161 349.987 15.9059 359.816 15.9059 372.39C15.9059 373.196 15.9518 374.003 16.0437 374.789C16.2733 376.612 18.7258 377.073 19.6008 375.457C21.2918 372.315 23.7995 369.69 26.8574 367.863C29.9153 366.036 33.4092 365.074 36.9681 365.08L36.9727 365.078Z"
-                fill="#FD6657" />
-            </svg>
+          <div className={styles.animations}>
+            <img className={styles.animation} src={group} alt="group"/>  
+            <div className={styles.animation__vector}>
+              <img src={rotate} alt="rotate" className={styles.rotate} />
+            </div>
+            <img className={styles.threeArcs} src={threeArcs} alt="threeArcs"/> 
           </div>
         </div>
-      </div>
-      <div className={styles.info}>
-        <div className={styles.infoWrapper}>
-          <Title align="center" width="info" >
-          Пройдите игру, чтобы улучшить свой словарный запас
-          </Title>
-          <p className={`${styles.info__text} ${styles.texts}`}>
-          Настало время отложить в сторону работу и немного развлечься. В этом разделе ты найдешь бесплатные онлайн игры, связанные с
+        <div className={styles.info}>
+          <div className={styles.infoWrapper}>
+            <img className={styles.rhombus} src={rhombus} alt="rhombus"/> 
+            <img className={styles.arrow2} src={arrow2} alt="arrow2"/> 
+            <Title align="center" width="info" >
+                  Пройдите игру, чтобы улучшить свой словарный запас
+            </Title>
+            <p className={`${styles.info__text} ${styles.texts}`}>
+             
+          Настало время отложить в сторону работу и немного развлечься. В этом разделе вы найдете бесплатные онлайн игры, связанные с
           английским языком, которые помогут не только интересно провести вермя, но и освежат твой словарный запас.
-          </p>
-        </div>
-        <div className={styles.info__boxs}>
-          <div className={`${styles.info__boxAudio} ${styles.box}`}>
-            <h2 className={styles.box__titel}>Аудиовызов</h2>
-            <p className={styles.box__text}>- игра на тренировку навыков аудирования. В процессе игры десять попыток угадать слово, произнесенное на
-            английском языке</p>
-            <img className={styles.info__boxsArrow} src={arrow} alt=""/>
-          </div>
-          <div className={`${styles.info__boxSprint} ${styles.box}`}>
-            <h2 className={styles.box__titel}>Спринт</h2>
-            <p className={styles.box__text}>- проверьте насколько хорошо вы знаете значения английских слов. За ограниченный период времени укажите верен
-            ли предложенный перевод заданным словам</p>
-            <img className={`${styles.info__boxsArrow} ${styles.arrowLeft}`} src={arrow} alt=""/>
-          </div>
-        </div>
-      </div>
-      <div className={styles.dictionary}>
-        <div className={styles.dictionary__info}>
-          <Title align="start" width="dictionary" >
-            Найди новые слова в словаре
-          </Title>
-          <p className={`${styles.dictionary__text} ${styles.texts}`}>Увеличивайте ваш словарный запас, запоминая новые английские слова. Тренируйте лексику из
-          подготовленных тематических наборов или создайте ваш персональный словарь.</p>
-          <PrimaryButton color="orange" size="m">Учить</PrimaryButton>
-   
-        </div>
-        <div className={styles.dictionarys__img}>
-          <img className={styles.dictionary__img} src={illustration1} alt=""/>
-        </div>
-
-      </div>
-      <div className={styles.video__wrapper}>
-        <div className={styles.video}>
-          <Title align="center" width="video" >
-        Посмотрев видео, вы можете ознакомиться с возможностями приложения
-          </Title>
-        </div>
-        <div className={styles.video__player}>
-          <video controls className={styles.video__play} src="#"></video>
-        </div>
-      </div>
-      <div className={styles.team}>
-        <div className={styles.team__info}>
-          <Title align="start" width="dictionary" >
-          Наша команда
-          </Title>
-          <p className={`${styles.dictionary__text} ${styles.texts}`}>Над приложением работала команда молодых талантливых разработчиков</p>
-        </div>
-        <div className={styles.student}>
-          <div className={styles.student__container}>
-            <div className={styles.student__containerKatia}></div>
-            <div className={styles.student__containerArtsem}></div>
-            <div className={styles.student__containerDima}></div>
-          </div>
-          <div className={styles.student__name}>
-            <h3 className={`${styles.student__nameTitle} ${styles.subtitle}`}>Екатерина</h3>
-            <p className={`${styles.student__nameTexts} ${styles.texts}`}>
-            Над приложением работала команда молодых талантливых разработчиков. Над приложением работала команда молодых талантливых
-            разработчиков. Над приложением работала команда молодых талантливых разработчиков.
             </p>
           </div>
+          <div className={styles.info__boxs}>
+            <img className={styles.star1} src={star1} alt="star1"/> 
+            <img className={styles.ellipsePink} src={ellipsePink} alt="ellipsePink"/> 
+            <img className={styles.ellipsePurpule} src={ellipsePurpule} alt="ellipsePurpule"/> 
+            <Link to="/games/sprint" className={`${styles.info__boxAudio} ${styles.box}`}>
+              <h2 className={styles.box__titel}>Аудиовызов</h2>
+              <p className={styles.box__text}>- игра на тренировку навыков аудирования. В процессе игры десять попыток угадать слово, произнесенное на
+            английском языке</p>
+              <img className={styles.info__boxsArrow} src={arrow} alt=""/>
+            </Link>
+            <div className={`${styles.info__boxSprint} ${styles.box}`}>
+              <h2 className={styles.box__titel}>Спринт</h2>
+              <p className={styles.box__text}>- проверьте насколько хорошо вы знаете значения английских слов. За ограниченный период времени укажите верен
+            ли предложенный перевод заданным словам</p>
+              <img className={`${styles.info__boxsArrow} ${styles.arrowLeft}`} src={arrow} alt=""/>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.user}>
-        <Title align="center" width="user" >
+        <div className={`${styles.dictionary} ${styles.container}`}>
+          <div className={styles.dictionary__info}>
+            <Title align="start" width="dictionary" >
+              <img className={styles.rombPurple} src={rombPurple} alt="rombPurple"/>
+            Найдите новые слова в словаре
+            </Title>
+            <p className={`${styles.dictionary__text} ${styles.texts}`}>
+              <img className={styles.star2} src={star2} alt="star2"/> 
+              Увеличивайте ваш словарный запас, запоминая новые английские слова. Тренируйте лексику из
+          подготовленных тематических наборов или создайте ваш персональный словарь.</p>
+            <PrimaryButton color="orange" size="m">Учить</PrimaryButton>
+          </div>       
+          <img className={styles.dictionary__img} src={illustration1} alt=""/>       
+        </div>
+        <div className={styles.video__wrapper}>
+          <div className={styles.video}>
+            <Title align="center" width="video" >
+        Посмотрев видео, вы можете ознакомиться с возможностями приложения
+            </Title>
+          </div>
+          <div className={styles.video__player}>
+            <img className={styles.threeLinesPurple} src={threeLinesPurple} alt="threeLinesPurple"/>        
+            <img className={styles.arrow2Video} src={arrow2} alt="arrow2"/>       
+            <img className={styles.ellipsePink} src={ellipsePink} alt="ellipsePink"/>        
+            <img className={styles.ellipsePurpuleVideo} src={ellipsePurpule} alt="ellipsePurpule"/> 
+            <video controls className={styles.video__play} src="#"></video>
+          </div>
+        </div>
+        
+        <div className={styles.team}>
+          <div className={styles.student}>
+            <div className={styles.student__container}>
+              <div className={styles.student__containerKatiaDima}>
+                <div className={styles.student__containerKatia}>
+                  <img className={styles.ekateryna} src={ekateryna} alt=""/>                
+                </div>
+                <div className={styles.student__containerDima}>
+                  <img className={styles.moonWithoutShadow} src={moonWithoutShadow} alt="moonWithoutShadow"/> 
+                  <img className={styles.dima} src={dima} alt="dima"/> 
+                  <img className={styles.moonWithShadow} src={moonWithShadow} alt="moonWithShadow"/> 
+                </div>
+              </div>
+              <div className={styles.student__containerArtsem}>
+                <img className={styles.artsem} src={artsem} alt="artsem"/>
+              </div>
+            </div>
+
+            <div className={styles.team__infoWrap}>
+              <div className={styles.team__info}>
+                <Title align="start" width="dictionary" >
+                  <img className={styles.arrow4} src={arrow4} alt="arrow4"/>  
+          Наша команда
+                </Title>
+                <p className={`${styles.dictionary__text} ${styles.texts}`}>Над приложением работала команда молодых талантливых разработчиков</p>
+              </div>
+              <div className={styles.team__descriptionWrap}>
+                <div className={`${styles.student__name} ${styles.katiaWrap}`}>
+                  <h3 className={styles.student__nameTitle}>Екатерина</h3>
+                  <p className={`${styles.student__nameTexts} ${styles.texts}`}>
+            Екатерина уже была знакома с программированием, после чего их дороги разошлись, но, благодаря RSSchool, они встретились вновь и не намерены больше расставаться.
+            Екатренира - разработала дизайн сайта, верстка и дизайн главной страницы, верстка и дизайн учебника, помогала писать Api  
+                  </p>
+                </div>
+                <div className={`${styles.student__name} ${styles.artsemWrap}`}>
+                  <h3 className={styles.student__nameTitle}>Артем</h3>
+                  <p className={`${styles.student__nameTexts} ${styles.texts} `}>
+                  Знакомство с JS началась с того, что Артем решил самостоятельно создать интернет-магазин для своей компании. Процесс этот оказался настолько увлекательным, что Артем решил продолжить свое обучение на курсах RSSchool. 
+                  Артем стилизовал игры Аудиовызов и Сафари, занимался версткой главной страницы, настраивал работу приложения.
+                  </p>
+                </div>
+                <div className={`${styles.student__name} ${styles.dimamWrap}`}>
+                  <h3 className={styles.student__nameTitle}>Дмитрий</h3>
+                  <p className={`${styles.student__nameTexts} ${styles.texts}`}>
+                  Человек, который "от скуки" решил попробовать покодить. И нашел себя! За время обучения на курсах умудрился не только прекрасно выполнять основные задания, но еще и самостоятельно изучить React!
+                  Дмитрий - тим лид нашей команды. Разработал весь функционал приложения, настроил работу с базой данных, координировал работу членов команды.  
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div className={styles.user}>
+          <Title align="center" width="user" >
+            <img className={styles.longArrow} src={longArrow} alt="longArrow"/>
       Не забудьте пройти авторизацию, чтобы воспользоваться всеми возможностями приложения
-        </Title>
-        <div className={styles.user__container}>
-          <div >
-            <div className={styles.user__data}>
-              <div className={styles.logo}>
-                <h3 className={styles.subtitle}>Логин</h3>
-                <input className={`${styles.creationName} ${styles.input}`} type="text"  placeholder="Введите логин..."/>
+          </Title>
+          <div className={styles.user__container}>
+            <img className={styles.star4} src={star4} alt="star4"/>
+            <div className={styles.user__dataWrap}>
+              <div className={styles.user__data}>
+                <div className={styles.logo}>
+                  <h3 className={styles.subtitle}>Логин</h3>
+                  <input className={`${styles.creationName} ${styles.input}`} type="text"  placeholder="Введите логин..."/>
+                </div>
+                <div className={styles.password}>
+                  <h3 className={styles.subtitle}>Пароль</h3>
+                  <input className={`${styles.creationName} ${styles.input}`} type="text"  placeholder="Введите пароль..."/>
+                </div>
               </div>
-              <div className={styles.password}>
-                <h3 className={styles.subtitle}>Пароль</h3>
-                <input className={`${styles.creationName} ${styles.input}`} type="text"  placeholder="Введите пароль..."/>
+              <div className={styles.user__btn}>
+                <PrimaryButton color="blue" size="s">Войти</PrimaryButton>
+                <button className={`${styles.user__btnRegistration} ${styles.btn-2}`}>Регистрация</button>
               </div>
             </div>
-            <div className={styles.user__btn}>
-              <PrimaryButton color="blue" size="s">Войти</PrimaryButton>
-              <button className={`${styles.user__btnRegistration} ${styles.btn-2}`}>Регистрация</button>
+            <div className={styles.user__imgs}>
+              <img className={styles.user__img} src={keys} alt="keys"/>
+              <div className={styles.mechanismSvg}>
+                <img className={`${styles.mechanism__max} ${styles.mechanism}`} src={gearMax} alt=""/>
+                <img className={`${styles.mechanism__min} ${styles.mechanism}`} src={mechanismMin} alt=""/>
+              </div>
             </div>
-          </div>
-          <div className={styles.user__imgs}>
-            <img className={styles.user__img} src={keys} alt="keys"/>
-            <div className={styles.mechanismSvg}>
-              <img className={`${styles.mechanism__max} ${styles.mechanism}`} src={gearMax} alt=""/>
-              <img className={`${styles.mechanism__min} ${styles.mechanism}`} src={mechanismMin} alt=""/>
-            </div>
+            <img className={styles.elipseDotted} src={elipseDotted} alt="elipseDotted"/>
+            <img className={styles.beforeFooter} src={beforeFooter} alt="beforeFooter"/>
           </div>
         </div>
-      </div>
+      </main>
+      <Footer/>
+    </>
+  );
+};
 
-    </main>
-    <Footer></Footer>
-  </>);
-
-}
+export default MainPage;
