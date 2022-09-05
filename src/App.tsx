@@ -10,6 +10,7 @@ import MainPage from './components/mainPage/MainPage';
 import Textbook from './pages/textbook/Textbook';
 import Sprint from './pages/sprint/Sprint';
 import GamesPreload from './pages/games-preload/GamesPreload';
+import Audiocall from './pages/audiocall/Audiocall';
 
 function App() {
   const { isAuth, userId, token } = useAppSelector((store) => store.user);
@@ -31,6 +32,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/sprint" element={<Sprint isAuth={isAuth} userId={userId} token={token} />} />
+        <Route path="/audiocall" element={<Audiocall isAuth={isAuth} userId={userId} token={token} />} />
         <Route path="/game" element={<GamesPreload />} />
       </Routes>
     </div>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-
 import { API } from '../../api/api';
 
 import { IWord } from '../../api/api.types';
@@ -9,7 +8,6 @@ import PrimaryButton from '../../components/primary-button/PrimaryButton';
 import { randomNumber } from '../../utils/randomNumber';
 
 import styles from './Sprint.module.css';
-
 
 type SprintLocationState = {
   group: number;
@@ -35,7 +33,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
   const [page, setPage] = useState<number>(state?.page);
   const [word, setWord] = useState<IWord | null>(null);
   const [translate, setTranslate] = useState<string>('');
-  const [gameStarted, setGameStarted] = useState<boolean>(false);
+  //   const [gameStarted, setGameStarted] = useState<boolean>(false);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [usedWords, setUsedWords] = useState<number>(0);
   const [learnedWords, setLearnedWords] = useState<IWord[]>([]);
@@ -47,28 +45,22 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
   const [seconds, setSeconds] = useState(30);
 
   useEffect(() => {
-    setTranslate(
-      randomNumber(0, 1) >= 0.5
-        ? words[randomNumber(0, words.length - 1)]?.wordTranslate || ''
-        : word?.wordTranslate || '',
-    );
-  }, [word]);
-
-  useEffect(() => {
     if (isAuth) {
       API.getAggregatedWords(userId, token, `{"page": ${page - 1}, "group": ${state?.group}}`).then(
         (res) => {
           setWords([...words, ...res.data[0].paginatedResults]);
-          setWord(words[0]);
         },
       );
     } else {
       API.getWords(page - 1, state?.group).then((res) => {
         setWords([...words, ...res.data]);
-        setWord(words[0]);
       });
     }
   }, [page]);
+
+  useEffect(() => {
+    setWord(words[0]);
+  }, [words]);
 
   useEffect(() => {
     if (words.length === 1) {
@@ -77,18 +69,24 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
   }, [words]);
 
   useEffect(() => {
+    setTranslate(
+      randomNumber(0, 1) >= 0.5
+        ? words[randomNumber(0, words.length - 1)]?.wordTranslate || ''
+        : word?.wordTranslate || '',
+    );
+  }, [word]);
+
+  useEffect(() => {
     if (seconds === 0) {
       setGameEnded(true);
     }
-    if (gameStarted) {
-      const timer = setInterval(() => {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
-        }
-      }, 1000);
-      return () => clearInterval(timer);
-    }
-  }, [seconds, gameStarted]);
+    const timer = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [seconds]);
 
   function updateWord(
     id: string,
@@ -123,7 +121,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
             Правильно ({correct.length}):
             {correct.map((item) => {
               return (
-                <h4>
+                <h4 key={item._id}>
                   {item.word} === {item.wordTranslate}
                 </h4>
               );
@@ -134,7 +132,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
             Неправильно ({misses.length}):
             {misses.map((item) => {
               return (
-                <h4>
+                <h4 key={item._id}>
                   {item.word} === {item.wordTranslate}
                 </h4>
               );
@@ -146,7 +144,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
               Изучено слов:
               {learnedWords.map((item) => {
                 return (
-                  <h4>
+                  <h4 key={item._id}>
                     {item.word} === {item.wordTranslate}
                   </h4>
                 );
@@ -154,7 +152,8 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
             </h4>
           )}
         </div>
-      ) : gameStarted ? (
+      ) : (
+        //   gameStarted ?
         <div>
           {/* Таймер (я не нашел в макете таймер) */}
           <h3>{seconds}</h3>
@@ -435,9 +434,9 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
             Неверно
           </PrimaryButton>
         </div>
-      ) : (
-        // Блок до начала игры
-        // Стилизуется как угодно, главное чтобы была кнопка с таким коллбэком как ниже
+      )}
+
+      {/* : (
         <div>
           <PrimaryButton
             color="orange"
@@ -452,7 +451,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
             Начать игру
           </PrimaryButton>
         </div>
-      )}
+      ) */}
     </div>
   );
 }
