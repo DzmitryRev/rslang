@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useSound from 'use-sound';
 
 import { API } from '../api/api';
 
 import { IWord } from '../api/api.types';
+
+import correctSound from '../assets/sounds/correct.mp3';
+import missSound from '../assets/sounds/miss.mp3';
+import completeSound from '../assets/sounds/complete.mp3';
 
 type GamesLocationState = {
   group: number;
@@ -26,6 +31,10 @@ export function useGame(userId: string, token: string, isAuth: boolean) {
   const [misses, setMisses] = useState<IWord[]>([]);
   const [correct, setCorrect] = useState<IWord[]>([]);
   const [page, setPage] = useState<number>(state?.page);
+  const [gameEnded, setGameEnded] = useState<boolean>(false);
+  const [playCorrect] = useSound(correctSound);
+  const [playMiss] = useSound(missSound);
+  const [playComplete] = useSound(completeSound);
 
   useEffect(() => {
     if (isAuth) {
@@ -125,7 +134,7 @@ export function useGame(userId: string, token: string, isAuth: boolean) {
   }
 
   return {
-    fields: { words, word, usedWords, learnedWords, correct, misses, page },
+    fields: { words, word, usedWords, learnedWords, correct, misses, page, gameEnded },
     actions: {
       nextWord,
       setUsedWords,
@@ -138,6 +147,10 @@ export function useGame(userId: string, token: string, isAuth: boolean) {
       addToUserWords,
       missWord,
       setPage,
+      playCorrect,
+      playMiss,
+      playComplete,
+      setGameEnded,
     },
   };
 }

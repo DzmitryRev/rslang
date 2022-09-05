@@ -14,7 +14,6 @@ type AudiocallProps = {
 export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
   const { fields, actions } = useGame(userId, token, isAuth);
   const [translates, setTranslates] = useState<string[]>([]);
-  const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [answer, setAnswer] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -31,7 +30,6 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
       ];
     }
     setTranslates([...arr, fields.word?.wordTranslate || ''].sort(() => Math.random() - 0.5));
-
   }, [fields.word]);
 
   useEffect(() => {
@@ -43,7 +41,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
 
   return (
     <div>
-      {gameEnded ? (
+      {fields.gameEnded ? (
         // Появляется когда игра закончена
         <div>
           <h3>Игра закончена</h3>
@@ -112,6 +110,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
                   actions.setUsedWords(fields.usedWords + 1);
                   setSelected(item);
                   if (fields.word.wordTranslate === item) {
+                    actions.playCorrect();
                     actions.setCorrect([...fields.correct, fields.word]);
                     if (isAuth) {
                       if (fields.word.userWord) {
@@ -137,6 +136,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
                       actions.setLearnedWords([...fields.learnedWords, fields.word]);
                     }
                   } else {
+                    actions.playMiss();
                     actions.setMisses([...fields.misses, fields.word]);
                     if (isAuth) {
                       if (fields.word.userWord) {
@@ -163,7 +163,8 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
                 setAnswer(false);
                 setSelected(null);
                 if (fields.usedWords === 10) {
-                  setGameEnded(true);
+                  actions.setGameEnded(true);
+                  actions.playComplete();
                 }
               }}
             >
@@ -175,7 +176,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
                 if (!fields.word) {
                   return;
                 }
-                actions.nextWord();
+                actions.playMiss();
                 actions.setUsedWords(fields.usedWords + 1);
                 actions.setMisses([...fields.misses, fields.word]);
                 setAnswer(true);

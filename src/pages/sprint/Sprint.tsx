@@ -15,7 +15,6 @@ type SprintProps = {
 export default function Sprint({ isAuth, userId, token }: SprintProps) {
   const { fields, actions } = useGame(userId, token, isAuth);
   const [translate, setTranslate] = useState<string>('');
-  const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [contract, setContract] = useState<number>(0);
   const [multiplier, setMultiplier] = useState<number>(1);
   const [score, setScore] = useState<number>(0);
@@ -37,7 +36,8 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
 
   useEffect(() => {
     if (seconds === 0) {
-      setGameEnded(true);
+      actions.setGameEnded(true);
+      actions.playComplete();
     }
     const timer = setInterval(() => {
       if (seconds > 0) {
@@ -49,7 +49,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
 
   return (
     <div>
-      {gameEnded ? (
+      {fields.gameEnded ? (
         // Появляется когда игра закончена
         <div>
           <h3>Игра закончена</h3>
@@ -119,6 +119,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
               actions.setUsedWords(fields.usedWords + 1);
               if (fields.word.wordTranslate === translate) {
                 actions.setCorrect([...fields.correct, fields.word]);
+                actions.playCorrect();
                 setScore(score + 10 * multiplier);
                 if (contract === 4) {
                   setContract(0);
@@ -151,6 +152,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
                 }
               } else {
                 actions.setMisses([...fields.misses, fields.word]);
+                actions.playMiss();
                 setContract(0);
                 setMultiplier(1);
                 if (isAuth) {
@@ -177,6 +179,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
               actions.setUsedWords(fields.usedWords + 1);
               if (fields.word.wordTranslate !== translate) {
                 actions.setCorrect([...fields.correct, fields.word]);
+                actions.playCorrect();
                 setScore(score + 10 * multiplier);
                 if (contract === 4) {
                   setContract(0);
@@ -209,6 +212,7 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
                 }
               } else {
                 actions.setMisses([...fields.misses, fields.word]);
+                actions.playMiss();
                 setContract(0);
                 setMultiplier(1);
                 if (isAuth) {
