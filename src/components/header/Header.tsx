@@ -1,6 +1,6 @@
 ﻿import { Link } from 'react-router-dom';
 
-// import logoSvg from '../../assets/img/logo.svg';
+import logoSvg from '../../assets/img/logo.svg';
 
 import PrimaryButton from '../primary-button/PrimaryButton';
 
@@ -15,19 +15,21 @@ import styles from './Header.module.css';
 type HeaderProps = {
   list: 'menu__listMainPage' | 'menu__listSecondPage';
   isAuth: boolean;
+  // active: 'main' | 'games' | 'textbook' | 'statistic';
 };
 
-export default function Header({ list, isAuth = false }: HeaderProps) {
+
+export default function Header({ list, isAuth = false /*, active = 'main'*/}: HeaderProps) {
   return (
     <header className={`${styles.header} ${styles.container}`}>
       <div className={styles.header__menu}>
         <div className={styles.header__logo}>
-          {/* <img className={styles.header__logoImg} src={logoSvg} alt="logo"/> */}
+          <img className={styles.header__logoImg} src={logoSvg} alt="logo"/>
           <h3 className={`${styles.header__logoTitle} ${styles.subtitle}`}>RSLang</h3>
         </div>
         <nav className={styles.menu}>
           <ul className={`${styles[list]}`}>
-            <li className={styles.menu__item}>
+            <li className={`${styles.active} ${styles.menu__item}`}>
               <Link className={styles.menu__link} to="/">
                 Главная
               </Link>

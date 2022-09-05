@@ -1,13 +1,24 @@
 ﻿.header {
-  margin-top: 2.30vw;
+  margin-bottom: 7.20vw;
 }
 
 .container {
+  max-width: 95rem;
+  min-width:20rem;
+  margin: 1.5rem auto 10rem;
   padding: 0 2.8vw;
+}
+@media (max-width:1040px) {
+  .container {
+    margin-bottom: 10vw;
+  }
 }
 
 .header__logo {
+  font-size:1.8rem;
   display: flex;
+align-items: center;
+
 }
 
 .header__menu {
@@ -20,6 +31,12 @@
 .menu__listMainPage {
   display: flex;
 }
+@media(max-width:740px){
+  .menu__listMainPage {
+    display: none;
+}
+}
+
 .menu__listSecondPage {
   display: none; 
   position:absolute;
@@ -39,10 +56,11 @@
   margin-bottom: 3.25vw;
   font-size: 1.7vw;
 }
-
+.menu__item {
+  position: relative;
+}
 .header__logoImg {
-  width: 1.7vw;
-
+  width: 1.5rem;
 }
 
 .subtitle {
@@ -56,6 +74,7 @@
 
 .header__logoTitle {
   margin-left: 0.48vw;
+  font-size: 1.5rem;
 }
 
 .menu__item+.menu__item {
@@ -67,9 +86,21 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 500;
-  font-size: 1.25vw;
+  font-size: 1.1rem;
   line-height: 1.53vw;
   color: #5D5A6E;
+}
+@media(max-width:834px){
+  .menu__link {
+    font-size: 1rem;
+  }
+
+  .header__logoTitle {
+    font-size: 1.2rem;
+  }
+  .header__logoImg {
+    width: 1.2rem;
+  }
 }
 .menu__button{
   padding: 0;
@@ -78,11 +109,21 @@
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 500;
-  font-size: 1.25vw;
+  font-size: 1.1rem;
   line-height: 1.53vw;
-  color: #5D5A6E;
+  transition: 0.7s;
+  color: var(--text-color);
 }
+.menu__button:hover{
+  color: var(--button-bg-color);
+}
+.menu__button:hover+.menu__listen{
+  display: block;
+}
+
 .menu__listen {
+  position: absolute;
+  top: 2rem;
   display: none;
 }
 
@@ -108,10 +149,21 @@
   object-fit:contain;
 }
 
-/* .authorized button{
-  display: none;
-} */
 
 .unAuthorized .header__avatar{
   display: none;
+}
+
+.active {
+  position: relative;
+}
+.active::after {
+  content:"";
+  position: absolute;
+  bottom:-0.3rem;
+  left:40%;
+  width: 1rem;
+  height: 0.15rem;
+  border-radius:1rem;
+  background-color: var( --button-bg-color);
 }
