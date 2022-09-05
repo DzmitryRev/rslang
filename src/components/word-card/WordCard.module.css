@@ -1,6 +1,8 @@
 .container {
-    margin: 30px;
+    margin: 15px 10px;
     position: relative;
+    width:60vw;
+    min-width: 830px;
     max-width: 970px;
     background: linear-gradient(159.19deg, rgba(255, 255, 255, 0.4) 12.33%, rgba(255, 255, 255, 0.1) 90.67%);
     box-shadow: 0px 4px 28px -1px #00000014;
@@ -24,6 +26,27 @@
     border-radius: 50px;
 }
 
+@media(max-width:930px){
+  .container {
+    padding: 20px;
+    min-width: 400px;
+    width:320px;
+    display: block;
+  }
+}
+@media(max-width:830px){
+  .container {
+    padding: 60px;
+    width:520px;
+  }
+}
+@media screen and (max-width: 530px) {
+  .container {
+    min-width: 310px;
+    width:90vw;
+  }
+}
+
 .audio {
     position: absolute;
     cursor: pointer;
@@ -31,6 +54,30 @@
     top: 30px;
     right: 40px;
 }
+.audio:active {
+  top: 25px;
+  right: 35px;
+  padding: 5px;
+  border-radius: 20rem;
+  background: var(--main-page-input-text-color-light);
+}
+@media(max-width:930px){
+  .audio {
+    top: 290px;
+    right: 20px;
+  }
+}
+@media screen and (max-width: 830px) {
+  .audio {
+    top: 370px;
+  }
+}
+@media screen and (max-width: 530px) {
+  .audio {
+    top: 245px;
+  }
+}
+
 
 .imgContainer {
     flex: 0 0 314px;
@@ -43,10 +90,36 @@
     object-fit: cover;
     height: 100%;
 }
+@media(max-width:870px){
+  .imgContainer {
+    margin-bottom:25px;
+  }
+}
+@media(max-width:830px){
+  .imgContainer>img {
+    width:500px;
+  }
+}
+@media screen and (max-width: 530px) {
+  .imgContainer>img {
+    width:300px;
+  }
+}
 
 .contentContainer {
     padding: 10px 20px 0;
     flex: 1 1 100%;
+}
+@media(max-width:870px){
+  .contentContainer {
+    padding:  0px;
+  }
+}
+@media screen and (max-width: 830px) {
+  .contentContainer {
+      padding: 10px 20px;
+      font-size: 1rem;
+  }
 }
 
 .headingContainer {
@@ -57,7 +130,7 @@
 .word {
     font-family: Rubik, sans-serif;
     display: inline-block;
-    font-size: 3.2em;
+    font-size: 1.8rem;
     line-height: 1.2;
     font-weight: 800;
     margin-right: 25px;
@@ -65,14 +138,14 @@
 
 .transcription {
     font-family: Rubik;
-    font-size: 2.8em;
+    font-size: 1.6rem;
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0em;
 }
 
 .translate {
-    font-size: 2.8em;
+    font-size: 1.4rem;
     font-weight: 600;
     line-height: 1.8;
     margin-bottom: 16px;
@@ -81,7 +154,7 @@
 .textMeaning,
 .textMeaningTranslate {
     font-family: Mons, sans-serif;
-    font-size: 1.8em;
+    font-size: 1.2rem;
     font-weight: 600;
     line-height: 1.5;
     margin-bottom: 5px;
@@ -89,7 +162,7 @@
 
 .textExample,
 .textExampleTranslate {
-    font-size: 1.6em;
+    font-size: 1.2rem;
     font-weight: 400;
     line-height: 1.5;
     margin-bottom: 20px;
@@ -115,6 +188,7 @@
     justify-content: space-between;
     align-items: center;
 }
+
 
 .misses,
 .hits {
@@ -150,11 +224,8 @@
     .imgContainer {
         flex: 0 0 260px;
     }
-
     .container {
         padding: 10px 0 10px 10px;
         font-size: 52.5%;
     }
-
-
 }
