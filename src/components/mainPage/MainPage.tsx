@@ -93,7 +93,11 @@ const MainPage = () => {
             <img className={styles.star1} src={star1} alt="star1" />
             <img className={styles.ellipsePink} src={ellipsePink} alt="ellipsePink" />
             <img className={styles.ellipsePurpule} src={ellipsePurpule} alt="ellipsePurpule" />
-            <NavLink to={'/game'} state={{ game: 'audiocall' }} className={`${styles.info__boxAudio} ${styles.box}`}>
+            <NavLink
+              to={'/game'}
+              state={{ game: 'audiocall' }}
+              className={`${styles.info__boxAudio} ${styles.box}`}
+            >
               <h2 className={styles.box__titel}>Аудиовызов</h2>
               <p className={styles.box__text}>
                 - игра на тренировку навыков аудирования. В процессе игры десять попыток угадать
@@ -101,7 +105,11 @@ const MainPage = () => {
               </p>
               <img className={styles.info__boxsArrow} src={arrow} alt="" />
             </NavLink>
-            <NavLink to={'/game'} state={{ game: 'sprint' }} className={`${styles.info__boxSprint} ${styles.box}`}>
+            <NavLink
+              to={'/game'}
+              state={{ game: 'sprint' }}
+              className={`${styles.info__boxSprint} ${styles.box}`}
+            >
               <h2 className={styles.box__titel}>Спринт</h2>
               <p className={styles.box__text}>
                 - проверьте насколько хорошо вы знаете значения английских слов. За ограниченный
@@ -248,9 +256,11 @@ const MainPage = () => {
                 <PrimaryButton color="blue" size="s">
                   Войти
                 </PrimaryButton>
-                <button className={`${styles.user__btnRegistration} ${styles.btn - 2}`}>
-                  Регистрация
-                </button>
+                <Link to={'/registration'}>
+                  <button className={`${styles.user__btnRegistration} ${styles.btn - 2}`}>
+                    Регистрация
+                  </button>
+                </Link>
               </div>
             </div>
             <div className={styles.user__imgs}>
