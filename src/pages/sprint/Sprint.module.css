@@ -1,9 +1,79 @@
+.sprint__wrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sprint__time,
+.sprint__score {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 155.4%;
+  color: #5d5a6f;
+  text-align: center;
+}
+
+.sprint__translate {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 155.4%;
+  color: #5d5a6f;
+}
+
+.sprint__words {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 70px;
+  line-height: 83px;
+  color: #3d3860;
+}
+
 .marker {
-    width: 30px;
-    height: 30px;
-    background-color: grey;
+  width: 30px;
+  height: 30px;
+  background-color: grey;
 }
 
 .active {
-    background-color: red;
+  background-color: red;
+}
+
+.sprint__btn {
+  padding-top: 30px;
+  width: 450px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sprint__markers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sprint__multiplier,
+.sprint__contract {
+  padding: 5px;
+}
+
+.sprint__end {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sprint__end_titel {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 42px;
+  color: #3d3860;
 }
