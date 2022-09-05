@@ -5,6 +5,7 @@ import { API } from '../../api/api';
 
 import { IWord } from '../../api/api.types';
 import PrimaryButton from '../../components/primary-button/PrimaryButton';
+import { useGame } from '../../hooks/gameHook';
 import { randomNumber } from '../../utils/randomNumber';
 
 import styles from './Audiocall.module.css';
@@ -21,22 +22,27 @@ type AudiocallProps = {
 };
 
 export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
-  const location = useLocation();
-  const state = location.state as AudiocallLocationState;
-  const navigate = useNavigate();
+  const location = useLocation(); // !
+  const state = location.state as AudiocallLocationState; // !
+
+  const navigate = useNavigate(); // !
   useEffect(() => {
     if (!state) {
       navigate('/');
     }
-  }, [navigate, state]);
-  const [words, setWords] = useState<IWord[]>([]);
-  const [word, setWord] = useState<IWord | null>(null);
+  }, [navigate, state]); // !
+
+  const [test] = useGame();
+ 
+  const [words, setWords] = useState<IWord[]>([]); // !
+  const [word, setWord] = useState<IWord | null>(null); // !
+  const [learnedWords, setLearnedWords] = useState<IWord[]>([]); // !
+  const [misses, setMisses] = useState<IWord[]>([]); // !
+  const [correct, setCorrect] = useState<IWord[]>([]); // !
+
   const [translates, setTranslates] = useState<string[]>([]);
   const [gameEnded, setGameEnded] = useState<boolean>(false);
   const [usedWords, setUsedWords] = useState<number>(0);
-  const [learnedWords, setLearnedWords] = useState<IWord[]>([]);
-  const [misses, setMisses] = useState<IWord[]>([]);
-  const [correct, setCorrect] = useState<IWord[]>([]);
   const [answer, setAnswer] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -65,11 +71,11 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
         setWords([...words, ...res.data]);
       });
     }
-  }, []);
+  }, []); // !
 
   useEffect(() => {
     setWord(words[0] || null);
-  }, [words]);
+  }, [words]); // !
 
   useEffect(() => {
     if (word) {
