@@ -1,6 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import rightArrow from '../../assets/img/rightArrow.svg';
+import leftArrow from '../../assets/img/leftArrow.svg';
+
 import styles from './Pagination.module.css';
 export interface Props {
   page: number;
@@ -17,7 +20,7 @@ export const PaginationComponent: React.FC<Props> = ({ page, totalPages, handleP
             type="button"
             className={classNames([styles.pageItem, styles.sides].join(' '))}
           >
-            &lt;
+            <img className={styles.sides} src={leftArrow} alt="keys"/>
           </button>
         )}
         <button
@@ -29,7 +32,7 @@ export const PaginationComponent: React.FC<Props> = ({ page, totalPages, handleP
         >
           {1}
         </button>
-        {page > 3 && <div className={styles.separator}>...</div>}
+        {page > 3 && <div className={styles.separator}> . . . </div>}
         {page === totalPages && totalPages > 3 && (
           <button
             onClick={() => handlePagination(page - 2)}
@@ -75,7 +78,7 @@ export const PaginationComponent: React.FC<Props> = ({ page, totalPages, handleP
             {page + 2}
           </button>
         )}
-        {page < totalPages - 2 && <div className={styles.separator}>...</div>}
+        {page < totalPages - 2 && <div className={styles.separator}> . . . </div>}
         <button
           onClick={() => handlePagination(totalPages)}
           type="button"
@@ -91,7 +94,9 @@ export const PaginationComponent: React.FC<Props> = ({ page, totalPages, handleP
             type="button"
             className={[styles.pageItem, styles.sides].join(' ')}
           >
-            &gt;
+            {/* &gt; */}
+            <img className={styles.sides} src={rightArrow} alt="keys"/>
+
           </button>
         )}
       </div>
