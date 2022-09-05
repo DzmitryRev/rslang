@@ -18,10 +18,10 @@ function App() {
     <div className="App">
       <div className="bg"></div>
 
-      <Link to={'/game'} state={{ game: 'Audiocall' }}>
+      <Link to={'/game'} state={{ game: 'audiocall' }}>
         Audiocall
       </Link>
-      <Link to={'/game'} state={{ game: 'Sprint' }}>
+      <Link to={'/game'} state={{ game: 'sprint' }}>
         Sprint
       </Link>
       <Header list="menu__listMainPage" isAuth={isAuth} />
@@ -30,10 +30,7 @@ function App() {
         <Route path="/textbook" element={<Textbook />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route
-          path="/sprint"
-          element={<Sprint isAuth={isAuth} userId={userId} token={token} />}
-        />
+        <Route path="/sprint" element={<Sprint isAuth={isAuth} userId={userId} token={token} />} />
         <Route path="/game" element={<GamesPreload />} />
       </Routes>
     </div>
