@@ -1,31 +1,32 @@
-﻿.header {
-  margin-bottom: 7.20vw;
+.header {
+    margin-bottom: 7.20vw;
 }
 
 .container {
-  max-width: 95rem;
-  min-width:20rem;
-  margin: 1.5rem auto 10rem;
-  padding: 0 2.8vw;
+    max-width: 95rem;
+    min-width: 20rem;
+    margin: 1.5rem auto 10rem;
+    padding: 0 2.8vw;
 }
+
 @media (max-width:1040px) {
-  .container {
-    margin-bottom: 10vw;
-  }
+    .container {
+        margin-bottom: 10vw;
+    }
 }
 
 .header__logo {
-  font-size:1.8rem;
-  display: flex;
-align-items: center;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
 
 }
 
 .header__menu {
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .menu__listMainPage {
@@ -61,29 +62,31 @@ align-items: center;
   font-size: 1.7vw;
 }
 }
+
 .menu__item {
-  position: relative;
+    position: relative;
 }
+
 .header__logoImg {
-  width: 1.5rem;
+    width: 1.5rem;
 }
 
 .subtitle {
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1.7vw;
-  line-height: 1.9vw;
-  color: #3D3860;
+    font-family: 'Rubik';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.7vw;
+    line-height: 1.9vw;
+    color: #3D3860;
 }
 
 .header__logoTitle {
-  margin-left: 0.48vw;
-  font-size: 1.5rem;
+    margin-left: 0.48vw;
+    font-size: 1.5rem;
 }
 
 .menu__item+.menu__item {
-  padding-left: 3.47vw;
+    padding-left: 3.47vw;
 }
 
 .menu__link {
@@ -133,6 +136,7 @@ align-items: center;
 }
 .menu__listen li {
  margin-bottom: 0.8rem;
+
 }
 
 @media(max-width:740px){
@@ -146,35 +150,36 @@ align-items: center;
   }
   }
 .header__menuBtn {
-  width: 6.39vw;
-  height: 2.43vw;
+    width: 6.39vw;
+    height: 2.43vw;
 }
 
 .authorized {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height:  50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
 }
 
 .authorized .header__avatar {
-  width: 50px;
-  height:  50px;
-  border-radius:50%;
-  border: 2px solid orange;
-  overflow: hidden;
-  object-fit:contain;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid orange;
+    overflow: hidden;
+    object-fit: contain;
 }
 
 
-.unAuthorized .header__avatar{
-  display: none;
+.unAuthorized .header__avatar {
+    display: none;
 }
 
 .active {
-  position: relative;
+    position: relative;
 }
+
 .active::after {
   content:"";
   position: absolute;
@@ -250,4 +255,5 @@ align-items: center;
 }
 .close{
   display: none;
+
 }

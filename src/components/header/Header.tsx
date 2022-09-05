@@ -1,5 +1,6 @@
-﻿import { Link, NavLink} from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
 import { useState } from 'react';
+
 
 import logoSvg from '../../assets/img/logo.svg';
 import logout from '../../assets/img/logout.svg';
@@ -15,6 +16,7 @@ export default function Header({  isAuth = false }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [openGame, setOpenGame] = useState(true);
 
+
   return (
     <header className={`${styles.header} ${styles.container}`}>
       <div className={styles.header__menu}>
@@ -24,6 +26,7 @@ export default function Header({  isAuth = false }: HeaderProps) {
         </div>
         <nav className={styles.menu}>
           <ul className = {isOpen?`${styles.close} ${styles.menu__listMainPage} ` : styles.menu__listMainPage} >
+
             <li className={`${styles.menu__item}`}>
               <NavLink
                 className={({ isActive }) =>
