@@ -77,7 +77,7 @@ export class API {
       },
     });
   }
-  static updateToUserWord(
+  static updateUserWord(
     userId: string,
     wordId: string,
     wordSettings: {

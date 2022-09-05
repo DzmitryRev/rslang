@@ -54,6 +54,7 @@ const MainPage = () => {
         <div className={styles.main__titels}>
           <div className={styles.titelsWrapper}>
             <h1 className={styles.titels__header}>
+
           Выучить английский с RSLang - легко
             </h1>
             <img className={styles.lines} src={lines} alt="lines"/> 

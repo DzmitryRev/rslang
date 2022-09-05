@@ -1,3 +1,4 @@
+import { API } from '../../api/api';
 import { IUserWord, IWord } from '../../api/api.types';
 import WordCard from '../word-card/WordCard';
 
@@ -40,19 +41,31 @@ export default function WordList({
                 difficultCallback={() => {
                   updateUserWord(word._id, {
                     difficulty: 'hard',
-                    optional: {},
+                    optional: {
+                      correct: word.userWord?.optional.correct || 0,
+                      misses: word.userWord?.optional.misses || 0,
+                      withoutMistakes: word.userWord?.optional.withoutMistakes || 0,
+                    },
                   });
                 }}
                 learnedCallBack={() => {
                   updateUserWord(word._id, {
                     difficulty: 'learned',
-                    optional: {},
+                    optional: {
+                      correct: word.userWord?.optional.correct || 0,
+                      misses: word.userWord?.optional.misses || 0,
+                      withoutMistakes: word.userWord?.optional.withoutMistakes || 0,
+                    },
                   });
                 }}
                 removeFromDifficult={() => {
                   updateUserWord(word._id, {
                     difficulty: 'default',
-                    optional: {},
+                    optional: {
+                      correct: word.userWord?.optional.correct || 0,
+                      misses: word.userWord?.optional.misses || 0,
+                      withoutMistakes: word.userWord?.optional.withoutMistakes || 0,
+                    },
                   });
                 }}
               />
@@ -69,13 +82,21 @@ export default function WordList({
                 difficultCallback={() => {
                   addToUserWords(word._id, {
                     difficulty: 'hard',
-                    optional: {},
+                    optional: {
+                      correct: 0,
+                      misses: 0,
+                      withoutMistakes: 0,
+                    },
                   });
                 }}
                 learnedCallBack={() => {
                   addToUserWords(word._id, {
                     difficulty: 'learned',
-                    optional: {},
+                    optional: {
+                      correct: 0,
+                      misses: 0,
+                      withoutMistakes: 0,
+                    },
                   });
                 }}
                 removeFromDifficult={() => {}}
