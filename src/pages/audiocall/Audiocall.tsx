@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { API } from '../../api/api';
-
 import { useGame } from '../../hooks/gamesHook';
+import { randomNumber } from '../../utils/randomNumber';
 
 import styles from './Audiocall.module.css';
 
@@ -20,18 +19,19 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
-    const wordsWithoutCorrect = fields.words.filter(
+    let wordsWithoutCorrect = fields.words.filter(
       (item) => item.wordTranslate !== fields.word?.wordTranslate,
     );
-    setTranslates(
-      [
-        // randomNumber(0, words.length - 1)
-        wordsWithoutCorrect[1]?.wordTranslate || '',
-        wordsWithoutCorrect[2]?.wordTranslate || '',
-        wordsWithoutCorrect[3]?.wordTranslate || '',
-        fields.word?.wordTranslate || '',
-      ].sort(() => Math.random() - 0.5),
-    );
+    const arr = [];
+    for (let i = 0; i < 3; i++) {
+      const currentWord = wordsWithoutCorrect[randomNumber(0, wordsWithoutCorrect.length - 1)];
+      arr.push(currentWord?.wordTranslate || '');
+      wordsWithoutCorrect = [
+        ...wordsWithoutCorrect.filter((item) => item.wordTranslate !== currentWord?.wordTranslate),
+      ];
+    }
+    setTranslates([...arr, fields.word?.wordTranslate || ''].sort(() => Math.random() - 0.5));
+
   }, [fields.word]);
 
   useEffect(() => {
