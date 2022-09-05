@@ -69,14 +69,14 @@ export default function Header({ isAuth = false }: HeaderProps) {
                 }
               >
                 <li>
-                  <NavLink className={styles.menu__link} to="/games/audiocall">
+                  <Link className={styles.menu__link} to={'/game'} state={{ game: 'audiocall' }}>
                     Аудиовызов
-                  </NavLink>
+                  </Link>
                 </li>
                 <li>
-                  <NavLink className={styles.menu__link} to="/games/sprint">
+                  <Link className={styles.menu__link} to={'/game'} state={{ game: 'sprint' }}>
                     Спринт
-                  </NavLink>
+                  </Link>
                 </li>
               </ul>
             </li>

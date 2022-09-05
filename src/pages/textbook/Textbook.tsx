@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import useSound from 'use-sound';
+
+import styles from 'Textbook.module.css';
 
 import { API } from '../../api/api';
 import { IUserWordBody } from '../../api/api.types';
@@ -139,7 +141,6 @@ export default function Textbook() {
           }}
         />
       )}
-      {/* ... */}
       <Footer />
     </div>
   );
