@@ -1,0 +1,46 @@
+﻿:root {
+  --main-headers-color: #3D3860;
+  --text-color: #5D5A6F;
+
+  --footer-title-color: #4C476C;
+  --footer-text-color: #848196;
+
+  --main-page-input-text-color-light: #D2CFE3;
+  --main-page-input-text-color-dark: #848196;
+  --input-bg-color: #E2E1E7;
+
+
+  /* ----- buttons -----*/
+
+  --button-text-color: #ffffff;
+  --button-bg-color: #FD6657;
+  --secondary-button-bg-color: #3D3860;
+  --true-button-bg-color: linear-gradient(98.17deg, #6466D9 5.96%, #7CFBD5 92.27%);
+  --false-button-bg-color: linear-gradient(98.14deg, #FB7C98 10.76%, #FEC24A 93.28%);
+  --button-hover-bg-color: #F8914F;
+  --button-active-text-color: #E8DBD4;
+
+  
+  /* ----- cards -----*/
+  
+  --cards-bg-color:  linear-gradient(159.19deg, rgba(255, 255, 255, 0.4) 12.33%, rgba(255, 255, 255, 0.1) 90.67%);
+  --cards-shadow: 0px 4px 28px -1px rgba(0, 0, 0, 0.08);
+  --cards-blur: blur(20px);
+  --cards-title-color: #848196;
+  --cards-text-color: #9390A8;
+
+  --a1-color:#6B68D9;
+  --a2-color:#A379DD;
+  --b1-color:#D085DF;
+  --b2-color:#FC79AE;
+  --c1-color:#FA8081;
+  --c2-color:#FEC249;
+  
+  --a1-shadow:  0px 0px 31px -1px #6466D8;
+  --a2-shadow: 0px 0px 31px -1px #A379DD;
+  --b1-shadow: 0px 0px 31px -1px #D085DF;
+  --b2-shadow:0px 0px 31px -1px #FC79AE;
+  --c1-shadow: 0px 0px 31px -1px #FA8081;
+  --c2-shadow:0px 0px 31px -1px #FEC249;
+  
+}

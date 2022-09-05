@@ -1,0 +1,97 @@
+﻿.container {
+  padding: 0 2.8vw;
+}
+
+.footerContainer {
+  padding: 0 10.76vw;
+}
+
+.footer {
+  height: 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-items:start;
+}
+@media (max-width:530px) {
+  .footer{
+    align-items:center;
+  }
+}
+
+.footer__logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.footer__logoImg {
+  margin-right: 0.49vw;
+}
+
+
+@media (max-width:530px) {
+  .footer__menu{
+  display: none;
+  }
+}
+
+.footer__menuTitle {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2.3rem;
+  margin-bottom: 0.8rem;
+  color: #4C476C;
+}
+@media (max-width:950px) {
+  .footer__menuTitle{
+  font-size: 1.1rem;
+  margin-bottom: 0rem;
+  }
+}
+@media (max-width:650px) {
+  .footer__menuTitle{
+  font-size: 0.9rem;
+  }
+}
+
+
+.footer__link {
+  text-decoration: none;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin-bottom: 1rem;
+  color: #848196;
+}
+@media (max-width:950px) {
+  .footer__link{
+  font-size: 1rem;
+  }
+}
+@media (max-width:950px) {
+  .footer__link{
+  font-size: 0.8rem;
+  }
+}
+
+
+.rsScholAge {
+  margin-top: 0;
+}
+@media (max-width:950px) {
+  .rsSchol{
+  width: 4rem;
+  }
+}
+.footer__logoTitle{
+  font-size: 1.4rem;
+  color:var(--main-headers-color);
+}
+@media (max-width:950px) {
+  .footer__logoTitle{
+  font-size: 1rem;
+  }
+}

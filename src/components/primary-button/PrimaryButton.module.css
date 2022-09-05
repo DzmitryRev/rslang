@@ -1,0 +1,116 @@
+.button {
+  position: relative;
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 134px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+/* color */
+
+.blue {
+  background-color: #3d3860;
+}
+
+.blue:active {
+  color: #e8dbd4;
+}
+
+.orange {
+  background-color: #fd6657;
+}
+
+.orange:hover {
+  background-color: #f8914f;
+}
+
+.orange:active {
+  color: #e8dbd4;
+}
+
+.orange-gradient {
+  background: linear-gradient(98.14deg, #fb7c98 10.76%, #fec24a 93.28%);
+}
+
+.orange-gradient:hover {
+  box-shadow: 0px 0px 31px 0px #fb7d97;
+}
+
+.blue-gradient {
+  background: linear-gradient(98.17deg, #6466d9 5.96%, #7cfbd5 92.27%);
+}
+
+.blue-gradient:hover {
+  box-shadow: 0px 0px 31px 0px #70afd7;
+}
+
+/* size */
+
+.s,
+.m {
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.s {
+  padding: 16px 35px;
+}
+
+.m {
+  padding: 16px 50px;
+}
+
+.l {
+  font-size: 18px;
+  line-height: 22px;
+  padding: 20px 0;
+  width: 163px;
+}
+
+.xl {
+  font-size: 24px;
+  line-height: 30px;
+  padding: 24px 0;
+  width: 240px;
+}
+
+.disabled {
+  color: #d1cee4;
+  opacity: 0.4;
+}
+
+.disabled:hover {
+  box-shadow: none;
+}
+
+.disabled::after {
+  position: absolute;
+  display: block;
+  content: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: black;
+}
+
+@media (max-width: 1220px) {
+  .m {
+    padding: 15px 30px;
+  }
+}
+
+@media (max-width: 769px) {
+  .m {
+    padding: 12px 25px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .m {
+    padding: 10px 20px;
+  }
+}

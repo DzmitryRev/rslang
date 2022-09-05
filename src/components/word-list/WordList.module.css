@@ -1,0 +1,20 @@
+.wordlist{
+display: flex;
+flex-direction: column;
+justify-content: center;align-items: center;
+margin-bottom: 5rem;
+}
+
+@media(max-width:930px){
+  .wordlist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+  }
+}
+@media(max-width:830px){
+  .wordlist {
+    display: flex;
+    align-items: center;
+  }
+}
