@@ -1,6 +1,9 @@
 import { IUserWord, IWord } from '../../api/api.types';
 import WordCard from '../word-card/WordCard';
 
+import styles from './WordList.module.css';
+
+
 type WordListProps = {
   words: IWord[];
   userWords: IUserWord[];
@@ -22,7 +25,7 @@ export default function WordList({
   isDifficultPage,
 }: WordListProps) {
   return (
-    <div>
+    <div className={styles.wordlist}>
       {words.map((word) => {
         if (isAuth) {
           if (word.userWord) {
