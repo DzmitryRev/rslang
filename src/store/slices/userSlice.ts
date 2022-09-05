@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, isRejectedWithValue } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  isRejectedWithValue,
+  PayloadAction,
+} from '@reduxjs/toolkit';
 
 import { API } from '../../api/api';
 
@@ -51,7 +56,20 @@ export const registration = createAsyncThunk<IRegistrationResponse, UserType, {}
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action: PayloadAction<{ token: string; userId: string } | null>) => {
+      if (!action.payload?.token || !action.payload.userId) return;
+      state.token = action.payload.token;
+      state.userId = action.payload.userId;
+      state.isAuth = true;
+    },
+    setLogout: (state) => {
+      state.token = '';
+      state.userId = '';
+      state.isAuth = false;
+      localStorage.removeItem('rev-user-settings');
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -67,6 +85,13 @@ const userSlice = createSlice({
         state.userId = action.payload.userId;
         state.isAuth = true;
         state.isLoading = false;
+        localStorage.setItem(
+          'rev-user-settings',
+          JSON.stringify({
+            token: action.payload.token,
+            userId: action.payload.userId,
+          }),
+        );
       })
       .addCase(registration.fulfilled, (state) => {
         state.error = false;
@@ -82,5 +107,6 @@ const userSlice = createSlice({
       });
   },
 });
+export const { setUser, setLogout } = userSlice.actions;
 
 export default userSlice.reducer;

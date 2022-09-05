@@ -77,7 +77,7 @@ export default function WordCard({
         {isAuth ? (
           <div className={styles.controller}>
             <div className={styles.statistic}>
-              {word.userWord?.optional.misses === 0 && word.userWord?.optional.correct === 0 ? (
+              {!word.userWord?.optional.misses && !word.userWord?.optional.correct ? (
                 <></>
               ) : (
                 <>
