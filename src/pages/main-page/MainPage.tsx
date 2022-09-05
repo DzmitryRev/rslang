@@ -1,5 +1,6 @@
 ﻿import { Link, NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useState } from 'react';
 
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 
@@ -53,6 +54,7 @@ import { login } from '../../store/slices/userSlice';
 import styles from './MainPage.module.css';
 
 const MainPage = () => {
+  const [isOpen, setIsOpen] = useState('dima');
   const dispach = useAppDispatch();
   const { isAuth, isLoading } = useAppSelector((store) => store.user);
 
@@ -192,7 +194,8 @@ const MainPage = () => {
             <div className={styles.student__container}>
               <div className={styles.student__containerKatiaDima}>
                 <div className={styles.student__containerKatia}>
-                  <img className={styles.ekateryna} src={ekateryna} alt="" />
+                  <img onClick={()=>{setIsOpen('katia');}} 
+                    className={styles.ekateryna} src={ekateryna} alt=""/>      
                 </div>
                 <div className={styles.student__containerDima}>
                   <img
@@ -200,7 +203,7 @@ const MainPage = () => {
                     src={moonWithoutShadow}
                     alt="moonWithoutShadow"
                   />
-                  <img className={styles.dima} src={dima} alt="dima" />
+                  <img onClick={()=>{setIsOpen('dima');}} className={styles.dima} src={dima} alt="dima"/>  
                   <img
                     className={styles.moonWithShadow}
                     src={moonWithShadow}
@@ -208,8 +211,8 @@ const MainPage = () => {
                   />
                 </div>
               </div>
-              <div className={styles.student__containerArtsem}>
-                <img className={styles.artsem} src={artsem} alt="artsem" />
+              <div onClick={()=>{setIsOpen('artsem');}} className={styles.student__containerArtsem}>
+                <img onClick={()=>{setIsOpen('artsem');}}  className={styles.artsem} src={artsem} alt="artsem"/>
               </div>
             </div>
 
@@ -224,7 +227,7 @@ const MainPage = () => {
                 </p>
               </div>
               <div className={styles.team__descriptionWrap}>
-                <div className={`${styles.student__name} ${styles.katiaWrap}`}>
+                <div className={(isOpen==='katia')? `${styles.student__name} ${styles.katiaWrap}  ${styles.show}`:`${styles.student__name} ${styles.katiaWrap}`}>
                   <h3 className={styles.student__nameTitle}>Екатерина</h3>
                   <p className={`${styles.student__nameTexts} ${styles.texts}`}>
                     Екатерина уже была знакома с программированием, после чего их дороги разошлись,
@@ -233,7 +236,7 @@ const MainPage = () => {
                     верстка и дизайн учебника, помогала писать Api
                   </p>
                 </div>
-                <div className={`${styles.student__name} ${styles.artsemWrap}`}>
+                <div className={(isOpen==='artsem')? `${styles.student__name} ${styles.artsemWrap}  ${styles.show}`:`${styles.student__name} ${styles.artsemWrap}`} >
                   <h3 className={styles.student__nameTitle}>Артем</h3>
                   <p className={`${styles.student__nameTexts} ${styles.texts} `}>
                     Знакомство с JS началась с того, что Артем решил самостоятельно создать
@@ -243,7 +246,7 @@ const MainPage = () => {
                     настраивал работу приложения.
                   </p>
                 </div>
-                <div className={`${styles.student__name} ${styles.dimamWrap}`}>
+                <div className={(isOpen==='dima')? `${styles.student__name} ${styles.dimamWrap}  ${styles.show}`:`${styles.student__name} ${styles.dimamWrap}`} >
                   <h3 className={styles.student__nameTitle}>Дмитрий</h3>
                   <p className={`${styles.student__nameTexts} ${styles.texts}`}>
                     Человек, который "от скуки" решил попробовать покодить. И нашел себя! За время

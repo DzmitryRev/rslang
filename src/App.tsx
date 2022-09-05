@@ -29,13 +29,6 @@ function App() {
   return (
     <div className="App">
       <div className="bg"></div>
-
-      <Link to={'/game'} state={{ game: 'audiocall' }}>
-        Audiocall
-      </Link>
-      <Link to={'/game'} state={{ game: 'sprint' }}>
-        Sprint
-      </Link>
       <Header isAuth={isAuth} />
       <Routes>
         <Route path="/" element={<MainPage />} />
