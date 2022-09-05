@@ -1,80 +1,97 @@
-﻿import { Link } from 'react-router-dom';
+﻿import { Link, NavLink} from 'react-router-dom';
+import { useState } from 'react';
 
 import logoSvg from '../../assets/img/logo.svg';
-
-import PrimaryButton from '../primary-button/PrimaryButton';
+import logout from '../../assets/img/logout.svg';
 
 import styles from './Header.module.css';
 
-/**
- * TODO:
- * Выпадающее меню на ссылку игры
- * Бургер меню
- */
 
 type HeaderProps = {
-  list: 'menu__listMainPage' | 'menu__listSecondPage';
   isAuth: boolean;
-  // active: 'main' | 'games' | 'textbook' | 'statistic';
 };
 
+export default function Header({  isAuth = false }: HeaderProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [openGame, setOpenGame] = useState(true);
 
-export default function Header({ list, isAuth = false /*, active = 'main'*/}: HeaderProps) {
   return (
     <header className={`${styles.header} ${styles.container}`}>
       <div className={styles.header__menu}>
         <div className={styles.header__logo}>
-          <img className={styles.header__logoImg} src={logoSvg} alt="logo"/>
+          <img className={styles.header__logoImg} src={logoSvg} alt="logo" />
           <h3 className={`${styles.header__logoTitle} ${styles.subtitle}`}>RSLang</h3>
         </div>
         <nav className={styles.menu}>
-          <ul className={`${styles[list]}`}>
-            <li className={`${styles.active} ${styles.menu__item}`}>
-              <Link className={styles.menu__link} to="/">
+          <ul className = {isOpen?`${styles.close} ${styles.menu__listMainPage} ` : styles.menu__listMainPage} >
+            <li className={`${styles.menu__item}`}>
+              <NavLink
+                className={({ isActive }) =>
+                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+                }
+                to="/"
+              >
                 Главная
-              </Link>
+              </NavLink>
             </li>
             <li className={styles.menu__item}>
-              <Link className={styles.menu__link} to="/textbook">
+              <NavLink
+                className={({ isActive }) =>
+                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+                }
+                to="/textbook"
+              >
                 Учебник
-              </Link>
+              </NavLink>
             </li>
-            <li className={styles.menu__item}>
-              <button className={styles.menu__button}>Игры</button>
-              <ul className={styles.menu__listen}>
+            <li className={`${styles.menu__item} ${styles.menu__lastItem}`}>
+              <button className={styles.menu__button} onClick ={()=>{setOpenGame(!openGame);}}>Игры</button>
+
+              <ul className={openGame?`${styles.menu__listen} ${styles.close}`:styles.menu__listen}>
                 <li>
-                  <Link className={styles.menu__link} to="/games/audiocall">
+                  <NavLink className={styles.menu__link} to="/games/audiocall">
                     Аудиовызов
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link className={styles.menu__link} to="/games/sprint">
+                  <NavLink className={styles.menu__link} to="/games/sprint">
                     Спринт
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>
             <li className={styles.menu__item}>
-              <Link className={styles.menu__link} to="/statistic">
+              <NavLink
+                className={({ isActive }) =>
+                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+                }
+                to="/statistic"
+              >
                 Статистика
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
 
-        {/* Исправить */}
+        
+        <div className={styles.burger} onClick={() => {setIsOpen(!isOpen);}}>  
+        </div>
         <div className={`${styles.authorized}`}>
           {isAuth ? (
-            <img className={styles.header__avatar} src="" alt="avatar" />
-          ) : (
-            <Link to="/login">
-              <PrimaryButton color="blue" size="s">
-                Войти
-              </PrimaryButton>
-            </Link>
+            <img className={styles.logout} src={logout} alt="logout" />
+          ) : (           
+            <Link to="/login" className={styles.header__loginBtn}>
+                Войти       
+            </Link>       
           )}
         </div>
       </div>
     </header>
   );
 }
+
+
+// onClick={() => {
+//   setIsOpen(!isOpen)
+//   }}
+//   className = {isOpen? стиль для открытого меню : стиль для закрытого}
