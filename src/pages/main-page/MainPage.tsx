@@ -1,4 +1,7 @@
 ﻿import { Link, NavLink } from 'react-router-dom';
+import * as Yup from 'yup';
+
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 
 import playHed from '../../assets/img/play-hed.svg';
 import rotate from '../../assets/img/rotate.svg';
@@ -38,14 +41,43 @@ import ekateryna from '../../assets/team/ekateryna.png';
 import artsem from '../../assets/team/artsem.png';
 import dima from '../../assets/team/dima.png';
 
-import Footer from '../footer/Footer';
+import Footer from '../../components/footer/Footer';
 
-import PrimaryButton from '../primary-button/PrimaryButton';
-import Title from '../title/Title';
+import PrimaryButton from '../../components/primary-button/PrimaryButton';
+import Title from '../../components/title/Title';
+
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+
+import { login } from '../../store/slices/userSlice';
 
 import styles from './MainPage.module.css';
 
 const MainPage = () => {
+  const dispach = useAppDispatch();
+  const { isAuth, isLoading } = useAppSelector((store) => store.user);
+
+  const loginSchema = Yup.object().shape({
+    password: Yup.string()
+      .min(8, '*Слишком короткий')
+      .max(50, '*Слишком длиный')
+      .required('*Обязательное поле'),
+    email: Yup.string().email('*Неверный e-mail').required('*Обязательное поле'),
+  });
+  const handleSubmit = (
+    values: { email: string; password: string },
+    actions: FormikHelpers<{ email: string; password: string }>,
+  ) => {
+    dispach(login(values))
+      .unwrap()
+      .then(() => {
+        window.scrollTo(0, 0);
+      })
+      .catch((e) => {
+        actions.setFieldError('email', 'Неверное имя пользователя или пароль');
+        actions.setFieldError('password', 'Неверное имя пользователя или пароль');
+      });
+  };
+
   return (
     <>
       <main className={`${styles.main} ${styles.container}`}>
@@ -226,62 +258,99 @@ const MainPage = () => {
           </div>
         </div>
 
-        <div className={styles.user}>
-          <Title align="center" width="user">
-            <img className={styles.longArrow} src={longArrow} alt="longArrow" />
-            Не забудьте пройти авторизацию, чтобы воспользоваться всеми возможностями приложения
-          </Title>
-          <div className={styles.user__container}>
-            <img className={styles.star4} src={star4} alt="star4" />
-            <div className={styles.user__dataWrap}>
-              <div className={styles.user__data}>
-                <div className={styles.logo}>
-                  <h3 className={styles.subtitle}>Логин</h3>
-                  <input
-                    className={`${styles.creationName} ${styles.input}`}
-                    type="text"
-                    placeholder="Введите логин..."
+        {isAuth ? (
+          ''
+        ) : (
+          <div className={styles.user}>
+            <Title align="center" width="user">
+              <img className={styles.longArrow} src={longArrow} alt="longArrow" />
+              Не забудьте пройти авторизацию, чтобы воспользоваться всеми возможностями приложения
+            </Title>
+            <div className={styles.user__container}>
+              <img className={styles.star4} src={star4} alt="star4" />
+              <Formik
+                initialValues={{ email: '', password: '' }}
+                className={styles.user__dataWrap}
+                validationSchema={loginSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ isSubmitting }) => {
+                  return (
+                    <div>
+                      <Form>
+                        <label>
+                          <h3 className={styles.subtitle}>Адресс</h3>
+                          <div className={styles.fieldContainer}>
+                            <Field
+                              type="email"
+                              name="email"
+                              placeholder="Введите email..."
+                              className={`${styles.creationName} ${styles.input}`}
+                            />
+                            <ErrorMessage
+                              name="email"
+                              component="div"
+                              className={styles.error__input}
+                            />
+                          </div>
+                        </label>
+                        <label>
+                          <h3 className={styles.subtitle}>Пароль</h3>
+                          <div className={styles.fieldContainer}>
+                            <Field
+                              type="password"
+                              name="password"
+                              placeholder="Введите пароль..."
+                              className={`${styles.creationName} ${styles.input}`}
+                            />
+                            <ErrorMessage
+                              name="password"
+                              component="div"
+                              className={styles.error__input}
+                            />
+                          </div>
+                        </label>
+                        {isLoading ? (
+                          <div>Загрузка...</div>
+                        ) : (
+                          <div className={styles.user__btn}>
+                            <PrimaryButton color="blue" size="s">
+                              Войти
+                            </PrimaryButton>
+                            <Link to={'/registration'}>
+                              <button
+                                className={`${styles.user__btnRegistration} ${styles.btn - 2}`}
+                              >
+                                Регистрация
+                              </button>
+                            </Link>
+                          </div>
+                        )}
+                      </Form>
+                    </div>
+                  );
+                }}
+              </Formik>
+              <div className={styles.user__imgs}>
+                <img className={styles.user__img} src={keys} alt="keys" />
+                <div className={styles.mechanismSvg}>
+                  <img
+                    className={`${styles.mechanism__max} ${styles.mechanism}`}
+                    src={gearMax}
+                    alt=""
+                  />
+                  <img
+                    className={`${styles.mechanism__min} ${styles.mechanism}`}
+                    src={mechanismMin}
+                    alt=""
                   />
                 </div>
-                <div className={styles.password}>
-                  <h3 className={styles.subtitle}>Пароль</h3>
-                  <input
-                    className={`${styles.creationName} ${styles.input}`}
-                    type="text"
-                    placeholder="Введите пароль..."
-                  />
-                </div>
               </div>
-              <div className={styles.user__btn}>
-                <PrimaryButton color="blue" size="s">
-                  Войти
-                </PrimaryButton>
-                <Link to={'/registration'}>
-                  <button className={`${styles.user__btnRegistration} ${styles.btn - 2}`}>
-                    Регистрация
-                  </button>
-                </Link>
-              </div>
+              <img className={styles.elipseDotted} src={elipseDotted} alt="elipseDotted" />
+              <img className={styles.beforeFooter} src={beforeFooter} alt="beforeFooter" />
             </div>
-            <div className={styles.user__imgs}>
-              <img className={styles.user__img} src={keys} alt="keys" />
-              <div className={styles.mechanismSvg}>
-                <img
-                  className={`${styles.mechanism__max} ${styles.mechanism}`}
-                  src={gearMax}
-                  alt=""
-                />
-                <img
-                  className={`${styles.mechanism__min} ${styles.mechanism}`}
-                  src={mechanismMin}
-                  alt=""
-                />
-              </div>
-            </div>
-            <img className={styles.elipseDotted} src={elipseDotted} alt="elipseDotted" />
-            <img className={styles.beforeFooter} src={beforeFooter} alt="beforeFooter" />
           </div>
-        </div>
+        )}
       </main>
       <Footer />
     </>
