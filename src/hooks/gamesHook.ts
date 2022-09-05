@@ -25,6 +25,7 @@ export function useGame(userId: string, token: string, isAuth: boolean) {
   const [learnedWords, setLearnedWords] = useState<IWord[]>([]);
   const [misses, setMisses] = useState<IWord[]>([]);
   const [correct, setCorrect] = useState<IWord[]>([]);
+  const [page, setPage] = useState<number>(state?.page);
 
   useEffect(() => {
     if (isAuth) {
@@ -40,7 +41,7 @@ export function useGame(userId: string, token: string, isAuth: boolean) {
         setWords([...words, ...res.data]);
       });
     }
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     setWord(words[0] || null);
@@ -124,7 +125,7 @@ export function useGame(userId: string, token: string, isAuth: boolean) {
   }
 
   return {
-    fields: { words, word, usedWords, learnedWords, correct, misses },
+    fields: { words, word, usedWords, learnedWords, correct, misses, page },
     actions: {
       nextWord,
       setUsedWords,
@@ -136,6 +137,7 @@ export function useGame(userId: string, token: string, isAuth: boolean) {
       addToLearnedWords,
       addToUserWords,
       missWord,
+      setPage,
     },
   };
 }
