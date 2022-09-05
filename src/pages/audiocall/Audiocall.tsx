@@ -1,19 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 
-import { API } from '../../api/api';
+import { useGame } from '../../hooks/gamesHook';
 
-import { IWord } from '../../api/api.types';
-import PrimaryButton from '../../components/primary-button/PrimaryButton';
-import { useGame } from '../../hooks/gameHook';
 import { randomNumber } from '../../utils/randomNumber';
 
 import styles from './Audiocall.module.css';
-
-type AudiocallLocationState = {
-  group: number;
-  page: number;
-};
 
 type AudiocallProps = {
   isAuth: boolean;
@@ -22,106 +13,46 @@ type AudiocallProps = {
 };
 
 export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
-  const location = useLocation(); // !
-  const state = location.state as AudiocallLocationState; // !
-
-  const navigate = useNavigate(); // !
-  useEffect(() => {
-    if (!state) {
-      navigate('/');
-    }
-  }, [navigate, state]); // !
-
-  const [test] = useGame();
- 
-  const [words, setWords] = useState<IWord[]>([]); // !
-  const [word, setWord] = useState<IWord | null>(null); // !
-  const [learnedWords, setLearnedWords] = useState<IWord[]>([]); // !
-  const [misses, setMisses] = useState<IWord[]>([]); // !
-  const [correct, setCorrect] = useState<IWord[]>([]); // !
+const { fields, actions } = useGame(userId, token, isAuth);
 
   const [translates, setTranslates] = useState<string[]>([]);
-  const [gameEnded, setGameEnded] = useState<boolean>(false);
-  const [usedWords, setUsedWords] = useState<number>(0);
+
   const [answer, setAnswer] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
-    const wordsWithoutCorrect = words.filter((item) => item.wordTranslate !== word?.wordTranslate);
-    setTranslates([
-      // randomNumber(0, words.length - 1)
-      wordsWithoutCorrect[1]?.wordTranslate || '',
-      wordsWithoutCorrect[2]?.wordTranslate || '',
-      wordsWithoutCorrect[3]?.wordTranslate || '',
-      word?.wordTranslate || '',
-    ]);
-  }, [word]);
-
-  useEffect(() => {
-    if (isAuth) {
-      API.getAggregatedWords(
-        userId,
-        token,
-        `{"page": ${state.page - 1}, "group": ${state?.group}}`,
-      ).then((res) => {
-        setWords(res.data[0].paginatedResults.sort(() => Math.random() - 0.5));
-      });
-    } else {
-      API.getWords(state.page - 1, state?.group).then((res) => {
-        setWords([...words, ...res.data]);
-      });
+    let wordsWithoutCorrect = fields.words.filter(
+      (item) => item.wordTranslate !== fields.word?.wordTranslate,
+    );
+    const arr = [];
+    for (let i = 0; i < 3; i++) {
+      const currentWord = wordsWithoutCorrect[randomNumber(0, wordsWithoutCorrect.length - 1)];
+      arr.push(currentWord?.wordTranslate || '');
+      wordsWithoutCorrect = [
+        ...wordsWithoutCorrect.filter((item) => item.wordTranslate !== currentWord?.wordTranslate),
+      ];
     }
-  }, []); // !
 
-  useEffect(() => {
-    setWord(words[0] || null);
-  }, [words]); // !
+setTranslates([...arr, fields.word?.wordTranslate || ''].sort(() => Math.random() - 0.5));
+  }, [fields.word]);
 
-  useEffect(() => {
-    if (word) {
-      const audio = new Audio(`https://react-learnwords-rsl.herokuapp.com/${word.audio}`);
+useEffect(() => {
+    if (fields.word) {
+      const audio = new Audio(`https://react-learnwords-rsl.herokuapp.com/${fields.word.audio}`);
       audio.play();
     }
-  }, [word]);
-
-  useEffect(() => {
-    if (usedWords === 10) {
-      setGameEnded(true);
-    }
-  }, [usedWords]);
-
-  function updateWord(
-    id: string,
-    difficulty: 'default' | 'hard' | 'learned',
-    correct: number,
-    misses: number,
-    withoutMistakes: number,
-  ) {
-    API.updateUserWord(
-      userId,
-      id,
-      {
-        difficulty: difficulty,
-        optional: {
-          correct,
-          misses,
-          withoutMistakes,
-        },
-      },
-      token,
-    );
-  }
+  }, [fields.word]);
 
   return (
     <div>
-      {gameEnded ? (
+      {fields.gameEnded ? (
         // Появляется когда игра закончена
         <div>
           <h3>Игра закончена</h3>
-          <h4>Слов: {usedWords}</h4>
+          <h4>Слов: {fields.usedWords}</h4>
           <div>
-            Правильно ({correct.length}):
-            {correct.map((item) => {
+            Правильно ({fields.correct.length}):
+            {fields.correct.map((item) => {
               return (
                 <h4 key={item._id}>
                   {item.word} === {item.wordTranslate}
@@ -131,8 +62,8 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
           </div>
 
           <div>
-            Неправильно ({misses.length}):
-            {misses.map((item) => {
+            Неправильно ({fields.misses.length}):
+            {fields.misses.map((item) => {
               return (
                 <h4 key={item._id}>
                   {item.word} === {item.wordTranslate}
@@ -144,7 +75,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
           {isAuth && (
             <h4>
               Изучено слов:
-              {learnedWords.map((item) => {
+              {fields.learnedWords.map((item) => {
                 return (
                   <h4 key={item._id}>
                     {item.word} === {item.wordTranslate}
@@ -157,152 +88,88 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
       ) : (
         <div>
           {/* Слово на английском (h1 нужно точно убрать и поставить нужный тег) */}
-          <h1>Слово: {word?.word}</h1>
+          <h1>Слово: {fields.word?.word}</h1>
           <div>
             {answer && (
-              <img src={'https://react-learnwords-rsl.herokuapp.com/' + word?.image} alt="" />
+              <img
+                src={'https://react-learnwords-rsl.herokuapp.com/' + fields.word?.image}
+                alt=""
+              />
             )}
           </div>
           {/* Варианты */}
-          {translates
-            .sort(() => Math.random() - 0.5)
-            .map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className={`${styles.field} ${
-                    answer && selected === item && item !== word?.wordTranslate ? styles.miss : ''
-                  } ${answer && item === word?.wordTranslate ? styles.correct : ''}`}
-                  onClick={() => {
-                    if (!word || answer) {
-                      return;
-                    }
-                    setUsedWords(usedWords + 1);
-                    setSelected(item);
-                    if (word.wordTranslate === item) {
-                      setCorrect([...correct, word]);
-                      if (isAuth) {
-                        if (word.userWord) {
-                          if (word.userWord.difficulty === 'default') {
-                            if (word.userWord.optional.withoutMistakes === 2) {
-                              setLearnedWords([...learnedWords, word]);
-                              updateWord(
-                                word._id,
-                                'learned',
-                                word.userWord.optional.correct + 1,
-                                word.userWord.optional.misses,
-                                word.userWord.optional.withoutMistakes + 1,
-                              );
-                            } else {
-                              updateWord(
-                                word._id,
-                                'default',
-                                word.userWord.optional.correct + 1,
-                                word.userWord.optional.misses,
-                                word.userWord.optional.withoutMistakes + 1,
-                              );
-                            }
-                          } else if (word.userWord.difficulty === 'hard') {
-                            if (word.userWord.optional.withoutMistakes === 4) {
-                              setLearnedWords([...learnedWords, word]);
-                              updateWord(
-                                word._id,
-                                'learned',
-                                word.userWord.optional.correct + 1,
-                                word.userWord.optional.misses,
-                                word.userWord.optional.withoutMistakes + 1,
-                              );
-                            } else {
-                              updateWord(
-                                word._id,
-                                'hard',
-                                word.userWord.optional.correct + 1,
-                                word.userWord.optional.misses,
-                                word.userWord.optional.withoutMistakes + 1,
-                              );
-                            }
-                          } else if (word.userWord.difficulty === 'learned') {
-                            updateWord(
-                              word._id,
-                              'learned',
-                              word.userWord.optional.correct + 1,
-                              word.userWord.optional.misses,
-                              word.userWord.optional.withoutMistakes + 1,
-                            );
+          {translates.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className={`${styles.field} ${
+                  answer && selected === item && item !== fields.word?.wordTranslate
+                    ? styles.miss
+                    : ''
+                } ${answer && item === fields.word?.wordTranslate ? styles.correct : ''}`}
+                onClick={() => {
+                  if (!fields.word || answer) {
+                    return;
+                  }
+                  actions.setUsedWords(fields.usedWords + 1);
+                  setSelected(item);
+                  if (fields.word.wordTranslate === item) {
+                    actions.playCorrect();
+                    actions.setCorrect([...fields.correct, fields.word]);
+                    if (isAuth) {
+                      if (fields.word.userWord) {
+                        if (fields.word.userWord.difficulty === 'default') {
+                          if (fields.word.userWord.optional.withoutMistakes === 2) {
+                            actions.addToLearnedWords();
+                          } else {
+                            actions.correctAnswer('default');
                           }
-                        } else {
-                          API.addToUserWord(
-                            userId,
-                            word._id,
-                            {
-                              difficulty: 'default',
-                              optional: {
-                                correct: 1,
-                                misses: 0,
-                                withoutMisses: 1,
-                              },
-                            },
-                            token,
-                          );
+                        } else if (fields.word.userWord.difficulty === 'hard') {
+                          if (fields.word.userWord.optional.withoutMistakes === 4) {
+                            actions.addToLearnedWords();
+                          } else {
+                            actions.correctAnswer('hard');
+                          }
+                        } else if (fields.word.userWord.difficulty === 'learned') {
+                          actions.correctAnswer('learned');
                         }
                       } else {
-                        setLearnedWords([...learnedWords, word]);
+                        actions.addToUserWords('correct');
                       }
                     } else {
-                      setMisses([...misses, word]);
-                      if (isAuth) {
-                        if (word.userWord) {
-                          if (word.userWord.difficulty === 'learned') {
-                            updateWord(
-                              word._id,
-                              'default',
-                              word.userWord.optional.correct,
-                              word.userWord.optional.misses + 1,
-                              0,
-                            );
-                          } else {
-                            updateWord(
-                              word._id,
-                              word.userWord.difficulty,
-                              word.userWord.optional.correct,
-                              word.userWord.optional.misses + 1,
-                              0,
-                            );
-                          }
-                        } else {
-                          API.addToUserWord(
-                            userId,
-                            word._id,
-                            {
-                              difficulty: 'default',
-                              optional: {
-                                correct: 0,
-                                misses: 1,
-                                withoutMistakes: 0,
-                              },
-                            },
-                            token,
-                          );
-                        }
+                      actions.setLearnedWords([...fields.learnedWords, fields.word]);
+                    }
+                  } else {
+                    actions.playMiss();
+                    actions.setMisses([...fields.misses, fields.word]);
+                    if (isAuth) {
+                      if (fields.word.userWord) {
+                        actions.missWord();
+                      } else {
+                        actions.addToUserWords('miss');
                       }
                     }
-                    setAnswer(true);
-                  }}
-                >
-                  {item}
-                </div>
-              );
-            })}
+                  }
+                  setAnswer(true);
+                }}
+              >
+                {item}
+              </div>
+            );
+          })}
           {answer ? (
             <button
               onClick={() => {
-                if (!word) {
+                if (!fields.word) {
                   return;
                 }
-                setWords([...words.slice(1)]);
-                setWord(words[0]);
+                actions.nextWord();
                 setAnswer(false);
                 setSelected(null);
+                if (fields.usedWords === 10) {
+                  actions.setGameEnded(true);
+                  actions.playComplete();
+                }
               }}
             >
               Дальше
@@ -310,13 +177,12 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
           ) : (
             <button
               onClick={() => {
-                if (!word) {
+                if (!fields.word) {
                   return;
                 }
-                setWords([...words.slice(1)]);
-                setWord(words[0]);
-                setUsedWords(usedWords + 1);
-                setMisses([...misses, word]);
+                actions.playMiss();
+                actions.setUsedWords(fields.usedWords + 1);
+                actions.setMisses([...fields.misses, fields.word]);
                 setAnswer(true);
                 setSelected(null);
               }}
