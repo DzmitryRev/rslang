@@ -6,8 +6,10 @@ import { Groups } from '../../store/slices/textbookSlice';
 import { availableGroups } from '../../utils/availableGroups';
 import { randomNumber } from '../../utils/randomNumber';
 
+import styles from './GamePreload.module.css';
+
 type GamesPreloadLocationState = {
-  game: 'sprint' | 'audiocall';
+  game: 'Спринт' | 'Аудиовызов';
 };
 
 export default function GamesPreload() {
@@ -21,21 +23,27 @@ export default function GamesPreload() {
   }, [navigate, state]);
 
   return (
-    <div>
-      <h2>{state.game}</h2>
-      {availableGroups.map((item) => {
-        return (
-          <Link
-            to={`/${state?.game}`}
-            state={{ page: randomNumber(0, 30), group: item }}
-            key={item}
-          >
-            <PetalButton shadowColor="blue" size="s">
-              {Groups[item]}
-            </PetalButton>
-          </Link>
-        );
-      })}
+    <div className={styles.preload__wrapper}>
+      <h2 className={styles.preload__title}>{state.game}</h2>
+      <h4 className={styles.preload__subtext}>Выберете уровень:</h4>
+      <div className={styles.preload__links_wrapper}>
+        {availableGroups.map((item) => {
+          return (
+            <Link
+              className={styles.preload__link}
+              to={`/${state?.game}`}
+              state={{ page: randomNumber(0, 30), group: item }}
+              key={item}
+            >
+              <div className={styles.preload__btn}>
+                <PetalButton shadowColor="blue" size="s">
+                  {Groups[item]}
+                </PetalButton>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }
