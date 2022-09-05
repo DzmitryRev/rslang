@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useGame } from '../../hooks/gamesHook';
+
 import { randomNumber } from '../../utils/randomNumber';
 
 import styles from './Audiocall.module.css';
@@ -12,8 +13,10 @@ type AudiocallProps = {
 };
 
 export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
-  const { fields, actions } = useGame(userId, token, isAuth);
+const { fields, actions } = useGame(userId, token, isAuth);
+
   const [translates, setTranslates] = useState<string[]>([]);
+
   const [answer, setAnswer] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -29,10 +32,11 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
         ...wordsWithoutCorrect.filter((item) => item.wordTranslate !== currentWord?.wordTranslate),
       ];
     }
-    setTranslates([...arr, fields.word?.wordTranslate || ''].sort(() => Math.random() - 0.5));
+
+setTranslates([...arr, fields.word?.wordTranslate || ''].sort(() => Math.random() - 0.5));
   }, [fields.word]);
 
-  useEffect(() => {
+useEffect(() => {
     if (fields.word) {
       const audio = new Audio(`https://react-learnwords-rsl.herokuapp.com/${fields.word.audio}`);
       audio.play();

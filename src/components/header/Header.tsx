@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom';
+﻿import { Link, NavLink } from 'react-router-dom';
 
 import logoSvg from '../../assets/img/logo.svg';
 
@@ -18,46 +18,60 @@ type HeaderProps = {
   // active: 'main' | 'games' | 'textbook' | 'statistic';
 };
 
-
-export default function Header({ list, isAuth = false /*, active = 'main'*/}: HeaderProps) {
+export default function Header({ list, isAuth = false /*, active = 'main'*/ }: HeaderProps) {
   return (
     <header className={`${styles.header} ${styles.container}`}>
       <div className={styles.header__menu}>
         <div className={styles.header__logo}>
-          <img className={styles.header__logoImg} src={logoSvg} alt="logo"/>
+          <img className={styles.header__logoImg} src={logoSvg} alt="logo" />
           <h3 className={`${styles.header__logoTitle} ${styles.subtitle}`}>RSLang</h3>
         </div>
         <nav className={styles.menu}>
           <ul className={`${styles[list]}`}>
-            <li className={`${styles.active} ${styles.menu__item}`}>
-              <Link className={styles.menu__link} to="/">
+            <li className={`${styles.menu__item}`}>
+              <NavLink
+                className={({ isActive }) =>
+                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+                }
+                to="/"
+              >
                 Главная
-              </Link>
+              </NavLink>
             </li>
             <li className={styles.menu__item}>
-              <Link className={styles.menu__link} to="/textbook">
+              <NavLink
+                className={({ isActive }) =>
+                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+                }
+                to="/textbook"
+              >
                 Учебник
-              </Link>
+              </NavLink>
             </li>
             <li className={styles.menu__item}>
               <button className={styles.menu__button}>Игры</button>
               <ul className={styles.menu__listen}>
                 <li>
-                  <Link className={styles.menu__link} to="/games/audiocall">
+                  <NavLink className={styles.menu__link} to="/games/audiocall">
                     Аудиовызов
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link className={styles.menu__link} to="/games/sprint">
+                  <NavLink className={styles.menu__link} to="/games/sprint">
                     Спринт
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>
             <li className={styles.menu__item}>
-              <Link className={styles.menu__link} to="/statistic">
+              <NavLink
+                className={({ isActive }) =>
+                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+                }
+                to="/statistic"
+              >
                 Статистика
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </nav>
