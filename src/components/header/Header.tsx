@@ -37,7 +37,7 @@ export default function Header({ isAuth = false }: HeaderProps) {
 
         <ul
           className={
-            isOpen ? `${styles.close} ${styles.menu__listMainPage} ` : styles.menu__listMainPage
+            !isOpen ? `${styles.close} ${styles.menu__listMainPage} ` : styles.menu__listMainPage
           }
         >
           <li className={`${styles.menu__item}`}>
@@ -45,6 +45,9 @@ export default function Header({ isAuth = false }: HeaderProps) {
               className={({ isActive }) =>
                 styles.menu__link + ((isActive && ` ${styles.active}`) || '')
               }
+              onClick={() => {
+                setIsOpen(false);
+              }}
               to="/"
             >
               Главная
@@ -55,6 +58,9 @@ export default function Header({ isAuth = false }: HeaderProps) {
               className={({ isActive }) =>
                 styles.menu__link + ((isActive && ` ${styles.active}`) || '')
               }
+              onClick={() => {
+                setIsOpen(false);
+              }}
               to="/textbook"
             >
               Учебник
@@ -65,6 +71,9 @@ export default function Header({ isAuth = false }: HeaderProps) {
               className={({ isActive }) =>
                 styles.menu__link + ((isActive && ` ${styles.active}`) || '')
               }
+              onClick={() => {
+                setIsOpen(false);
+              }}
               to={'/game/audiocall'}
             >
               Аудиовызов
@@ -75,6 +84,9 @@ export default function Header({ isAuth = false }: HeaderProps) {
               className={({ isActive }) =>
                 styles.menu__link + ((isActive && ` ${styles.active}`) || '')
               }
+              onClick={() => {
+                setIsOpen(false);
+              }}
               to={'/game/sprint'}
             >
               Спринт
