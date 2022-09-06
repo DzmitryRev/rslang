@@ -13,7 +13,7 @@ type AudiocallProps = {
 };
 
 export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
-const { fields, actions } = useGame(userId, token, isAuth);
+  const { fields, actions } = useGame(userId, token, isAuth);
 
   const [translates, setTranslates] = useState<string[]>([]);
 
@@ -26,19 +26,28 @@ const { fields, actions } = useGame(userId, token, isAuth);
     );
     const arr = [];
     for (let i = 0; i < 3; i++) {
-      const currentWord = wordsWithoutCorrect[randomNumber(0, wordsWithoutCorrect.length - 1)];
+      const currentWord =
+        wordsWithoutCorrect[randomNumber(0, wordsWithoutCorrect.length - 1)];
       arr.push(currentWord?.wordTranslate || '');
       wordsWithoutCorrect = [
-        ...wordsWithoutCorrect.filter((item) => item.wordTranslate !== currentWord?.wordTranslate),
+        ...wordsWithoutCorrect.filter(
+          (item) => item.wordTranslate !== currentWord?.wordTranslate,
+        ),
       ];
     }
 
-setTranslates([...arr, fields.word?.wordTranslate || ''].sort(() => Math.random() - 0.5));
+    setTranslates(
+      [...arr, fields.word?.wordTranslate || ''].sort(
+        () => Math.random() - 0.5,
+      ),
+    );
   }, [fields.word]);
 
-useEffect(() => {
+  useEffect(() => {
     if (fields.word) {
-      const audio = new Audio(`https://react-learnwords-rsl.herokuapp.com/${fields.word.audio}`);
+      const audio = new Audio(
+        `https://react-learnwords-rsl.herokuapp.com/${fields.word.audio}`,
+      );
       audio.play();
     }
   }, [fields.word]);
@@ -86,13 +95,16 @@ useEffect(() => {
           )}
         </div>
       ) : (
-        <div>
+        <div className={styles.audiocall__wrapper}>
           {/* Слово на английском (h1 нужно точно убрать и поставить нужный тег) */}
           <h1>Слово: {fields.word?.word}</h1>
           <div>
             {answer && (
               <img
-                src={'https://react-learnwords-rsl.herokuapp.com/' + fields.word?.image}
+                src={
+                  'https://react-learnwords-rsl.herokuapp.com/' +
+                  fields.word?.image
+                }
                 alt=""
               />
             )}
@@ -103,10 +115,16 @@ useEffect(() => {
               <div
                 key={index}
                 className={`${styles.field} ${
-                  answer && selected === item && item !== fields.word?.wordTranslate
+                  answer &&
+                  selected === item &&
+                  item !== fields.word?.wordTranslate
                     ? styles.miss
                     : ''
-                } ${answer && item === fields.word?.wordTranslate ? styles.correct : ''}`}
+                } ${
+                  answer && item === fields.word?.wordTranslate
+                    ? styles.correct
+                    : ''
+                }`}
                 onClick={() => {
                   if (!fields.word || answer) {
                     return;
@@ -119,25 +137,34 @@ useEffect(() => {
                     if (isAuth) {
                       if (fields.word.userWord) {
                         if (fields.word.userWord.difficulty === 'default') {
-                          if (fields.word.userWord.optional.withoutMistakes === 2) {
+                          if (
+                            fields.word.userWord.optional.withoutMistakes === 2
+                          ) {
                             actions.addToLearnedWords();
                           } else {
                             actions.correctAnswer('default');
                           }
                         } else if (fields.word.userWord.difficulty === 'hard') {
-                          if (fields.word.userWord.optional.withoutMistakes === 4) {
+                          if (
+                            fields.word.userWord.optional.withoutMistakes === 4
+                          ) {
                             actions.addToLearnedWords();
                           } else {
                             actions.correctAnswer('hard');
                           }
-                        } else if (fields.word.userWord.difficulty === 'learned') {
+                        } else if (
+                          fields.word.userWord.difficulty === 'learned'
+                        ) {
                           actions.correctAnswer('learned');
                         }
                       } else {
                         actions.addToUserWords('correct');
                       }
                     } else {
-                      actions.setLearnedWords([...fields.learnedWords, fields.word]);
+                      actions.setLearnedWords([
+                        ...fields.learnedWords,
+                        fields.word,
+                      ]);
                     }
                   } else {
                     actions.playMiss();
