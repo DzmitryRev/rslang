@@ -91,9 +91,12 @@ const MainPage = () => {
               Эффективный подход к изучению слов, с RsLang вы легко пополните свой словарный запас
             </p>
             <div className={styles.btn__description}>
-              <PrimaryButton color="orange" size="m">
-                Начать
-              </PrimaryButton>
+              <Link to={'/textbook'}>
+                <PrimaryButton color="orange" size="m">
+                  Начать
+                </PrimaryButton>
+              </Link>
+
               <div className={styles.btn__play}>
                 <img className={styles.btn__playImg} src={playHed} alt="video" />
                 <p className={styles.btn__playTitle}>видео</p>
@@ -162,9 +165,11 @@ const MainPage = () => {
               Увеличивайте ваш словарный запас, запоминая новые английские слова. Тренируйте лексику
               из подготовленных тематических наборов или создайте ваш персональный словарь.
             </p>
-            <PrimaryButton color="orange" size="m">
-              Учить
-            </PrimaryButton>
+            <Link to={'/textbook'}>
+              <PrimaryButton color="orange" size="m">
+                Учить
+              </PrimaryButton>
+            </Link>
           </div>
           <img className={styles.dictionary__img} src={illustration1} alt="" />
         </div>
