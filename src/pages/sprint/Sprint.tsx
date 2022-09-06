@@ -29,7 +29,8 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
   useEffect(() => {
     setTranslate(
       randomNumber(0, 1) >= 0.5
-        ? fields.words[randomNumber(0, fields.words.length - 1)]?.wordTranslate || ''
+        ? fields.words[randomNumber(0, fields.words.length - 1)]
+            ?.wordTranslate || ''
         : fields.word?.wordTranslate || '',
     );
   }, [fields.word]);
@@ -51,9 +52,9 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
     <div>
       {fields.gameEnded ? (
         // Появляется когда игра закончена
-        <div>
-          <h3>Игра закончена</h3>
-          <h4>Слов: {fields.usedWords}</h4>
+        <div className={styles.sprint__end}>
+          <h3 className={styles.sprint__end_titel}>Игра закончена</h3>
+          <h4 className={styles.sprint__end_word}>Слов: {fields.usedWords}</h4>
           <div>
             Правильно ({fields.correct.length}):
             {fields.correct.map((item) => {
@@ -91,143 +92,185 @@ export default function Sprint({ isAuth, userId, token }: SprintProps) {
         </div>
       ) : (
         //   gameStarted ?
-        <div>
-          {/* Таймер (я не нашел в макете таймер) */}
-          <h3>{seconds}</h3>
-          {/* Слово на английском (h1 нужно точно убрать и поставить нужный тег) */}
-          <h1>{fields.word?.word}</h1>
-          {/* Слово на русском (тег тоже нужно изменить на нужный) */}
-          <h2>{translate}</h2>
-          <h2>{score}</h2>
-          <h2>{contract}</h2>
-          <div>
-            <div className={`${styles.marker} ${contract > 0 && styles.active}`}></div>
-            <div className={`${styles.marker} ${contract > 1 && styles.active}`}></div>
-            <div className={`${styles.marker} ${contract > 2 && styles.active}`}></div>
-            <div className={`${styles.marker} ${contract > 3 && styles.active}`}></div>
+        <div className={styles.sprint__wrapper}>
+          <div></div>
+          <div className={styles.sprint__info}>
+            <h2 className={styles.sprint__score}>{score}</h2>
+            <div className={styles.sprint__markers}>
+              <p className={styles.sprint__contract}>{contract}</p>
+              <div>
+                <div
+                  className={`${styles.marker} ${
+                    contract > 0 && styles.active
+                  }`}
+                ></div>
+                <div
+                  className={`${styles.marker} ${
+                    contract > 1 && styles.active
+                  }`}
+                ></div>
+                <div
+                  className={`${styles.marker} ${
+                    contract > 2 && styles.active
+                  }`}
+                ></div>
+                <div
+                  className={`${styles.marker} ${
+                    contract > 3 && styles.active
+                  }`}
+                ></div>
+              </div>
+              <p className={styles.sprint__multiplier}>X{multiplier}</p>
+            </div>
+            {/* Таймер (я не нашел в макете таймер) */}
+            <h3 className={styles.sprint__time}>{seconds}</h3>
           </div>
-          <h2>X{multiplier}</h2>
-          {/* Кнопки, нужно добавить стрелки внутрь */}
-          {/* Кнопка верно */}
-          <PrimaryButton
-            color="orange-gradient"
-            size="xl"
-            callback={() => {
-              if (!fields.word) {
-                return;
-              }
-              actions.setUsedWords(fields.usedWords + 1);
-              if (fields.word.wordTranslate === translate) {
-                actions.setCorrect([...fields.correct, fields.word]);
-                actions.playCorrect();
-                setScore(score + 10 * multiplier);
-                if (contract === 4) {
-                  setContract(0);
-                  setMultiplier(multiplier + 1);
-                } else {
-                  setContract(contract + 1);
+          {/* Слово на английском (h1 нужно точно убрать и поставить нужный тег) */}
+          <h1 className={styles.sprint__words}>{fields.word?.word}</h1>
+          {/* Слово на русском (тег тоже нужно изменить на нужный) */}
+          <h2 className={styles.sprint__translate}>{translate}</h2>
+
+          <div className={styles.sprint__btn}>
+            {/* Кнопки, нужно добавить стрелки внутрь */}
+            {/* Кнопка верно */}
+            <PrimaryButton
+              color="orange-gradient"
+              size="xl"
+              callback={() => {
+                if (!fields.word) {
+                  return;
                 }
-                if (isAuth) {
-                  if (fields.word.userWord) {
-                    if (fields.word.userWord.difficulty === 'default') {
-                      if (fields.word.userWord.optional.withoutMistakes === 2) {
-                        actions.addToLearnedWords();
-                      } else {
-                        actions.correctAnswer('default');
+                actions.setUsedWords(fields.usedWords + 1);
+                if (fields.word.wordTranslate === translate) {
+                  actions.setCorrect([...fields.correct, fields.word]);
+                  actions.playCorrect();
+                  setScore(score + 10 * multiplier);
+                  if (contract === 4) {
+                    setContract(0);
+                    setMultiplier(multiplier + 1);
+                  } else {
+                    setContract(contract + 1);
+                  }
+                  if (isAuth) {
+                    if (fields.word.userWord) {
+                      if (fields.word.userWord.difficulty === 'default') {
+                        if (
+                          fields.word.userWord.optional.withoutMistakes === 2
+                        ) {
+                          actions.addToLearnedWords();
+                        } else {
+                          actions.correctAnswer('default');
+                        }
+                      } else if (fields.word.userWord.difficulty === 'hard') {
+                        if (
+                          fields.word.userWord.optional.withoutMistakes === 4
+                        ) {
+                          actions.addToLearnedWords();
+                        } else {
+                          actions.correctAnswer('hard');
+                        }
+                      } else if (
+                        fields.word.userWord.difficulty === 'learned'
+                      ) {
+                        actions.correctAnswer('learned');
                       }
-                    } else if (fields.word.userWord.difficulty === 'hard') {
-                      if (fields.word.userWord.optional.withoutMistakes === 4) {
-                        actions.addToLearnedWords();
-                      } else {
-                        actions.correctAnswer('hard');
-                      }
-                    } else if (fields.word.userWord.difficulty === 'learned') {
-                      actions.correctAnswer('learned');
+                    } else {
+                      actions.addToUserWords('correct');
                     }
                   } else {
-                    actions.addToUserWords('correct');
+                    actions.setLearnedWords([
+                      ...fields.learnedWords,
+                      fields.word,
+                    ]);
                   }
                 } else {
-                  actions.setLearnedWords([...fields.learnedWords, fields.word]);
-                }
-              } else {
-                actions.setMisses([...fields.misses, fields.word]);
-                actions.playMiss();
-                setContract(0);
-                setMultiplier(1);
-                if (isAuth) {
-                  if (fields.word.userWord) {
-                    actions.missWord();
-                  } else {
-                    actions.addToUserWords('miss');
-                  }
-                }
-              }
-              actions.nextWord();
-            }}
-          >
-            Верно
-          </PrimaryButton>
-          {/* Кнопка неверно */}
-          <PrimaryButton
-            color="blue-gradient"
-            size="xl"
-            callback={() => {
-              if (!fields.word) {
-                return;
-              }
-              actions.setUsedWords(fields.usedWords + 1);
-              if (fields.word.wordTranslate !== translate) {
-                actions.setCorrect([...fields.correct, fields.word]);
-                actions.playCorrect();
-                setScore(score + 10 * multiplier);
-                if (contract === 4) {
+                  actions.setMisses([...fields.misses, fields.word]);
+                  actions.playMiss();
                   setContract(0);
-                  setMultiplier(multiplier + 1);
-                } else {
-                  setContract(contract + 1);
+                  setMultiplier(1);
+                  if (isAuth) {
+                    if (fields.word.userWord) {
+                      actions.missWord();
+                    } else {
+                      actions.addToUserWords('miss');
+                    }
+                  }
                 }
-                if (isAuth) {
-                  if (fields.word.userWord) {
-                    if (fields.word.userWord.difficulty === 'default') {
-                      if (fields.word.userWord.optional.withoutMistakes === 2) {
-                        actions.addToLearnedWords();
-                      } else {
-                        actions.correctAnswer('default');
+                actions.nextWord();
+              }}
+            >
+              Верно
+            </PrimaryButton>
+            {/* Кнопка неверно */}
+            <PrimaryButton
+              color="blue-gradient"
+              size="xl"
+              callback={() => {
+                if (!fields.word) {
+                  return;
+                }
+                actions.setUsedWords(fields.usedWords + 1);
+                if (fields.word.wordTranslate !== translate) {
+                  actions.setCorrect([...fields.correct, fields.word]);
+                  actions.playCorrect();
+                  setScore(score + 10 * multiplier);
+                  if (contract === 4) {
+                    setContract(0);
+                    setMultiplier(multiplier + 1);
+                  } else {
+                    setContract(contract + 1);
+                  }
+                  if (isAuth) {
+                    if (fields.word.userWord) {
+                      if (fields.word.userWord.difficulty === 'default') {
+                        if (
+                          fields.word.userWord.optional.withoutMistakes === 2
+                        ) {
+                          actions.addToLearnedWords();
+                        } else {
+                          actions.correctAnswer('default');
+                        }
+                      } else if (fields.word.userWord.difficulty === 'hard') {
+                        if (
+                          fields.word.userWord.optional.withoutMistakes === 4
+                        ) {
+                          actions.addToLearnedWords();
+                        } else {
+                          actions.correctAnswer('hard');
+                        }
+                      } else if (
+                        fields.word.userWord.difficulty === 'learned'
+                      ) {
+                        actions.correctAnswer('learned');
                       }
-                    } else if (fields.word.userWord.difficulty === 'hard') {
-                      if (fields.word.userWord.optional.withoutMistakes === 4) {
-                        actions.addToLearnedWords();
-                      } else {
-                        actions.correctAnswer('hard');
-                      }
-                    } else if (fields.word.userWord.difficulty === 'learned') {
-                      actions.correctAnswer('learned');
+                    } else {
+                      actions.addToUserWords('correct');
                     }
                   } else {
-                    actions.addToUserWords('correct');
+                    actions.setLearnedWords([
+                      ...fields.learnedWords,
+                      fields.word,
+                    ]);
                   }
                 } else {
-                  actions.setLearnedWords([...fields.learnedWords, fields.word]);
-                }
-              } else {
-                actions.setMisses([...fields.misses, fields.word]);
-                actions.playMiss();
-                setContract(0);
-                setMultiplier(1);
-                if (isAuth) {
-                  if (fields.word.userWord) {
-                    actions.missWord();
-                  } else {
-                    actions.addToUserWords('miss');
+                  actions.setMisses([...fields.misses, fields.word]);
+                  actions.playMiss();
+                  setContract(0);
+                  setMultiplier(1);
+                  if (isAuth) {
+                    if (fields.word.userWord) {
+                      actions.missWord();
+                    } else {
+                      actions.addToUserWords('miss');
+                    }
                   }
                 }
-              }
-              actions.nextWord();
-            }}
-          >
-            Неверно
-          </PrimaryButton>
+                actions.nextWord();
+              }}
+            >
+              Неверно
+            </PrimaryButton>
+          </div>
         </div>
       )}
     </div>

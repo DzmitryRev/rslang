@@ -18,87 +18,70 @@ export default function Header({ isAuth = false }: HeaderProps) {
   const dispach = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [openGame, setOpenGame] = useState(true);
 
   return (
     <header className={`${styles.header} ${styles.container}`}>
       <div className={styles.header__menu}>
-        <div className={styles.header__logo}>
-          <img className={styles.header__logoImg} src={logoSvg} alt="logo" />
-          <h3 className={`${styles.header__logoTitle} ${styles.subtitle}`}>RSLang</h3>
-        </div>
-        <nav className={styles.menu}>
-          <ul
-            className={
-              isOpen ? `${styles.close} ${styles.menu__listMainPage} ` : styles.menu__listMainPage
-            }
-          >
-            <li className={`${styles.menu__item}`}>
-              <NavLink
-                className={({ isActive }) =>
-                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
-                }
-                to="/"
-              >
-                Главная
-              </NavLink>
-            </li>
-            <li className={styles.menu__item}>
-              <NavLink
-                className={({ isActive }) =>
-                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
-                }
-                to="/textbook"
-              >
-                Учебник
-              </NavLink>
-            </li>
-            <li className={`${styles.menu__item} ${styles.menu__lastItem}`}>
-              <button
-                className={styles.menu__button}
-                onClick={() => {
-                  setOpenGame(!openGame);
-                }}
-              >
-                Игры
-              </button>
-
-              <ul
-                className={
-                  openGame ? `${styles.menu__listen} ${styles.close}` : styles.menu__listen
-                }
-              >
-                <li>
-                  <Link className={styles.menu__link} to={'/game'} state={{ game: 'audiocall' }}>
-                    Аудиовызов
-                  </Link>
-                </li>
-                <li>
-                  <Link className={styles.menu__link} to={'/game'} state={{ game: 'sprint' }}>
-                    Спринт
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li className={styles.menu__item}>
-              <NavLink
-                className={({ isActive }) =>
-                  styles.menu__link + ((isActive && ` ${styles.active}`) || '')
-                }
-                to="/statistic"
-              >
-                Статистика
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-
         <div
           className={styles.burger}
           onClick={() => {
             setIsOpen(!isOpen);
           }}
-        ></div>
+        >
+          <span></span>
+        </div>
+        <div className={styles.header__logo}>
+          <img className={styles.header__logoImg} src={logoSvg} alt="logo" />
+          <h3 className={`${styles.header__logoTitle} ${styles.subtitle}`}>RSLang</h3>
+        </div>
+
+        <ul
+          className={
+            isOpen ? `${styles.close} ${styles.menu__listMainPage} ` : styles.menu__listMainPage
+          }
+        >
+          <li className={`${styles.menu__item}`}>
+            <NavLink
+              className={({ isActive }) =>
+                styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+              }
+              to="/"
+            >
+              Главная
+            </NavLink>
+          </li>
+          <li className={styles.menu__item}>
+            <NavLink
+              className={({ isActive }) =>
+                styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+              }
+              to="/textbook"
+            >
+              Учебник
+            </NavLink>
+          </li>
+          <li className={styles.menu__item}>
+            <NavLink
+              className={({ isActive }) =>
+                styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+              }
+              to={'/game/audiocall'}
+            >
+              Аудиовызов
+            </NavLink>
+          </li>
+          <li className={styles.menu__item}>
+            <NavLink
+              className={({ isActive }) =>
+                styles.menu__link + ((isActive && ` ${styles.active}`) || '')
+              }
+              to={'/game/sprint'}
+            >
+              Спринт
+            </NavLink>
+          </li>
+        </ul>
+
         <div className={`${styles.authorized}`}>
           {isAuth ? (
             <img
@@ -119,8 +102,3 @@ export default function Header({ isAuth = false }: HeaderProps) {
     </header>
   );
 }
-
-// onClick={() => {
-//   setIsOpen(!isOpen)
-//   }}
-//   className = {isOpen? стиль для открытого меню : стиль для закрытого}

@@ -40,7 +40,7 @@ function App() {
           path="/audiocall"
           element={<Audiocall isAuth={isAuth} userId={userId} token={token} />}
         />
-        <Route path="/game" element={<GamesPreload />} />
+        <Route path="/game/:gameName" element={<GamesPreload />} />
       </Routes>
     </div>
   );

@@ -72,7 +72,7 @@
   font-size: 24px;
   line-height: 30px;
   padding: 24px 0;
-  width: 240px;
+  width: 200px;
 }
 
 .disabled {
@@ -103,6 +103,7 @@
 }
 
 @media (max-width: 769px) {
+  .xl,
   .m {
     padding: 12px 25px;
     font-size: 12px;
@@ -110,6 +111,7 @@
 }
 
 @media (max-width: 600px) {
+  .xl,
   .m {
     padding: 10px 20px;
   }
