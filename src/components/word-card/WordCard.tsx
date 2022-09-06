@@ -55,16 +55,16 @@ export default function WordCard({
   };
   return (
     <div className={cN}>
-      <img
-        src={audioSvg}
-        className={styles.audio}
-        alt="play-word"
-        onClick={audioPlaying ? () => {} : playAudio}
-      />
       <div className={styles.imgContainer}>
         <img src={`https://react-learnwords-rsl.herokuapp.com/${word.image}`} alt="" />
       </div>
       <div className={styles.contentContainer}>
+        <img
+          src={audioSvg}
+          className={styles.audio}
+          alt="play-word"
+          onClick={audioPlaying ? () => {} : playAudio}
+        />
         <div className={styles.headingContainer}>
           <h2 className={styles.word}>{word.word}</h2>
         </div>

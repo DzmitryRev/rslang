@@ -55,10 +55,10 @@
     right: 40px;
 }
 .audio:active {
-  top: 25px;
+  /* top: 25px;
   right: 35px;
   padding: 5px;
-  border-radius: 20rem;
+  border-radius: 20rem; */
   background: var(--main-page-input-text-color-light);
 }
 @media(max-width:930px){
