@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import useSound from 'use-sound';
 
-import styles from 'Textbook.module.css';
 
 import { API } from '../../api/api';
 import { IUserWordBody } from '../../api/api.types';
@@ -11,6 +9,8 @@ import { Pagination } from '../../components/pagination/Pagination';
 import PetalButton from '../../components/petal-button/PetalButton';
 import PrimaryButton from '../../components/primary-button/PrimaryButton';
 import WordList from '../../components/word-list/WordList';
+import arrow from '../../assets/img/arrow.svg';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import {
   getAuthWords,
@@ -22,6 +22,8 @@ import {
   setPage,
 } from '../../store/slices/textbookSlice';
 import { availableGroups } from '../../utils/availableGroups';
+
+import styles from './Textbook.module.css';
 
 /**
  * TODO:
@@ -141,6 +143,32 @@ export default function Textbook() {
           }}
         />
       )}
+      <div className={styles.info__boxs}>
+        <NavLink
+          to={'/audiocall'}
+          state={{ page, group}}
+          className={`${styles.info__boxAudio} ${styles.box}`}
+        >
+          <h2 className={styles.box__titel}>Аудиовызов</h2>
+          <p className={styles.box__text}>
+            - игра на тренировку навыков аудирования. В процессе игры десять попыток угадать слово,
+            произнесенное на английском языке
+          </p>
+          <img className={styles.info__boxsArrow} src={arrow} alt="" />
+        </NavLink>
+        <NavLink
+          to={'/sprint'}
+          state={{ page, group}}
+          className={`${styles.info__boxSprint} ${styles.box}`}
+        >
+          <h2 className={styles.box__titel}>Спринт</h2>
+          <p className={styles.box__text}>
+            - проверьте насколько хорошо вы знаете значения английских слов. За ограниченный период
+            времени укажите верен ли предложенный перевод заданным словам
+          </p>
+          <img className={`${styles.info__boxsArrow} ${styles.arrowLeft}`} src={arrow} alt="" />
+        </NavLink>
+      </div>
       <Footer />
     </div>
   );
