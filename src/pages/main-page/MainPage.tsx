@@ -99,10 +99,10 @@ const MainPage = () => {
                 </PrimaryButton>
               </Link>
 
-              <div className={styles.btn__play}>
+              <Link to="#video" className={styles.btn__play}>
                 <img className={styles.btn__playImg} src={playHed} alt="video" />
                 <p className={styles.btn__playTitle}>видео</p>
-              </div>
+              </Link>
             </div>
           </div>
           <div className={styles.animations}>
@@ -131,7 +131,7 @@ const MainPage = () => {
             <img className={styles.ellipsePink} src={ellipsePink} alt="ellipsePink" />
             <img className={styles.ellipsePurpule} src={ellipsePurpule} alt="ellipsePurpule" />
             <NavLink
-              to={'/game'}
+              to={'/game/audiocall'}
               state={{ game: 'audiocall' }}
               className={`${styles.info__boxAudio} ${styles.box}`}
             >
@@ -143,7 +143,7 @@ const MainPage = () => {
               <img className={styles.info__boxsArrow} src={arrow} alt="" />
             </NavLink>
             <NavLink
-              to={'/game'}
+              to={'/game/sprint'}
               state={{ game: 'sprint' }}
               className={`${styles.info__boxSprint} ${styles.box}`}
             >
@@ -175,7 +175,7 @@ const MainPage = () => {
           </div>
           <img className={styles.dictionary__img} src={illustration1} alt="" />
         </div>
-        <div className={styles.video__wrapper}>
+        <div className={styles.video__wrapper} id="video">
           <div className={styles.video}>
             <Title align="center" width="video">
               Посмотрев видео, вы можете ознакомиться с возможностями приложения
@@ -190,7 +190,8 @@ const MainPage = () => {
             <img className={styles.arrow2Video} src={arrow2} alt="arrow2" />
             <img className={styles.ellipsePink} src={ellipsePink} alt="ellipsePink" />
             <img className={styles.ellipsePurpuleVideo} src={ellipsePurpule} alt="ellipsePurpule" />
-            <video controls className={styles.video__play} src="#"></video>
+            <iframe className={styles.video__play} src="https://www.youtube.com/embed/xWadivlPXug" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+            {/* <video controls className={styles.video__play} src="https://www.youtube.com/watch?v=xWadivlPXug"></video> */}
           </div>
         </div>
 
@@ -237,8 +238,8 @@ const MainPage = () => {
                   <p className={`${styles.student__nameTexts} ${styles.texts}`}>
                     Екатерина уже была знакома с программированием, после чего их дороги разошлись,
                     но, благодаря RSSchool, они встретились вновь и не намерены больше расставаться.
-                    Екатренира - разработала дизайн сайта, верстка и дизайн главной страницы,
-                    верстка и дизайн учебника, помогала писать Api
+                    Екатренира - разработала дизайн сайта, оформила текстовые блоки и графические элементы. Разработывала компаненты.
+                    Занималась версткой и стилизацией главной страницы, стилизацей учебника, игры аудиовызов, разработкой Api.
                   </p>
                 </div>
                 <div className={(isOpen==='artsem')? `${styles.student__name} ${styles.artsemWrap}  ${styles.show}`:`${styles.student__name} ${styles.artsemWrap}`} >
@@ -247,7 +248,7 @@ const MainPage = () => {
                     Знакомство с JS началась с того, что Артем решил самостоятельно создать
                     интернет-магазин для своей компании. Процесс этот оказался настолько
                     увлекательным, что Артем решил продолжить свое обучение на курсах RSSchool.
-                    Артем стилизовал игры Аудиовызов и Сафари, занимался версткой главной страницы,
+                    Артем стилизовал игры Аудиовызов и Сафари, страницу авторизации, занимался версткой главной страницы,
                     настраивал работу приложения.
                   </p>
                 </div>
@@ -256,9 +257,10 @@ const MainPage = () => {
                   <p className={`${styles.student__nameTexts} ${styles.texts}`}>
                     Человек, который "от скуки" решил попробовать покодить. И нашел себя! За время
                     обучения на курсах умудрился не только прекрасно выполнять основные задания, но
-                    еще и самостоятельно изучить React! Дмитрий - тим лид нашей команды. Разработал
-                    весь функционал приложения, настроил работу с базой данных, координировал работу
-                    членов команды.
+                    еще и самостоятельно изучить React! Дмитрий - тим лид нашей команды. 
+                    Разработал и поддерживал архитектуру приложения.
+                    Разработал весь функционал приложения, настроил работу с базой данных, координировал работу
+                    членов команды, разработка Api. 
                   </p>
                 </div>
               </div>

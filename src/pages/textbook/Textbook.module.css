@@ -1,8 +1,10 @@
 ﻿.petalButton__wrap {
-display:flex;
-justify-content: center;
-align-items: center;
-margin-bottom: 2rem;
+  position: relative;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+
 }
 @media (max-width:685px) {
   .petalButton__wrap {
@@ -16,11 +18,91 @@ margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin: 0 auto; */
-
 }
 
 .load {
-  display: block;
- margin-left: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.difficultBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+.arrow1, .arrow2, .threelines,  .rhombus, .ellipsePurpule, .arrow2, .ellipsePink, .star1, .beforeFooter, .ellipsePurpule1, .ellipsePink1, .star11, .beforeFooter1 {
+  position: absolute;
+  z-index: -1;
+}
+
+.arrow1 {
+  top:200%;
+  left:10%;
+  width: 18vw;
+}
+
+
+ .rhombus {
+  top:130%;
+  left:90%;
+}
+
+
+ .threelines{
+  top:233%;
+  left:20%;
+}
+
+
+ .arrow2 {
+  top:54%;
+  left:80%;
+}
+
+
+
+.star1 {
+  top:520%;
+  left:10%;
+  width: 18vw;
+}
+
+
+ .ellipsePink {
+  top:279%;
+  left:74%;
+}
+
+
+ .ellipsePurpule{
+  top:450%;
+  left:85%;
+}
+
+
+ .beforeFooter {
+  bottom:693%;
+  left:10%;
+}
+
+.beforeFooter1 {
+  bottom:693%;
+  left:10%;
+}
+.star11 {
+  bottom:120%;
+  left:10%;
+  width: 18vw;
+}
+.ellipsePink1 {
+  bottom:19%;
+  left:10%;
+}
+.ellipsePurpule1 {
+  bottom:350%;
+  left:85%;
 }

@@ -3,7 +3,8 @@
 }
 
 .footerContainer {
-  padding: 0 10.76vw;
+  padding: 1rem 10.76vw;
+  margin-bottom: 1rem;
 }
 
 .footer {
@@ -11,6 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items:start;
+  margin-bottom: 1rem;
 }
 @media (max-width:530px) {
   .footer{
