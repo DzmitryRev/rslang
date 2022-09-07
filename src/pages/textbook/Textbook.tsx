@@ -9,11 +9,13 @@ import arrow1 from '../../assets/mainPageSvg/arrow1.svg';
 import arrow2 from '../../assets/mainPageSvg/arrow2.svg';
 import threelines from '../../assets/mainPageSvg/threeLines.svg';
 import rhombus from '../../assets/mainPageSvg/rhombus.svg';
+
 import beforeFooter from '../../assets/mainPageSvg/beforeFooter.svg';
 
 import star1 from '../../assets/mainPageSvg/star1.svg';
 import ellipsePink from '../../assets/mainPageSvg/ellipsePink.svg';
 import ellipsePurpule from '../../assets/mainPageSvg/ellipsePurpule.svg';
+
 
 
 import { API } from '../../api/api';
@@ -40,22 +42,6 @@ import { availableGroups } from '../../utils/availableGroups';
 
 import styles from './Textbook.module.css';
 
-
-/**
- * TODO:
- * Верстка, то что тут имеется можно перемещать внутри тегов как угодно.
- * главное не изменять их самих. В общем  *оробачивать можно во что угодно и стилизовать таким образом.
- * Если надо зайти глубже то WordList компонент - компонент, содержащий карточки,
- * а WordCard - сама карточка. Файлы * стилей находятся в соответсвующих папках
- * Стили для этой страницы пишем в Textbook.module.css
- * По пагинации все просто: в компонент Pagination можно не заходить,
- * я выписал нужные стили с пометками что для чего в файл Pagination.module.css
- * Так же нужно добавить иконки для футера и хеадера. Катя походу забыла их закинуть.
- * Я теги имг с этими картинками закоментил, когда имги появятся - можно раскоментить
- *
- * Короче цель довести до ума страницу и доделать хеадер футер и т.д. и т.п. !!!!!!!!!!
- * Ну и заодно тестировать, если что-то не так с функционалом - сообщайте
- */
 
 export default function Textbook() {
   const dispach = useAppDispatch();
@@ -90,6 +76,22 @@ export default function Textbook() {
   return (
     <div className="styles.petalButton__wrap">
       {/* Навигация! */}
+      <img className={`${styles.arrow1} ${styles.arrow1}`} src={arrow1} alt="arrow1" />
+      <img className={`${styles.arrow2} ${styles.arrow2}`} src={arrow2} alt="arrow2" />
+      <img className={`${styles.threelines} ${styles.threelines}`} src={threelines} alt="threelines" />
+      <img className={`${styles.rhombus} ${styles.rhombus}`} src={rhombus} alt="rhombus" />
+      
+      <img className={`${styles.beforeFooter} ${styles.beforeFooter}`} src={beforeFooter} alt="beforeFooter" />
+      <img className={`${styles.star1} ${styles.star1}`} src={star1} alt="star1" />
+      <img className={`${styles.ellipsePink} ${styles.ellipsePink}`} src={ellipsePink} alt="ellipsePink" />
+      <img className={`${styles.ellipsePurpule} ${styles.ellipsePurpule}`} src={ellipsePurpule} alt="ellipsePurpule" />
+
+        
+      <img className={`${styles.beforeFooter1}`} src={beforeFooter} alt="beforeFooter" />
+      <img className={`${styles.star11}`} src={star1} alt="star1" />
+      <img className={`${styles.ellipsePink1} `} src={ellipsePink} alt="ellipsePink" />
+      <img className={`${styles.ellipsePurpule1} }`} src={ellipsePurpule} alt="ellipsePurpule" />
+
       <div className={styles.petalButton__wrap}>
         {availableGroups.map((item) => {
           return (
@@ -109,7 +111,7 @@ export default function Textbook() {
         })}
       </div>
       {/* Кнопка со сложными словами (активна только если пользователь авторизован) */}
-      {isAuth ? (
+      {isAuth ? (<div className={styles.difficultBtn}>
         <PrimaryButton
           color="orange-gradient"
           size="l"
@@ -118,7 +120,7 @@ export default function Textbook() {
           }}
         >
           Сложные
-        </PrimaryButton>
+        </PrimaryButton></div>
       ) : (
         ''
       )}
@@ -164,7 +166,7 @@ export default function Textbook() {
       )}
   
 
-      <Games></Games>
+      <Games page={page} group={group}></Games>
   
 
       <Footer />

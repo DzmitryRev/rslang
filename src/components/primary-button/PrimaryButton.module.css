@@ -104,13 +104,13 @@
   .xl {
     font-size: 16px;
     line-height: 5px;
-    padding: 20px 0;
-    width: 100px;
+    padding: 20px 20px;
+  width: 150px;
   }
 }
 
 @media (max-width: 769px) {
-  .xl,
+ 
   .m {
     padding: 12px 25px;
     font-size: 12px;
@@ -122,8 +122,4 @@
     padding: 10px 20px;
   }
 
-  .xl {
-    width: 80px;
-    padding: 10px 5px;
-  }
 }

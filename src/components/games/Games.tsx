@@ -10,8 +10,14 @@ import Title from '../title/Title';
 
 import styles from './Games.module.css';
 
+type GamesProps = {
+  page:number;
+  group:number;
+ 
+}
 
-const Games = () => { 
+
+const Games = ({page, group} :GamesProps) => { 
   return (
     <div className={styles.info}>
       <div className={styles.infoWrapper}>
@@ -31,8 +37,8 @@ const Games = () => {
         <img className={styles.ellipsePink} src={ellipsePink} alt="ellipsePink" />
         <img className={styles.ellipsePurpule} src={ellipsePurpule} alt="ellipsePurpule" />
         <NavLink
-          to={'/game'}
-          state={{ game: 'audiocall' }}
+          to={'/audiocall'}
+          state={{ page, group }} 
           className={`${styles.info__boxAudio} ${styles.box}`}
         >
           <h2 className={styles.box__titel}>Аудиовызов</h2>
@@ -42,18 +48,19 @@ const Games = () => {
           </p>
           <img className={styles.info__boxsArrow} src={arrow} alt="" />
         </NavLink>
-        <NavLink
-          to={'/game'}
-          state={{ game: 'sprint' }}
+        <Link
+          to={'/sprint'}
+          state={{ page, group }}
           className={`${styles.info__boxSprint} ${styles.box}`}
         >
+    
           <h2 className={styles.box__titel}>Спринт</h2>
           <p className={styles.box__text}>
        - проверьте насколько хорошо вы знаете значения английских слов. За ограниченный
        период времени укажите верен ли предложенный перевод заданным словам
           </p>
           <img className={`${styles.info__boxsArrow} ${styles.arrowLeft}`} src={arrow} alt="" />
-        </NavLink>
+        </Link>
       </div>
     </div>);
 };

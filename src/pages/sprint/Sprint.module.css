@@ -314,3 +314,38 @@
     font-size: 12px;
   }
 }
+.wrap {
+  position:relative;
+  height: 100vh;
+  /* margin: -120px auto; */
+}
+
+.arrow1, .arrow2, .threelines,  .rhombus {
+  position: absolute;
+  z-index: -1;
+}
+
+.arrow1 {
+  top:0%;
+  left:10%;
+  width: 18vw;
+}
+
+
+ .rhombus {
+  top:18%;
+  left:90%;
+}
+
+
+ .threelines{
+  top:88%;
+  left:20%;
+}
+
+
+ .arrow2 {
+  top:28%;
+  left:0%;
+}
+

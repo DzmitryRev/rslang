@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 3rem;
 }
 
 .audiocall__words {
@@ -12,10 +13,39 @@
   font-size: 70px;
   line-height: 83px;
   color: #3d3860;
+  margin-bottom: 3rem;
+}
+@media (max-width:950px) {
+  .audiocall__words {
+    font-size: 3rem;
+  }
+  
 }
 
+
+.field {
+  font-size: 1.4rem;
+  color:var(--text-color);
+  margin: 2rem 1rem 2rem;
+  cursor: pointer;
+  
+}
+.audiocall__option{
+  display: flex;
+}
 .field:nth-child(1) {
   display: flex;
+}
+
+.options {
+  display: flex;
+  margin-bottom: 3rem;
+}
+@media (max-width:730px) {
+  .options {
+    flex-direction: column;
+  }
+  
 }
 
 .miss {
@@ -25,3 +55,37 @@
 .correct {
   color: green;
 }
+
+.wrap {
+  position:relative;
+  /* margin: -120px auto; */
+}
+
+.arrow1, .arrow2, .threelines,  .rhombus {
+  position: absolute;
+  z-index: -1;
+}
+
+.arrow1 {
+  top:10%;
+  left:20%;
+}
+
+
+ .rhombus {
+  top:18%;
+  left:90%;
+}
+
+
+ .threelines{
+  top:88%;
+  left:20%;
+}
+
+
+ .arrow2 {
+  top:58%;
+  left:70%;
+}
+
