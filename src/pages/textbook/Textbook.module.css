@@ -1,1 +1,26 @@
-﻿
+﻿.petalButton__wrap {
+display:flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 2rem;
+}
+@media (max-width:685px) {
+  .petalButton__wrap {
+  display:grid;
+    grid-template-columns: repeat(3,100px)
+    
+  }
+}
+
+.loadWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 0 auto; */
+
+}
+
+.load {
+  display: block;
+ margin-left: 100px;
+}

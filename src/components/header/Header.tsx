@@ -82,6 +82,7 @@ export default function Header({ isAuth = false }: HeaderProps) {
           </li>
         </ul>
 
+
         <div className={`${styles.authorized}`}>
           {isAuth ? (
             <img
