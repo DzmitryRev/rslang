@@ -100,6 +100,13 @@
   .m {
     padding: 15px 30px;
   }
+
+  .xl {
+    font-size: 16px;
+    line-height: 5px;
+    padding: 20px 0;
+    width: 100px;
+  }
 }
 
 @media (max-width: 769px) {
@@ -111,8 +118,12 @@
 }
 
 @media (max-width: 600px) {
-  .xl,
   .m {
     padding: 10px 20px;
+  }
+
+  .xl {
+    width: 80px;
+    padding: 10px 5px;
   }
 }
