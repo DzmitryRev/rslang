@@ -1,7 +1,27 @@
+.audiocall__wrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.audiocall__words {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 70px;
+  line-height: 83px;
+  color: #3d3860;
+}
+
+.field:nth-child(1) {
+  display: flex;
+}
+
 .miss {
-    color: red;
+  color: red;
 }
 
 .correct {
-    color: green;
+  color: green;
 }

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import useSound from 'use-sound';
@@ -13,6 +14,7 @@ import beforeFooter from '../../assets/mainPageSvg/beforeFooter.svg';
 import star1 from '../../assets/mainPageSvg/star1.svg';
 import ellipsePink from '../../assets/mainPageSvg/ellipsePink.svg';
 import ellipsePurpule from '../../assets/mainPageSvg/ellipsePurpule.svg';
+
 
 import { API } from '../../api/api';
 import { IUserWordBody } from '../../api/api.types';
@@ -164,6 +166,7 @@ export default function Textbook() {
 
       <Games></Games>
   
+
       <Footer />
     </div>
   );
