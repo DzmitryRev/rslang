@@ -1,14 +1,29 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import useSound from 'use-sound';
+
+import load from '../../assets/img/load.gif';
+import arrow1 from '../../assets/mainPageSvg/arrow1.svg';
+import arrow2 from '../../assets/mainPageSvg/arrow2.svg';
+import threelines from '../../assets/mainPageSvg/threeLines.svg';
+import rhombus from '../../assets/mainPageSvg/rhombus.svg';
+import beforeFooter from '../../assets/mainPageSvg/beforeFooter.svg';
+
+import star1 from '../../assets/mainPageSvg/star1.svg';
+import ellipsePink from '../../assets/mainPageSvg/ellipsePink.svg';
+import ellipsePurpule from '../../assets/mainPageSvg/ellipsePurpule.svg';
 
 import { API } from '../../api/api';
 import { IUserWordBody } from '../../api/api.types';
 import Footer from '../../components/footer/Footer';
 import { Pagination } from '../../components/pagination/Pagination';
 import PetalButton from '../../components/petal-button/PetalButton';
+
 import PrimaryButton from '../../components/primary-button/PrimaryButton';
+import Games from '../../components/games/Games';
 import WordList from '../../components/word-list/WordList';
+
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import {
   getAuthWords,
@@ -20,6 +35,9 @@ import {
   setPage,
 } from '../../store/slices/textbookSlice';
 import { availableGroups } from '../../utils/availableGroups';
+
+import styles from './Textbook.module.css';
+
 
 /**
  * TODO:
@@ -68,24 +86,26 @@ export default function Textbook() {
   const allWordsLearned = words.filter((word) => !word.userWord);
 
   return (
-    <div>
+    <div className="styles.petalButton__wrap">
       {/* Навигация! */}
-      {availableGroups.map((item) => {
-        return (
-          <Link to={'/textbook'} key={item}>
-            <PetalButton
-              shadowColor="blue"
-              size="s"
-              active={Groups[group] === Groups[item] ? true : false}
-              callback={() => {
-                dispach(setGroup(item));
-              }}
-            >
-              {Groups[item]}
-            </PetalButton>
-          </Link>
-        );
-      })}
+      <div className={styles.petalButton__wrap}>
+        {availableGroups.map((item) => {
+          return (
+            <Link to={'/textbook'} key={item}>
+              <PetalButton
+                shadowColor="blue"
+                size="s"
+                active={Groups[group] === Groups[item] ? true : false}
+                callback={() => {
+                  dispach(setGroup(item));
+                }}
+              >
+                {Groups[item]}
+              </PetalButton>
+            </Link>
+          );
+        })}
+      </div>
       {/* Кнопка со сложными словами (активна только если пользователь авторизован) */}
       {isAuth ? (
         <PrimaryButton
@@ -109,8 +129,8 @@ export default function Textbook() {
       )}
       {/* Блок со словами */}
       {loading ? (
-        <div>
-          <h1>ЗАГРУЗКА...</h1>
+        <div className="styles.loadWrap">
+          <img className="styles.load" src={load} alt="load" />
         </div>
       ) : (
         <WordList
@@ -125,6 +145,7 @@ export default function Textbook() {
             dispach(setAudioPlaying(condition));
           }}
         />
+      
       )}
       {/* pagination */}
       {group === 6 || loading ? (
@@ -139,7 +160,10 @@ export default function Textbook() {
           }}
         />
       )}
-      {/* ... */}
+  
+
+      <Games></Games>
+  
       <Footer />
     </div>
   );

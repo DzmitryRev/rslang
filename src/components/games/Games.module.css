@@ -1,0 +1,285 @@
+
+.infoWrapper {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info__titel {
+  width: 48.6vw;
+}
+
+.titels {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 2.5vw;
+  line-height: 3vw;
+  text-align: center;
+  color: #3D3860;
+}
+
+.texts {
+  position: relative;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 181.4%;
+  text-align: center;
+  color: #5D5A6F;
+  margin-bottom: 3rem;
+}
+
+
+.info__text {
+  width: 62.5vw;
+  max-width: 60rem;
+}
+
+@media (max-width:700px) {
+  .info__text {
+      width: 82.5vw;
+  }
+}
+
+.info__boxs {
+  position: relative;
+  padding-top: 2.1vw;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14rem;
+}
+
+@media (max-width:840px) {
+  .info__boxs {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5rem;
+  }
+}
+
+.star1 {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  z-index: -1;
+  animation-name: no-rotation;
+  animation-duration: 17s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+
+}
+
+.ellipsePink {
+  position: absolute;
+  right: 13%;
+  top: 0%;
+  z-index: -1;
+  animation-name: littleCircle;
+  animation-duration: 17s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.ellipsePurpule {
+  position: absolute;
+  z-index: -1;
+  animation-name: bigCircle;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+
+
+.box {
+  width: 23rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background: linear-gradient(159.19deg, rgba(255, 255, 255, 0.4) 12.33%, rgba(255, 255, 255, 0.1) 90.67%);
+  box-shadow: 0vw 0.27vw 1.94vw -0.07vw rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(1.38vw);
+  border-radius: 3rem;
+  padding: 3rem;
+  transition: 0.5s;
+}
+
+@media (max-width:840px) {
+  .box {
+      margin-bottom: 3rem;
+  }
+}
+
+@media (max-width:540px) {
+  .box {
+      padding: 2rem;
+      width: 19rem;
+  }
+}
+
+.box+.box {
+  position: relative;
+  top: 5rem;
+  left: 4rem;
+}
+
+@media (max-width:1040px) {
+  .box+.box {
+      top: 5rem;
+      left: 2rem;
+  }
+}
+
+@media (max-width:840px) {
+  .box+.box {
+      top: 0;
+      left: 0;
+  }
+}
+
+
+.box__titel {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.29rem;
+  margin-bottom: 1.8rem;
+  ;
+  color: #848196;
+}
+
+@media (max-width:1240px) {
+  .box__titel {
+      font-size: 1.6rem;
+      line-height: 2rem;
+  }
+}
+
+@media (max-width:700px) {
+  .box__titel {
+      font-size: 1.4rem;
+      line-height: 1.6rem;
+  }
+}
+
+@media (max-width:540px) {
+  .box__titel {
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      margin-bottom: 1rem;
+  }
+}
+
+.box__text {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.9rem;
+  color: #9390A8;
+  mix-blend-mode: normal;
+  margin-bottom: 2rem;
+}
+
+.box:hover {
+  box-shadow: 0 0 2.12vw #A079DE;
+}
+
+.box:hover .info__boxsArrow {
+  filter: invert(96%) sepia(13%) saturate(1083%) hue-rotate(227deg) brightness(93%) contrast(101%);
+}
+
+.info__boxsArrow {
+  width: 5.25vw;
+  height: 2.45vw;
+  align-self: end;
+}
+
+.arrow-left {
+  margin: 2.43vw 13.89vw 0;
+}
+
+
+@keyframes bigCircle {
+  0% {
+      top: 0%;
+      left: 100%;
+  }
+
+  33% {
+      top: 90%;
+      left: 0%;
+  }
+
+  66% {
+      top: 50%;
+      left: 30%;
+  }
+
+  100% {
+      top: 0%;
+      left: 100%;
+  }
+}
+
+@keyframes littleCircle {
+  0% {
+      width: 10rem;
+      top: 60%;
+      left: 0%;
+  }
+
+  20% {
+      width: 15rem;
+      top: 90%;
+      left: 0%;
+  }
+
+  40% {
+      top: 0%;
+      left: 30%;
+  }
+
+  60% {
+      top: 0%;
+      left: 100%;
+  }
+
+  80% {
+      top: 80%;
+      left: 50%;
+  }
+
+  100% {
+      width: 10rem;
+      top: 60%;
+      left: 0%;
+  }
+}
+@keyframes no-rotation {
+  0% {
+      transform: rotate(360deg);
+  }
+
+  100% {
+      transform: rotate(0deg);
+  }
+}
+
+.arrow2 {
+  z-index: -1;
+  position: absolute;
+  top: 7rem;
+  right: 22rem;
+}
+
+.rhombus {
+  position: absolute;
+  top: 13rem;
+  left: 0rem;
+}

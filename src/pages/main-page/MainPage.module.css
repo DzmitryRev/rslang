@@ -1049,11 +1049,13 @@
     width: 18rem;
     height: 18rem;
     position: relative;
-
 }
 
 .student__containerDima:hover {
     cursor: pointer;
+}
+.student__containerDima:hover>.moonWithShadow {
+    opacity: 1;
 }
 
 .student__containerArtsem {
