@@ -4,6 +4,10 @@ import { useGame } from '../../hooks/gamesHook';
 
 import { randomNumber } from '../../utils/randomNumber';
 
+import sound from '../../assets/img/audiocallSvg/sound.svg';
+
+import PrimaryButton from '../../components/primary-button/PrimaryButton';
+
 import styles from './Audiocall.module.css';
 
 type AudiocallProps = {
@@ -96,8 +100,11 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
         </div>
       ) : (
         <div className={styles.audiocall__wrapper}>
+          <div>
+            <img className={styles.sound} src={sound} alt="sound" />
+          </div>
           {/* Слово на английском (h1 нужно точно убрать и поставить нужный тег) */}
-          <h1>Слово: {fields.word?.word}</h1>
+          <p className={styles.audiocall__words}>{fields.word?.word}</p>
           <div>
             {answer && (
               <img
@@ -112,81 +119,89 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
           {/* Варианты */}
           {translates.map((item, index) => {
             return (
-              <div
-                key={index}
-                className={`${styles.field} ${
-                  answer &&
-                  selected === item &&
-                  item !== fields.word?.wordTranslate
-                    ? styles.miss
-                    : ''
-                } ${
-                  answer && item === fields.word?.wordTranslate
-                    ? styles.correct
-                    : ''
-                }`}
-                onClick={() => {
-                  if (!fields.word || answer) {
-                    return;
-                  }
-                  actions.setUsedWords(fields.usedWords + 1);
-                  setSelected(item);
-                  if (fields.word.wordTranslate === item) {
-                    actions.playCorrect();
-                    actions.setCorrect([...fields.correct, fields.word]);
-                    if (isAuth) {
-                      if (fields.word.userWord) {
-                        if (fields.word.userWord.difficulty === 'default') {
-                          if (
-                            fields.word.userWord.optional.withoutMistakes === 2
+              <div className={styles.audiocall__option}>
+                <div
+                  key={index}
+                  className={`${styles.field} ${
+                    answer &&
+                    selected === item &&
+                    item !== fields.word?.wordTranslate
+                      ? styles.miss
+                      : ''
+                  } ${
+                    answer && item === fields.word?.wordTranslate
+                      ? styles.correct
+                      : ''
+                  }`}
+                  onClick={() => {
+                    if (!fields.word || answer) {
+                      return;
+                    }
+                    actions.setUsedWords(fields.usedWords + 1);
+                    setSelected(item);
+                    if (fields.word.wordTranslate === item) {
+                      actions.playCorrect();
+                      actions.setCorrect([...fields.correct, fields.word]);
+                      if (isAuth) {
+                        if (fields.word.userWord) {
+                          if (fields.word.userWord.difficulty === 'default') {
+                            if (
+                              fields.word.userWord.optional.withoutMistakes ===
+                              2
+                            ) {
+                              actions.addToLearnedWords();
+                            } else {
+                              actions.correctAnswer('default');
+                            }
+                          } else if (
+                            fields.word.userWord.difficulty === 'hard'
                           ) {
-                            actions.addToLearnedWords();
-                          } else {
-                            actions.correctAnswer('default');
-                          }
-                        } else if (fields.word.userWord.difficulty === 'hard') {
-                          if (
-                            fields.word.userWord.optional.withoutMistakes === 4
+                            if (
+                              fields.word.userWord.optional.withoutMistakes ===
+                              4
+                            ) {
+                              actions.addToLearnedWords();
+                            } else {
+                              actions.correctAnswer('hard');
+                            }
+                          } else if (
+                            fields.word.userWord.difficulty === 'learned'
                           ) {
-                            actions.addToLearnedWords();
-                          } else {
-                            actions.correctAnswer('hard');
+                            actions.correctAnswer('learned');
                           }
-                        } else if (
-                          fields.word.userWord.difficulty === 'learned'
-                        ) {
-                          actions.correctAnswer('learned');
+                        } else {
+                          actions.addToUserWords('correct');
                         }
                       } else {
-                        actions.addToUserWords('correct');
+                        actions.setLearnedWords([
+                          ...fields.learnedWords,
+                          fields.word,
+                        ]);
                       }
                     } else {
-                      actions.setLearnedWords([
-                        ...fields.learnedWords,
-                        fields.word,
-                      ]);
-                    }
-                  } else {
-                    actions.playMiss();
-                    actions.setMisses([...fields.misses, fields.word]);
-                    if (isAuth) {
-                      if (fields.word.userWord) {
-                        actions.missWord();
-                      } else {
-                        actions.addToUserWords('miss');
+                      actions.playMiss();
+                      actions.setMisses([...fields.misses, fields.word]);
+                      if (isAuth) {
+                        if (fields.word.userWord) {
+                          actions.missWord();
+                        } else {
+                          actions.addToUserWords('miss');
+                        }
                       }
                     }
-                  }
-                  setAnswer(true);
-                }}
-              >
-                {item}
+                    setAnswer(true);
+                  }}
+                >
+                  {item}
+                </div>
               </div>
             );
           })}
           {answer ? (
-            <button
-              onClick={() => {
+            <PrimaryButton
+              color="orange-gradient"
+              size="xl"
+              callback={() => {
                 if (!fields.word) {
                   return;
                 }
@@ -200,10 +215,12 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
               }}
             >
               Дальше
-            </button>
+            </PrimaryButton>
           ) : (
-            <button
-              onClick={() => {
+            <PrimaryButton
+              color="orange-gradient"
+              size="xl"
+              callback={() => {
                 if (!fields.word) {
                   return;
                 }
@@ -215,7 +232,7 @@ export default function Audiocall({ isAuth, userId, token }: AudiocallProps) {
               }}
             >
               Не знаю
-            </button>
+            </PrimaryButton>
           )}
         </div>
       )}
